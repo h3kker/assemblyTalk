@@ -1,0 +1,18 @@
+digraph "workflow://Anonymous/PostWorkflow#summary" {
+"file://Anonymous/align.b4" [shape=component, label="align.b4", fillcolor="#EEEEEE", style=dotted, fontname="Times New Roman"];
+
+"file://Anonymous/consensus.ctg" [shape=component, label="consensus.ctg", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/corrected.bnk#WithConsensus" [shape=component, label="corrected.bnk#WithConsensus", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/shortreads.afg" [shape=component, label="shortreads.afg", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/layout.ids" [shape=component, label="layout.ids", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_PreAssembler/takeOutTheTrash" [shape=octagon, label="P_PreAssembler/takeOutTheTrash\n0:01:12", color="#000000", fillcolor="#AAAAAA", style=filled, fontname="Times New Roman"];
+"file://Anonymous/align.b4" -> "task://Anonymous/P_PreAssembler/takeOutTheTrash";
+"file://Anonymous/corrected.bnk#WithConsensus" -> "task://Anonymous/P_PreAssembler/takeOutTheTrash";
+"file://Anonymous/layout.ids" -> "task://Anonymous/P_PreAssembler/takeOutTheTrash";
+"file://Anonymous/shortreads.afg" -> "task://Anonymous/P_PreAssembler/takeOutTheTrash";
+"file://Anonymous/consensus.ctg" -> "task://Anonymous/P_PreAssembler/takeOutTheTrash";
+}
