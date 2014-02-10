@@ -58,12 +58,9 @@
 <section class="slide level1">
 
 <h2 id="assembly-basics">Assembly Basics</h2>
-<ol type="1">
-<li>Preprocessing</li>
-<li>Graph Construction</li>
-<li>Graph Simplification</li>
-<li>Postprocessing</li>
-</ol>
+<figure>
+<img src="figure/assemblySteps.jpg" alt="Assembly Steps" /><figcaption>Assembly Steps</figcaption>
+</figure>
 </section>
 <section class="slide level1">
 
@@ -151,6 +148,17 @@
 
 <h3 id="graph-simplification---node-merging">Graph Simplification - Node Merging</h3>
 <p>Collapse nodes that connect unambiguously (without branching) into one node representing the merged sequence.</p>
+<figure>
+<img src="figure/assemblyTransitive.jpg" alt="Merge Transitive Edges" /><figcaption>Merge Transitive Edges</figcaption>
+</figure>
+</section>
+<section class="slide level1">
+
+<h3 id="graph-simplification---node-merging-1">Graph Simplification - Node Merging</h3>
+<p>Collapse nodes that connect unambiguously (without branching) into one node representing the merged sequence.</p>
+<figure>
+<img src="figure/assemblyConsecutive.jpg" alt="Merge Consecutive Nodes" /><figcaption>Merge Consecutive Nodes</figcaption>
+</figure>
 </section>
 <section class="slide level1">
 
@@ -164,11 +172,17 @@
 
 <h3 id="graph-simplification---bubble-popping">Graph Simplification - Bubble Popping</h3>
 <p>Bubbles due to sequencing errors or polyploid genomes, heterozygosity. Selection of branch based on different criteria like coverage, quality.</p>
+<figure>
+<img src="figure/assemblyBubble.jpg" alt="Bubble Popping" /><figcaption>Bubble Popping</figcaption>
+</figure>
 </section>
 <section class="slide level1">
 
 <h3 id="graph-simplification---repeat-tangles">Graph Simplification - Repeat tangles</h3>
 <p>Formed in repeated regions, were many reconstructions are possible. Resolved by forming parallel paths. Paired-End constraints can be used to discard invalid edges (too short, too long reconstruction).</p>
+<figure>
+<img src="figure/assemblyUntangle.jpg" alt="Create parallel paths" /><figcaption>Create parallel paths</figcaption>
+</figure>
 </section>
 <section class="slide level1">
 
@@ -183,6 +197,32 @@
 <p>Use paired end information to join and orient contigs. Can also detect and filter misjoined contigs.</p>
 <figure>
 <img src="figure/assemblyScaffolding.jpg" alt="Scaffolding" /><figcaption>Scaffolding</figcaption>
+</figure>
+</section>
+<section class="slide level1">
+
+<h2 id="differences-between-assemblers">Differences between Assemblers</h2>
+<p>From the SGA paper:</p>
+<blockquote>
+<p>[...] We then perform the standard assembly graph post-processing step of removing tips from the graph where a vertex only has a connection in one direction [...]</p>
+</blockquote>
+<blockquote>
+<p>we have developed an algorithm [...] similar to the ‘‘bubble-popping’’ ap- proaches taken by de Bruijn graph assemblers [...]</p>
+</blockquote>
+<blockquote>
+<p>Similar to other approaches to scaffolding (Pop et al. 2004), our method is based on constructing a graph of the relationships between contigs.</p>
+</blockquote>
+</section>
+<section class="slide level1">
+
+<h3 id="differences-between-assemblers-1">Differences between Assemblers</h3>
+<p>They all follow the same principles! Main &quot;unique selling points&quot; seem to be algorithms and data structures. The strategies and heuristics employed in graph simplification and postprocessing make the difference in results.</p>
+</section>
+<section class="slide level1">
+
+<h3 id="differences-between-assemblers-2">Differences between Assemblers</h3>
+<figure>
+<img src="figure/assemblathon2Cmp.jpg" alt="Bradnam KR et al. Assemblathon 2: evaluating de novo methods of genome assembly in three vertebrate species. Gigascience. 2013;2(1):10." /><figcaption>Bradnam KR et al. Assemblathon 2: evaluating de novo methods of genome assembly in three vertebrate species. Gigascience. 2013;2(1):10.</figcaption>
 </figure>
 </section>
 <section id="data-sets-and-assembly-results" class="slide level1">
@@ -214,6 +254,69 @@
 <p>mean length of 3910 bp (median 2903, max 20254), see <a href="report.html#toc_2">report.html</a></p>
 <h3 id="m-illumina-pe100-reads">42M Illumina PE100 reads</h3>
 <p>Library might be problematic. Average insert size estimated at 211bp (+/- 52bp). According to scientist it should be 300-500bp, see <a href="report.html#toc_8">report.html</a></p>
+</section>
+<section class="slide level1">
+
+<h3 id="illumina-fastqc">Illumina FastQC</h3>
+<figure>
+<img src="fastqc/440_A_CGTACG_L003.1_fastqc/per_base_quality.png" alt="Quality Scores" /><figcaption>Quality Scores</figcaption>
+</figure>
+</section>
+<section class="slide level1">
+
+<h3 id="illumina-fastqc-1">Illumina FastQC</h3>
+<figure>
+<img src="fastqc/440_A_CGTACG_L003.2_fastqc/per_base_sequence_content.png" alt="Read2 Sequence Content" /><figcaption>Read2 Sequence Content</figcaption>
+</figure>
+</section>
+<section class="slide level1">
+
+<h3 id="illumina-fastqc-2">Illumina FastQC</h3>
+<figure>
+<img src="fastqc/440_A_CGTACG_L003.1_fastqc/per_sequence_gc_content.png" alt="GC Distribution" /><figcaption>GC Distribution</figcaption>
+</figure>
+</section>
+<section class="slide level1">
+
+<h3 id="pacbio-fastqc">Pacbio FastQC</h3>
+<figure>
+<img src="fastqc/filtered_subreads_fastqc/per_base_quality.png" alt="Quality Scores" /><figcaption>Quality Scores</figcaption>
+</figure>
+</section>
+<section class="slide level1">
+
+<h3 id="pacbio-fastqc-1">Pacbio FastQC</h3>
+<figure>
+<img src="fastqc/filtered_subreads_fastqc/sequence_length_distribution.png" alt="Length Distribution" /><figcaption>Length Distribution</figcaption>
+</figure>
+</section>
+<section class="slide level1">
+
+<h3 id="pacbio-fastqc-2">Pacbio FastQC</h3>
+<figure>
+<img src="fastqc/filtered_subreads_fastqc/per_base_sequence_content.png" alt="Sequence Content" /><figcaption>Sequence Content</figcaption>
+</figure>
+</section>
+<section class="slide level1">
+
+<h3 id="pacbio-fastqc-3">Pacbio FastQC</h3>
+<figure>
+<img src="fastqc/filtered_subreads_fastqc/per_sequence_gc_content.png" alt="GC Content" /><figcaption>GC Content</figcaption>
+</figure>
+</section>
+<section class="slide level1">
+
+<h2 id="sga-preqc">SGA PreQC</h2>
+<p>Calculates various metrics to compare with test datasets from Assemblathon2:</p>
+<ul>
+<li>estimated genome size</li>
+<li>branching in de Bruijn graphs with different k-mer sizes</li>
+<li>fragment size estimation</li>
+<li>kmer spectrum</li>
+<li>GC biases</li>
+<li>simulated contig length</li>
+</ul>
+<p>see <a href="preqc_report.pdf">preQC.pdf</a></p>
 </section>
 <section class="slide level1">
 
@@ -631,13 +734,6 @@
 </section>
 <section class="slide level1">
 
-<h2 id="all-contig-stats">All Contig Stats</h2>
-<figure>
-<img src="figure/allContigStat.png" alt="Contig lengths and counts" /><figcaption>Contig lengths and counts</figcaption>
-</figure>
-</section>
-<section class="slide level1">
-
 <h2 id="pbjelly-5">PBJelly</h2>
 <p>Gap statistics</p>
 <table>
@@ -682,10 +778,30 @@
 </tbody>
 </table>
 </section>
-<section id="conclusion" class="slide level1">
-<h1>Conclusion</h1>
+<section class="slide level1">
+
+<h2 id="all-contig-stats">All Contig Stats</h2>
+<figure>
+<img src="figure/allContigStat.png" alt="Contig lengths and counts" /><figcaption>Contig lengths and counts</figcaption>
+</figure>
+</section>
+<section class="slide level1">
+
+<h2 id="conclusion">Conclusion</h2>
 <figure>
 <img src="figure/resultsTable.jpg" alt="very subjective results overview" /><figcaption>very subjective results overview</figcaption>
+</figure>
+</section>
+<section id="quality-checks-for-assembly-selection" class="slide level1">
+<h1>Quality Checks for Assembly Selection</h1>
+</section>
+<section class="slide level1">
+
+<h2 id="size-is-not-everything">Size Is Not Everything</h2>
+<h2 id="quality-assessment-needed."><strong>Quality Assessment needed.</strong></h2>
+<p>But we do not have the luxury of Assemblathon or GAGE to have a reference to compare to!</p>
+<figure>
+<img src="figure/sizeVsQuality.png" alt="N50 vs zScore" /><figcaption>N50 vs zScore</figcaption>
 </figure>
 </section>
     </div>

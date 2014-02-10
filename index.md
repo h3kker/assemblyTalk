@@ -33,10 +33,7 @@ combining Illumina short reads with Pacbio long reads.
 
 ## Assembly Basics
 
-1. Preprocessing
-2. Graph Construction
-3. Graph Simplification
-4. Postprocessing
+![Assembly Steps](figure/assemblySteps.jpg)
 
 ---
 
@@ -142,6 +139,16 @@ Graph structure is very complex due to
 
 Collapse nodes that connect unambiguously (without branching) into one node representing the merged sequence.
 
+![Merge Transitive Edges](figure/assemblyTransitive.jpg)
+
+---
+
+### Graph Simplification - Node Merging
+
+Collapse nodes that connect unambiguously (without branching) into one node representing the merged sequence.
+
+![Merge Consecutive Nodes](figure/assemblyConsecutive.jpg)
+
 ---
 
 ### Graph Simplification - Dead End Removal
@@ -159,6 +166,8 @@ also shorten valid contigs!
 Bubbles due to sequencing errors or polyploid genomes, heterozygosity.
 Selection of branch based on different criteria like coverage, quality.
 
+![Bubble Popping](figure/assemblyBubble.jpg)
+
 ---
 
 ### Graph Simplification - Repeat tangles
@@ -166,6 +175,8 @@ Selection of branch based on different criteria like coverage, quality.
 Formed in repeated regions, were many reconstructions are possible. Resolved by
 forming parallel paths. Paired-End constraints can be used to discard invalid
 edges (too short, too long reconstruction). 
+
+![Create parallel paths](figure/assemblyUntangle.jpg)
 
 ---
 
@@ -186,6 +197,35 @@ Missing sequence information is filled with N (assembly gaps)
 Use paired end information to join and orient contigs. Can also detect and filter misjoined contigs.
 
 ![Scaffolding](figure/assemblyScaffolding.jpg)
+
+---
+
+## Differences between Assemblers
+
+From the SGA paper:
+
+> [...] We then perform the standard assembly graph post-processing step of removing tips from the graph where a vertex only has a connection in one direction [...]
+
+> we have developed an algorithm [...] similar to the ‘‘bubble-popping’’ ap- proaches taken by de Bruijn graph assemblers [...]
+
+> Similar to other approaches to scaffolding (Pop et al. 2004), our method is based on constructing a graph of the relationships between contigs.
+
+--- 
+
+### Differences between Assemblers
+
+They all follow the same principles! Main "unique selling points" seem to be
+algorithms and data structures. The strategies and heuristics employed in graph
+simplification and postprocessing make the difference in results.
+
+---
+
+### Differences between Assemblers
+
+![Bradnam KR et al. Assemblathon 2: evaluating de novo methods of genome assembly in three vertebrate species. Gigascience. 2013;2(1):10.](figure/assemblathon2Cmp.jpg)
+
+
+
 
 ---
 
@@ -225,6 +265,63 @@ mean length of 3910 bp (median 2903, max 20254), see [report.html](report.html#t
 ### 42M Illumina PE100 reads
 
 Library might be problematic. Average insert size estimated at 211bp (+/- 52bp). According to scientist it should be 300-500bp, see [report.html](report.html#toc_8)
+
+---
+
+### Illumina FastQC
+
+![Quality Scores](fastqc/440_A_CGTACG_L003.1_fastqc/per_base_quality.png)
+
+---
+
+### Illumina FastQC
+
+![Read2 Sequence Content](fastqc/440_A_CGTACG_L003.2_fastqc/per_base_sequence_content.png)
+
+---
+
+### Illumina FastQC
+
+![GC Distribution](fastqc/440_A_CGTACG_L003.1_fastqc/per_sequence_gc_content.png)
+
+---
+
+### Pacbio FastQC
+
+![Quality Scores](fastqc/filtered_subreads_fastqc/per_base_quality.png)
+
+---
+
+### Pacbio FastQC
+
+![Length Distribution](fastqc/filtered_subreads_fastqc/sequence_length_distribution.png)
+
+---
+
+### Pacbio FastQC
+
+![Sequence Content](fastqc/filtered_subreads_fastqc/per_base_sequence_content.png)
+
+---
+
+### Pacbio FastQC
+
+![GC Content](fastqc/filtered_subreads_fastqc/per_sequence_gc_content.png)
+
+---
+
+## SGA PreQC
+
+Calculates various metrics to compare with test datasets from Assemblathon2:
+
+- estimated genome size
+- branching in de Bruijn graphs with different k-mer sizes
+- fragment size estimation
+- kmer spectrum
+- GC biases
+- simulated contig length
+
+see [preQC.pdf](preqc_report.pdf)
 
 ---
 
@@ -534,12 +631,6 @@ see [report.html](report.html#toc_71)
 
 ---
 
-## All Contig Stats
-
-![Contig lengths and counts](figure/allContigStat.png)
-
----
-
 ## PBJelly
 
 Gap statistics
@@ -553,6 +644,26 @@ Gap statistics
 
 ---
 
-# Conclusion
+## All Contig Stats
+
+![Contig lengths and counts](figure/allContigStat.png)
+
+---
+
+## Conclusion
 
 ![very subjective results overview](figure/resultsTable.jpg)
+
+---
+
+# Quality Checks for Assembly Selection
+
+---
+
+## Size Is Not Everything 
+## **Quality Assessment needed.**
+
+But we do not have the luxury of Assemblathon or GAGE to have a reference to compare to!
+
+![N50 vs zScore](figure/sizeVsQuality.png)
+
