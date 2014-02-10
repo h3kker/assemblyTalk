@@ -3,6 +3,9 @@
 
 
 
+
+
+
 ## Data Sets and basic Quality Control
 
 
@@ -421,10 +424,7 @@ Abyss-fac output (all contigs >= 200bp):
 
 
 
-
-```
-## Error: could not find function "contigStats"
-```
+<img src="figure/abyssContigs.png" title="plot of chunk abyssContigs" alt="plot of chunk abyssContigs" width="1000" />
 
 
 Cumulative sum of contig lengths for all and contigs longer than 500bp. Abyss leaves a large number of *chaff* (very small contigs).
@@ -496,10 +496,7 @@ Abyss-fac output (all contigs >= 200bp) in comparison to Abyss scaffolding:
 |   353|    353|     60|  1160|  57393|  106883|  215609|  366413|  21090000|pacbio_abyss_k64_cerulean.fasta  |
 
 
-
-```
-## Error: could not find function "contigStats"
-```
+<img src="figure/ceruleanContigs.png" title="plot of chunk ceruleanContigs" alt="plot of chunk ceruleanContigs" width="1000" />
 
 
 <img src="figure/ceruleanContigCumsum1.png" title="plot of chunk ceruleanContigCumsum" alt="plot of chunk ceruleanContigCumsum" width="500px" /><img src="figure/ceruleanContigCumsum2.png" title="plot of chunk ceruleanContigCumsum" alt="plot of chunk ceruleanContigCumsum" width="500px" />
@@ -790,10 +787,7 @@ abyss-fac output:
 
 
 
-
-```
-## Error: could not find function "contigStats"
-```
+<img src="figure/sgaContigs.png" title="plot of chunk sgaContigs" alt="plot of chunk sgaContigs" width="1000" />
 
 
 <img src="figure/sgaContigCumsum1.png" title="plot of chunk sgaContigCumsum" alt="plot of chunk sgaContigCumsum" width="500px" /><img src="figure/sgaContigCumsum2.png" title="plot of chunk sgaContigCumsum" alt="plot of chunk sgaContigCumsum" width="500px" />
@@ -907,10 +901,7 @@ abyss-fac output:
 
 
 
-
-```
-## Error: could not find function "contigStats"
-```
+<img src="figure/soapContigs.png" title="plot of chunk soapContigs" alt="plot of chunk soapContigs" width="1000" />
 
 
 <img src="figure/soapContigCumsum1.png" title="plot of chunk soapContigCumsum" alt="plot of chunk soapContigCumsum" width="500px" /><img src="figure/soapContigCumsum2.png" title="plot of chunk soapContigCumsum" alt="plot of chunk soapContigCumsum" width="500px" />
@@ -1076,10 +1067,7 @@ abyss-fac output:
 
 
 	
-
-```
-## Error: could not find function "contigStats"
-```
+<img src="figure/pbjContigs.png" title="plot of chunk pbjContigs" alt="plot of chunk pbjContigs" width="1000" />
 
 
 <img src="figure/pbjContigCumsum1.png" title="plot of chunk pbjContigCumsum" alt="plot of chunk pbjContigCumsum" width="500px" /><img src="figure/pbjContigCumsum2.png" title="plot of chunk pbjContigCumsum" alt="plot of chunk pbjContigCumsum" width="500px" />
@@ -1112,6 +1100,29 @@ Regarding every NN* as a gap.
 
 <img src="figure/postPbjGapStatsPlot.png" title="plot of chunk postPbjGapStatsPlot" alt="plot of chunk postPbjGapStatsPlot" width="500px" />
 
+
+## BWA Alignment of Pacbio Reads to Assembly Scaffolds
+
+
+
+
+<img src="figure/bwaMappingRatio.png" title="plot of chunk bwaMappingRatio" alt="plot of chunk bwaMappingRatio" width="700" />
+
+
+Some contigs have high mapping depth (>200) for sga and soap-denovo, random blasts for these contigs shows rRNA genes.
+
+<img src="figure/bwaDepth.png" title="plot of chunk bwaDepth" alt="plot of chunk bwaDepth" width="700" />
+
+
+<img src="figure/bwaAlnDetails.png" title="plot of chunk bwaAlnDetails" alt="plot of chunk bwaAlnDetails" width="700" />
+
+
+## CEGMA - Presence of core genes
+
+
+
+
+<img src="figure/cegmaPlot.png" title="plot of chunk cegmaPlot" alt="plot of chunk cegmaPlot" width="700" />
 
 
 ## XXX Celera assembly of corrected pacbio reads + illumina?

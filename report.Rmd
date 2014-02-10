@@ -14,6 +14,13 @@ markdownToBsHTML<-function(output, ...) {
 }
 ```
 
+```{r contigStats, include=F}
+contigStats<-function(set) {
+	tmp.df<-do.call(rbind, lapply(names(set), function(n) { tmp<-sort(set[[n]][set[[n]]>1000], decreasing=T); data.frame(set=n, n50=tmp[min(which(cumsum(tmp)>(sum(tmp)/2)))], idx=1:length(tmp), length=cumsum(tmp)) }))
+	print(ggplot(tmp.df, aes(x=idx, y=length, color=paste(set, 'N50: ', n50)))+geom_line(size=1.2, alpha=.75) + theme(legend.key.size=unit(.5, 'cm'), legend.position=c(.8, .5)))
+}
+```
+
 ## Data Sets and basic Quality Control
 
 ```{r loadSets, dependson=c('setup'), cache=T}
@@ -433,8 +440,8 @@ all.width<-lapply(all.fa, function(fa) {
 all.len<-unlist(lapply(all.width, sum))
 ```
 
-```{r abyssContigs, out.width=1000, fig.width=14, dependson=c('loadAbyss')}
-contigStats(N=all.width, reflength=all.len, style='ggplot2')
+```{r abyssContigs, out.width=1000, fig.width=14, dependson=c('loadAbyss', 'contigStats')}
+contigStats(all.width)
 ```
 
 Cumulative sum of contig lengths for all and contigs longer than 500bp. Abyss leaves a large number of *chaff* (very small contigs).
@@ -520,8 +527,8 @@ tmp.abStat<-read.csv('abyss-k64/cerulean_abyss_k64.summary.csv')
 kable(tmp.abStat)
 ```
 
-```{r ceruleanContigs, out.width=1000, fig.width=14, dependson=c('loadCerulean')}
-contigStats(N=all.width, reflength=all.len, style='ggplot2')
+```{r ceruleanContigs, out.width=1000, fig.width=14, dependson=c('loadCerulean', 'contigStats')}
+contigStats(all.width)
 ```
 
 ```{r ceruleanContigCumsum, dependson=c('loadCerulean')}
@@ -915,9 +922,9 @@ for(n in names(sga.outs)) {
 }
 ```
 
-```{r sgaContigs, out.width=1000, fig.width=14, dependson=c('loadSGA')}
+```{r sgaContigs, out.width=1000, fig.width=14, dependson=c('loadSGA', 'contigStats')}
 tmp.subset<-c('contigs', 'scaffolds', 'sga.contigs', 'sga.scaffolds')
-contigStats(N=all.width[tmp.subset], reflength=all.len[tmp.subset], style='ggplot2')
+contigStats(all.width[tmp.subset])
 ```
 
 ```{r sgaContigCumsum, dependson=c('loadSGA')}
@@ -985,9 +992,9 @@ for(n in names(soap.outs)) {
 }
 ```
 
-```{r soapContigs, out.width=1000, fig.width=14, dependson=c('loadSOAP')}
+```{r soapContigs, out.width=1000, fig.width=14, dependson=c('loadSOAP', 'contigStats')}
 tmp.subset<-c('contigs', 'scaffolds', 'sga.contigs', 'sga.scaffolds', 'soap.contigs', 'soap.scaffolds')
-contigStats(N=all.width[tmp.subset], reflength=all.len[tmp.subset], style='ggplot2')
+contigStats(all.width[tmp.subset])
 ```
 
 ```{r soapContigCumsum, dependson=c('loadSOAP')}
@@ -1168,9 +1175,9 @@ for(n in names(pbj.outs)) {
 }
 ```
 	
-```{r pbjContigs, out.width=1000, fig.width=14, dependson=c('loadPBJelly')}
+```{r pbjContigs, out.width=1000, fig.width=14, dependson=c('loadPBJelly', 'contigStats')}
 tmp.subset<-c('scaffolds', 'cerulean', 'pbj.cerulean', 'sga.scaffolds', 'pbj.sga', 'soap.scaffolds', 'pbj.soap')
-contigStats(N=all.width[tmp.subset], reflength=all.len[tmp.subset], style='ggplot2')
+contigStats(all.width[tmp.subset])
 ```
 
 ```{r pbjContigCumsum, dependson=c('loadPBJelly')}
@@ -1222,10 +1229,52 @@ tmp.df<-ddply(all.gaps, .(set), summarise,
 kable(tmp.df)
 ```
 
-```{r postPbjGapStatsPlot, dependson=c('postPbjGapStats'), dpi=150}
-ggplot(all.gaps, aes(x=length, y=gapwidth/length))+geom_point(aes(size=gaps, color=set))
+```{r postPbjGapStatsPlot, dependson=c('postPbjGapStats'), dpi=300, fig.width=14}
+ggplot(subset(all.gaps, length>1000), aes(x=length, y=gaps, size=gapwidth/length))+geom_point(aes(color=set)) + scale_x_log10()
 ```
 
+## BWA Alignment of Pacbio Reads to Assembly Scaffolds
+
+```{r setupBwa, include=F}
+pileups=c(abyss='abyss-k64/pacbio_abyss_k64-scaffolds.sorted.bam.pileup.tab', sga='sga/scaffolds.n5.sorted.bam.pileup.tab', soap='soap-denovo-k81/U_bromivora.scaffolds.sorted.bam.pileup.tab')
+bwa.pileups<-do.call(rbind, lapply(names(pileups), function(n) {
+	cbind(set=n, read.delim(pileups[n]))
+}))
+aligns=c(abyss='abyss-k64/pacbio_abyss_k64-scaffolds.sorted.bam.align.tab', sga='sga/scaffolds.n5.bam.align.tab', soap='soap-denovo-k81/U_bromivora.scaffolds.bam.align.tab');
+bwa.alns<-do.call(rbind, lapply(names(aligns), function(n) {
+	cbind(set=n, read.delim(aligns[n]))
+}))
+```
+
+```{r bwaMappingRatio, dependson=c('setupBwa'), fig.width=10, out.width=700}
+grid.arrange(ggplot(bwa.pileups, aes(x=set, fill=coverage>0))+geom_bar() +scale_fill_manual(values=c('#BF6430', '#2A4480'))+ggtitle('all contigs'), ggplot(subset(bwa.pileups, len>1000), aes(x=set, fill=coverage>0))+geom_bar()+scale_fill_manual(values=c('#BF6430', '#2A4480'))+ggtitle('contigs > 1000bp'), ncol=2)
+```
+
+Some contigs have high mapping depth (>200) for sga and soap-denovo, random blasts for these contigs shows rRNA genes.
+
+```{r bwaDepth, dependson=c('setupBwa'), fig.width=10, out.width=700}
+ggplot(subset(bwa.pileups, len>500), aes(x=len, y=pmin(depth, 50)))+geom_density2d(color='#000000')+facet_wrap(~set, ncol=3)
+```
+
+```{r bwaAlnDetails, dependson=c('setupBwa'), fig.width=12, fig.height=7, out.width=700}
+tmp.pblens<-width(pb.filtered.fa)
+names(tmp.pblens)<-names(pb.filtered.fa)
+bwa.alns$ref<-ifelse(bwa.alns$ref=='', NA, bwa.alns$ref)
+bwa.alns$pb.readlen<-tmp.pblens[bwa.alns$ref]
+tmp.df<-melt(bwa.alns, id.vars=c('set', 'ref', 'qu'))
+
+ggplot(tmp.df, aes(x=set, y=pmax(value, .1)))+geom_boxplot(size=1.2, outlier.size=.5)+scale_y_log10('')+facet_wrap(~variable, scales='free_y', ncol=4)
+```
+
+## CEGMA - Presence of core genes
+
+```{r setupCegma, include=F}
+cegma<-read.table('cegma.tab', header=T)
+```
+
+```{r cegmaPlot, dependson=c('setupCegma'), fig.width=10, out.width=700}
+grid.arrange(ggplot(tst, aes(x=set, y=completeness))+geom_bar(stat='identity')+facet_wrap(~group), ggplot(tst, aes(x=set, y=ortho))+geom_bar(stat='identity')+scale_y_continuous('% Orthologs')+facet_wrap(~group), ncol=2)
+```
 
 ## XXX Celera assembly of corrected pacbio reads + illumina?
 

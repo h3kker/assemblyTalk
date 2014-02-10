@@ -100,7 +100,7 @@ determines the graph complexity. Should ideally be as large as the dataset
 allows (sequencing errors, polyploidity). The ideal assembly visits all nodes
 exactly once (Hamilton-Path).
 
-String Graphs are a special variant where all transitive edges (X -> Y, X -> Z, Y -> Z) are collapsed to (X -> Z), *irreducible edges*. 
+String Graphs are a special variant where all transitive edges `((X, Y), (X, Z), (Y, Z))` are reduced to `((X, Z))`, *irreducible edges*. 
 
 --- 
 
@@ -109,7 +109,7 @@ String Graphs are a special variant where all transitive edges (X -> Y, X -> Z, 
 **K-mer based, eg. Abyss, SOAPdenovo**
 
 Nodes represent all kmers in the reads. Two kmers are connected if there is a
-k-1 overlap between the nodes (de Bruijn graph). The Euler path that visits
+`k-1` overlap between the nodes (de Bruijn graph). The Euler path that visits
 each edge exactly once corresponds to a chromosome in an ideal assembly.
 
 K-mer sized (parameter *k*) should be chosen large enough to reduce the number
@@ -123,9 +123,9 @@ of wrong connections between contigs, but small enough to allow for errors.
 
 Graph structure is very complex due to
 
-- transitive edges like (1,2), (1,3), (2,3) 
+- transitive edges like `((1,2), (1,3), (2,3))`
 
-- consecutive nodes 
+- consecutive nodes like `((1,2), (2,3), (3,4))`
 
 - error reads (branches that converge again later)
 
@@ -139,7 +139,7 @@ Graph structure is very complex due to
 
 Collapse nodes that connect unambiguously (without branching) into one node representing the merged sequence.
 
-![Merge Transitive Edges](figure/assemblyTransitive.jpg)
+![1. Merge Transitive Edges](figure/assemblyTransitive.jpg)
 
 ---
 
@@ -147,7 +147,7 @@ Collapse nodes that connect unambiguously (without branching) into one node repr
 
 Collapse nodes that connect unambiguously (without branching) into one node representing the merged sequence.
 
-![Merge Consecutive Nodes](figure/assemblyConsecutive.jpg)
+![2. Merge Consecutive Nodes](figure/assemblyConsecutive.jpg)
 
 ---
 
@@ -220,12 +220,9 @@ simplification and postprocessing make the difference in results.
 
 ---
 
-### Differences between Assemblers
+### Differences between Assemblers ... and datasets
 
 ![Bradnam KR et al. Assemblathon 2: evaluating de novo methods of genome assembly in three vertebrate species. Gigascience. 2013;2(1):10.](figure/assemblathon2Cmp.jpg)
-
-
-
 
 ---
 
@@ -321,7 +318,41 @@ Calculates various metrics to compare with test datasets from Assemblathon2:
 - GC biases
 - simulated contig length
 
-see [preQC.pdf](preqc_report.pdf)
+---
+
+## PreQC
+
+![Variant Branches](figure/preassembly/variantBranches.png)
+
+---
+
+## PreQC
+
+![Repeat Branches](figure/preassembly/repeatBranches.png)
+
+---
+
+## PreQC
+
+![Error Branches](figure/preassembly/errorBranches.png)
+
+---
+
+## PreQC
+
+![Insert Size](figure/preassembly/insertSize.png)
+
+---
+
+## PreQC
+
+![Kmer Count Distribution](figure/preassembly/kmerCountDist.png)
+
+---
+
+## PreQC
+
+![Simulated Contig Lengths](figure/preassembly/contigLengths.png)
 
 ---
 
@@ -394,7 +425,6 @@ could in theory be run from the web interface, but only with PacBio input (error
 		--params=settings.xml xml:input.xml
 
 1. wait 1 - ? days depending on alignment parameters
-1. receive 28M `corrected.fastq` and a lot of logs and intermediate output
 
 ---
 
@@ -456,8 +486,7 @@ Version 1.3.7 from Dec 11 2013 can use Pacbio CLRs internally with BWA version 0
 
 ### Abyss + Longscaff 
 
-> Simpson, J. T. et al. ABySS: a parallel assembler for short read sequence data. Genome Res. 19, 11
-17–23 (2009).
+> Simpson, JT et al. Genome Res 2009
 
 - Easy to use (once you get around the bug)
 - Very fast 
@@ -471,9 +500,7 @@ Version 1.3.7 from Dec 11 2013 can use Pacbio CLRs internally with BWA version 0
 | scaffolds | 698 | 52136 | 200210 |
 | longscaff | 475 | 81601 | 435667 |
 
-see [results.html](results.html#toc_37)
-
-BWA alignment: [results.html](results.html#toc_47)
+see [report.html](report.html#toc_37)
 
 ---
 
@@ -481,14 +508,13 @@ BWA alignment: [results.html](results.html#toc_47)
 
 1. run `abyss-pe k=64` (without long read library)
 1. align pacbio reads to assembled contigs (*not* scaffolds?) with blasr
-1. run Cerulean on alignment and `-contigs.dot`
+1. run Cerulean on alignment and `${name}-contigs.dot`
 
 ---
 
 ### Abyss + Cerulean
 
-> Deshpande V, Fung E, Pham S, Bafna V. Cerulean: A hybrid assembly using high throughput short and
-long reads. Algorithms Bioinforma. 2013;8126:349–363. Available at: http://arxiv.org/abs/1307.7933
+> Deshpande V, et al. Algorithms Bioinformatics 2013
 
 - Also quite easy
 - Not scalable: Crashed on different larger dataset 
@@ -503,7 +529,7 @@ long reads. Algorithms Bioinforma. 2013;8126:349–363. Available at: http://arx
 | longscaff | 475 | 81601 | 435667 |
 | cerulean | 310 | 106883 | 366413 |
 
-see [results.html](results.html#toc_42)
+see [report.html](report.html#toc_42)
 
 ---
 
@@ -536,7 +562,7 @@ discarded ~ 5M reads
 
 ### SGA assembly
 
-> Simpson JT, Durbin R. Efficient de novo assembly of large genomes using compressed data structures. Genome Res. 2012;22(3):549–56.
+> Simpson JT. Genome Res. 2012
 
 - more complex workflow, more parameters
 - in-built error correction
@@ -588,12 +614,6 @@ see [report.html](report.html#toc_64)
 
 Created for filling scaffold gaps. 
 
-Gap statistics for assemblies: [report.html](report.html#toc_70)
-
----
-
-## PBJelly
-
 1. create Protocol.xml with alignment options and cluster parameters
 1. create shell script to run different stages
 1. receive `jelly.out.fasta` (do NOT run more than one PBJelly per directory!)
@@ -601,6 +621,8 @@ Gap statistics for assemblies: [report.html](report.html#toc_70)
 ---
 
 ## PBJelly
+
+> English AC, et al. PLoS One. 2012
 
 1. Mapping with `blasr`
 1. find supporting mappings on gap/contig edges
@@ -611,23 +633,9 @@ Gap statistics for assemblies: [report.html](report.html#toc_70)
 
 ## PBJelly
 
-> English AC, Richards S, Han Y, et al. Mind the gap: upgrading genomes with Pacific Biosciences RS long-read sequencing technology. PLoS One. 2012;7(11):e47768. Available at: http://www.pubmedcentral.nih.gov/articlerender.fcgi?artid=3504050&tool=pmcentrez&rendertype=abstract
-
 - Some problems: blasr dumped cores for some sequence chunks
 - Assembly crashed on certain pacbio reads
 - but results are still good!
-
----
-
-## PBJelly
-
-|set | # >2kb | N50 | max |
-|:---|-------:|----:|-------:|
-| sga | 183 | 234931 | 767671 |
-| SOAP | 174 | 201830 | 541843 |
-| Cerulean | 238 | 159023 | 489237 |
-
-see [report.html](report.html#toc_71)
 
 ---
 
@@ -639,8 +647,26 @@ Gap statistics
 |:---------------|--------------:|--------:|---------------:|-----------:|
 |cerulean        |            316|      799|          529462|     1675.51|
 |pbj.cerulean    |            152|      224|           64066|      421.49|
+|sga		 |  	      337|      612| 	       17250|       51.19|
 |pbj.sga         |             26|       31|             927|       35.65|
+|soap		 | 	      514|     3084| 	       33891| 	    65.94|
 |pbj.soap        |            246|     2705|           19088|       77.59|
+
+---
+
+## PBJelly
+
+|set | # >2kb | N50 | max |
+|:---|-------:|----:|-------:|
+| sga | 183 | 234931 | 767671 |
+| SOAP | 174 | 201830 | 541843 |
+| Cerulean | 238 | 159023 | 489237 |
+
+---
+
+## All Contig Stats
+
+![Contig lengths and N50](figure/pbjContigs.png)
 
 ---
 
@@ -663,13 +689,87 @@ Gap statistics
 ## Size Is Not Everything 
 ## **Quality Assessment needed.**
 
-But we do not have the luxury of Assemblathon or GAGE to have a reference to compare to!
+But we do not have the luxury of **Assemblathon** or **GAGE** to have a reference to compare to!
 
-![N50 vs zScore](figure/sizeVsQuality.png)
+![N50 vs sum of z-scores from different evaluations (Assemblathon 2)](figure/sizeVsQuality.png)
 
 ---
 
-## Alignment to Close Relative (*U. hordei*)
+### Alignment to Close Relative (*U. hordei*)
 
 ![Nucmer Alignment of SGA Scaffolds to U. hordei assembly](figure/wgsAlignment.png)
 
+---
+
+### Alignment of PacBio reads
+
+Aligned with `bwa mem -a -T 60 -k 16 -A 2 -L 4 -t 8 -S -P -k 32`
+
+![matching contigs](figure/bwaMappingRatio.png)
+
+---
+
+### Alignment of PacBio reads
+
+![2D density plot of depth vs contig length](figure/bwaDepth.png)
+
+A number of contigs with very high depth (>300) were found - A random BLAST produced rDNA.
+
+---
+
+### Alignment of PacBio reads
+
+![Various other results](figure/bwaAlnDetails.png)
+
+---
+
+### CEGMA: Check for Presence of Core Genes
+
+> Parra G, et al. CEGMA: a pipeline to accurately annotate core genes in eukaryotic genomes. Bioinformatics. 2007;23(9):1061–7
+
+- Select 1788 KOGs (eukaryotic orthologous groups) from genes with high identity in organisms from Yeasts to Humans. 
+- Use BLAST to find candidate regions
+- refine with GeneWise and HMMER
+- output GFF and report
+
+Could be used to examine tentative gene structure!
+
+---
+
+### CEGMA
+
+![CEGMA results](figure/cegmaPlot.png)
+
+---
+
+### REAPR
+
+> Hunt M, et al. Genome Biol. 2013
+
+![REAPR output](figure/reaprOutput.png)
+
+---
+
+### REAPR
+
+- align reads back to assembly
+- infer mismatches and structural errors from paired information (expected insert size distribution)
+- analyse observed fragment coverage distribution (FCD) vs expected FCD
+- warn on soft-clipping
+
+---
+
+#### Literature
+
+1. Simpson JT, Wong K, Jackman SD, et al. ABySS: a parallel assembler for short read sequence data. Genome Res. 2009;19(6):1117–23.
+2. Bradnam KR, Fass JN, Alexandrov A, et al. Assemblathon 2: evaluating de novo methods of genome assembly in three vertebrate species. Gigascience. 2013;2(1):10. 
+3. Deshpande V, Fung E, Pham S, Bafna V. Cerulean: A hybrid assembly using high throughput short and long reads. Algorithms Bioinforma. 2013;8126:349–363. 
+4. Simpson JT, Durbin R. Efficient de novo assembly of large genomes using compressed data structures. Genome Res. 2012;22(3):549–56. 
+5. Simpson J. Exploring Genome Characteristics and Sequence Quality Without a Reference. arXiv Prepr. 2013:1–29. 
+6. Salzberg SL, Phillippy AM, Zimin A, et al. GAGE: A critical evaluation of genome assemblies and assembly algorithms. Genome Res. 2012;22(3):557–67. 
+7. English AC, Richards S, Han Y, et al. Mind the gap: upgrading genomes with Pacific Biosciences RS long-read sequencing technology. PLoS One. 2012;7(11):e47768. 
+8. El-Metwally S, Hamza T, Zakaria M, Helmy M. Next-Generation Sequence Assembly: Four Stages of Data Processing and Computational Challenges Markel S, ed. PLoS Comput. Biol. 2013;9(12):e1003345. 
+9. Hunt M, Kikuchi T, Sanders M, et al. REAPR: a universal tool for genome assembly evaluation. Genome Biol. 2013;14(5):R47. 
+10. Luo R, Liu B, Xie Y, et al. SOAPdenovo2: an empirically improved memory-efficient short-read de novo assembler. Gigascience. 2012;1(1):18. 
+11. Boetzer M, Pirovano W. Toward almost closed genomes with GapFiller. Genome Biol. 2012;13(6):R56. 
+12. Parra G, Bradnam K, Korf I. CEGMA: a pipeline to accurately annotate core genes in eukaryotic genomes. Bioinformatics. 2007;23(9):1061–7. 
