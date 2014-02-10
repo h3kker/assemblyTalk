@@ -667,3 +667,9 @@ But we do not have the luxury of Assemblathon or GAGE to have a reference to com
 
 ![N50 vs zScore](figure/sizeVsQuality.png)
 
+---
+
+## Alignment to Close Relative (*U. hordei*)
+
+![Nucmer Alignment of SGA Scaffolds to U. hordei assembly](figure/wgsAlignment.png)
+
