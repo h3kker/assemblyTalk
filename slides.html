@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Married with Scaffolds" />
+  <title>PacBio &lt;3 Illumina</title>
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="reveal.js/css/reveal.min.css"/>
+    <style type="text/css">code{white-space: pre;}</style>
+    <link rel="stylesheet" href="reveal.js/css/theme/simple.css" id="theme">
+  <link rel="stylesheet" media="print" href="reveal.js/css/print/pdf.css" />
+  <!--[if lt IE 9]>
+  <script src="reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+    <h1 class="title">PacBio &lt;3 Illumina</h1>
+    <h2 class="author">Married with Scaffolds</h2>
+    <h3 class="date">Heinz Ekker (CSF.NGS) 2014-02-11</h3>
+</section>
+
+<section id="pacbio-3-illumina" class="slide level1">
+<h1>PacBio &lt;3 Illumina</h1>
+<p>A short &amp; very technical introduction to hybrid <em>de novo</em> genome assembly combining Illumina short reads with Pacbio long reads.</p>
+</section>
+<section class="slide level1">
+
+<h2 id="content">Content</h2>
+<ol type="1">
+<li>An Idiot's Guide to PacBio &amp; Assembly</li>
+<li>Hybrid Assembly Strategies</li>
+<li>The Data + The Results</li>
+<li>Assembly Assessment</li>
+<li>Outlook</li>
+</ol>
+</section>
+<section class="slide level1">
+
+<h2 id="pacbio-basics">PacBio Basics</h2>
+<figure>
+<img src="figure/pacbioSequencing.jpg" alt="Library Preparation + Sequencing" /><figcaption>Library Preparation + Sequencing</figcaption>
+</figure>
+</section>
+<section class="slide level1">
+
+<h2 id="pacbio-basics-1">PacBio Basics</h2>
+<figure>
+<img src="figure/subreadFiltering.jpg" alt="Subread Filtering" /><figcaption>Subread Filtering</figcaption>
+</figure>
+</section>
+<section class="slide level1">
+
+<h2 id="assembly-basics">Assembly Basics</h2>
+<figure>
+<img src="figure/assemblySteps.jpg" alt="Assembly Steps" /><figcaption>Assembly Steps</figcaption>
+</figure>
+</section>
+<section class="slide level1">
+
+<h3 id="preprocessing">Preprocessing</h3>
+<ul>
+<li><p>Illumina Error Correction: K-mer Spectrum (SGA), Suffix Tree/Array, ...</p></li>
+<li><p>Error Correction of Pacbio reads with Illumina (details later)</p></li>
+<li><p>Adapter trimming</p></li>
+<li><p>Quality trimming</p></li>
+<li><p>Deduplication</p></li>
+</ul>
+<p>Some assemblers depend on other, existing tools to perform these steps or do one or more as part of their pipeline. If so, don't use other tools - see Assemblathon.</p>
+</section>
+<section class="slide level1">
+
+<h3 id="graph-construction">Graph Construction</h3>
+<figure>
+<img src="figure/drinks.png" alt="assembling hemingway" /><figcaption>assembling hemingway</figcaption>
+</figure>
+</section>
+<section class="slide level1">
+
+<h3 id="graph-construction-1">Graph Construction</h3>
+<figure>
+<img src="figure/assemblyGraph.jpg" alt="Suffix-to-Prefix Graph" /><figcaption>Suffix-to-Prefix Graph</figcaption>
+</figure>
+</section>
+<section class="slide level1">
+
+<h3 id="graph-construction---path-enumeration">Graph Construction - Path Enumeration</h3>
+<blockquote>
+<p>They stared at the drinks were gone</p>
+</blockquote>
+<blockquote>
+<p>They stared at the drinks went were gone</p>
+</blockquote>
+<blockquote>
+<p>They stared at the drinks the drinks were gone</p>
+</blockquote>
+<blockquote>
+<p>...</p>
+</blockquote>
+<p>Look for paths that</p>
+<ul>
+<li>traverse every edge once (Euler)</li>
+<li>visit every node once (Hamiltonian)</li>
+</ul>
+</section>
+<section class="slide level1">
+
+<h3 id="graph-construction---path-enumeration-1">Graph Construction - Path Enumeration</h3>
+<p>(THEY ST)ARED AT THE DRINKS. THE DRINKS WENT WARM. THEY DRANK.</p>
+<figure>
+<img src="figure/assemblyPath.jpg" alt="Longest Path" /><figcaption>Longest Path</figcaption>
+</figure>
+</section>
+<section class="slide level1">
+
+<h3 id="graph-construction---strategies">Graph Construction - Strategies</h3>
+<p><strong>Overlap Consensus Layout, eg. SGA</strong></p>
+<p>More or less as shown. Minimum length of overlap <em>k</em> is the parameter that determines the graph complexity. Should ideally be as large as the dataset allows (sequencing errors, polyploidity). The ideal assembly visits all nodes exactly once (Hamilton-Path).</p>
+<p>String Graphs are a special variant where all transitive edges <code>((X, Y), (X, Z), (Y, Z))</code> are reduced to <code>((X, Z))</code>, <em>irreducible edges</em>.</p>
+</section>
+<section class="slide level1">
+
+<h3 id="graph-construction---strategies-1">Graph Construction - Strategies</h3>
+<p><strong>K-mer based, eg. Abyss, SOAPdenovo</strong></p>
+<p>Nodes represent all kmers in the reads. Two kmers are connected if there is a <code>k-1</code> overlap between the nodes (de Bruijn graph). The Euler path that visits each edge exactly once corresponds to a chromosome in an ideal assembly.</p>
+<p>K-mer sized (parameter <em>k</em>) should be chosen large enough to reduce the number of wrong connections between contigs, but small enough to allow for errors.</p>
+<p><em>Hybrid strategies proposed: Combine contig and graph output from two types of assemblers.</em></p>
+</section>
+<section class="slide level1">
+
+<h3 id="graph-simplification">Graph Simplification</h3>
+<p>Graph structure is very complex due to</p>
+<ul>
+<li><p>transitive edges like <code>((1,2), (1,3), (2,3))</code></p></li>
+<li><p>consecutive nodes like <code>((1,2), (2,3), (3,4))</code></p></li>
+<li><p>error reads (branches that converge again later)</p></li>
+<li><p>spurious branch points on repeat edges</p></li>
+<li><p>dead ends (tips)</p></li>
+</ul>
+</section>
+<section class="slide level1">
+
+<h3 id="graph-simplification---node-merging">Graph Simplification - Node Merging</h3>
+<p>Collapse nodes that connect unambiguously (without branching) into one node representing the merged sequence.</p>
+<figure>
+<img src="figure/assemblyTransitive.jpg" alt="1. Merge Transitive Edges" /><figcaption>1. Merge Transitive Edges</figcaption>
+</figure>
+</section>
+<section class="slide level1">
+
+<h3 id="graph-simplification---node-merging-1">Graph Simplification - Node Merging</h3>
+<p>Collapse nodes that connect unambiguously (without branching) into one node representing the merged sequence.</p>
+<figure>
+<img src="figure/assemblyConsecutive.jpg" alt="2. Merge Consecutive Nodes" /><figcaption>2. Merge Consecutive Nodes</figcaption>
+</figure>
+</section>
+<section class="slide level1">
+
+<h3 id="graph-simplification---dead-end-removal">Graph Simplification - Dead End Removal</h3>
+<p>Sometimes also: tip erosion. Remove all nodes with connections only in one direction. These can be caused by low coverage regions and read errors. Can also shorten valid contigs!</p>
+<figure>
+<img src="figure/assemblyDeadEnd.jpg" alt="Dead End" /><figcaption>Dead End</figcaption>
+</figure>
+</section>
+<section class="slide level1">
+
+<h3 id="graph-simplification---bubble-popping">Graph Simplification - Bubble Popping</h3>
+<p>Bubbles due to sequencing errors or polyploid genomes, heterozygosity. Selection of branch based on different criteria like coverage, quality.</p>
+<figure>
+<img src="figure/assemblyBubble.jpg" alt="Bubble Popping" /><figcaption>Bubble Popping</figcaption>
+</figure>
+</section>
+<section class="slide level1">
+
+<h3 id="graph-simplification---repeat-tangles">Graph Simplification - Repeat tangles</h3>
+<p>Formed in repeated regions, were many reconstructions are possible. Resolved by forming parallel paths. Paired-End constraints can be used to discard invalid edges (too short, too long reconstruction).</p>
+<figure>
+<img src="figure/assemblyUntangle.jpg" alt="Create parallel paths" /><figcaption>Create parallel paths</figcaption>
+</figure>
+</section>
+<section class="slide level1">
+
+<h3 id="postprocessing">Postprocessing</h3>
+<p><strong>Contigs</strong>: Build contiguous stretches of sequence, filter and correct (consensus)</p>
+<p><strong>Scaffolds</strong>: Either with built-in scaffolder or external program. Most assemblers come with their own scaffolder for PE or mate pair library information. Using Pacbio CLRs not yet popular.</p>
+<p>Missing sequence information is filled with N (assembly gaps)</p>
+</section>
+<section class="slide level1">
+
+<h3 id="postprocessing---scaffolding">Postprocessing - Scaffolding</h3>
+<p>Use paired end information to join and orient contigs. Can also detect and filter misjoined contigs.</p>
+<figure>
+<img src="figure/assemblyScaffolding.jpg" alt="Scaffolding" /><figcaption>Scaffolding</figcaption>
+</figure>
+</section>
+<section class="slide level1">
+
+<h2 id="differences-between-assemblers">Differences between Assemblers</h2>
+<p>From the SGA paper:</p>
+<blockquote>
+<p>[...] We then perform the standard assembly graph post-processing step of removing tips from the graph where a vertex only has a connection in one direction [...]</p>
+</blockquote>
+<blockquote>
+<p>we have developed an algorithm [...] similar to the ‘‘bubble-popping’’ ap- proaches taken by de Bruijn graph assemblers [...]</p>
+</blockquote>
+<blockquote>
+<p>Similar to other approaches to scaffolding (Pop et al. 2004), our method is based on constructing a graph of the relationships between contigs.</p>
+</blockquote>
+</section>
+<section class="slide level1">
+
+<h3 id="differences-between-assemblers-1">Differences between Assemblers</h3>
+<p>They all follow the same principles! Main &quot;unique selling points&quot; seem to be algorithms and data structures. The strategies and heuristics employed in graph simplification and postprocessing make the difference in results.</p>
+</section>
+<section class="slide level1">
+
+<h3 id="differences-between-assemblers-...-and-datasets">Differences between Assemblers ... and datasets</h3>
+<figure>
+<img src="figure/assemblathon2Cmp.jpg" alt="Bradnam KR et al. Assemblathon 2: evaluating de novo methods of genome assembly in three vertebrate species. Gigascience. 2013;2(1):10." /><figcaption>Bradnam KR et al. Assemblathon 2: evaluating de novo methods of genome assembly in three vertebrate species. Gigascience. 2013;2(1):10.</figcaption>
+</figure>
+</section>
+<section id="data-sets-and-assembly-results" class="slide level1">
+<h1>Data Sets and Assembly Results</h1>
+<p><em>Ustilago bromivora</em>, a fungus with a nice compact genome of about 20Mb.</p>
+</section>
+<section class="slide level1">
+
+<h3 id="already-sequenced-relatives">Already sequenced relatives:</h3>
+<ul>
+<li>U. maydis, Corn Smut</li>
+</ul>
+<p>17.4Mb in 28 contigs.</p>
+<p>http://www.broadinstitute.org/annotation/genome/ustilago_maydis.2/Info.html</p>
+<ul>
+<li>U. hordei, Covered Smut</li>
+</ul>
+<p>81% of est. 26.1 Mb in 71 supercontigs</p>
+<p>25fold coverage with genomic and 10kb paired end library on 454, end-sequencing of a tiled BAC library assigned to 23 chromosomes with optical mapping</p>
+<blockquote>
+<p>Linning et al., 2004. Genetics 166: 99-111</p>
+</blockquote>
+<p>http://mips.helmholtz-muenchen.de/genre/proj/MUHDB/About/overview.html</p>
+</section>
+<section class="slide level1">
+
+<h2 id="libraries">Libraries</h2>
+<h3 id="pacbio-clrs">40000 Pacbio CLRs</h3>
+<p>mean length of 3910 bp (median 2903, max 20254), see <a href="report.html#toc_2">report.html</a></p>
+<h3 id="m-illumina-pe100-reads">42M Illumina PE100 reads</h3>
+<p>Library might be problematic. Average insert size estimated at 211bp (+/- 52bp). According to scientist it should be 300-500bp, see <a href="report.html#toc_8">report.html</a></p>
+</section>
+<section class="slide level1">
+
+<h3 id="illumina-fastqc">Illumina FastQC</h3>
+<figure>
+<img src="fastqc/440_A_CGTACG_L003.1_fastqc/per_base_quality.png" alt="Quality Scores" /><figcaption>Quality Scores</figcaption>
+</figure>
+</section>
+<section class="slide level1">
+
+<h3 id="illumina-fastqc-1">Illumina FastQC</h3>
+<figure>
+<img src="fastqc/440_A_CGTACG_L003.2_fastqc/per_base_sequence_content.png" alt="Read2 Sequence Content" /><figcaption>Read2 Sequence Content</figcaption>
+</figure>
+</section>
+<section class="slide level1">
+
+<h3 id="illumina-fastqc-2">Illumina FastQC</h3>
+<figure>
+<img src="fastqc/440_A_CGTACG_L003.1_fastqc/per_sequence_gc_content.png" alt="GC Distribution" /><figcaption>GC Distribution</figcaption>
+</figure>
+</section>
+<section class="slide level1">
+
+<h3 id="pacbio-fastqc">Pacbio FastQC</h3>
+<figure>
+<img src="fastqc/filtered_subreads_fastqc/per_base_quality.png" alt="Quality Scores" /><figcaption>Quality Scores</figcaption>
+</figure>
+</section>
+<section class="slide level1">
+
+<h3 id="pacbio-fastqc-1">Pacbio FastQC</h3>
+<figure>
+<img src="fastqc/filtered_subreads_fastqc/sequence_length_distribution.png" alt="Length Distribution" /><figcaption>Length Distribution</figcaption>
+</figure>
+</section>
+<section class="slide level1">
+
+<h3 id="pacbio-fastqc-2">Pacbio FastQC</h3>
+<figure>
+<img src="fastqc/filtered_subreads_fastqc/per_base_sequence_content.png" alt="Sequence Content" /><figcaption>Sequence Content</figcaption>
+</figure>
+</section>
+<section class="slide level1">
+
+<h3 id="pacbio-fastqc-3">Pacbio FastQC</h3>
+<figure>
+<img src="fastqc/filtered_subreads_fastqc/per_sequence_gc_content.png" alt="GC Content" /><figcaption>GC Content</figcaption>
+</figure>
+</section>
+<section class="slide level1">
+
+<h2 id="sga-preqc">SGA PreQC</h2>
+<p>Calculates various metrics to compare with test datasets from Assemblathon2:</p>
+<ul>
+<li>estimated genome size</li>
+<li>branching in de Bruijn graphs with different k-mer sizes</li>
+<li>fragment size estimation</li>
+<li>kmer spectrum</li>
+<li>GC biases</li>
+<li>simulated contig length</li>
+</ul>
+</section>
+<section class="slide level1">
+
+<h2 id="preqc">PreQC</h2>
+<figure>
+<img src="figure/preassembly/variantBranches.png" alt="Variant Branches" /><figcaption>Variant Branches</figcaption>
+</figure>
+</section>
+<section class="slide level1">
+
+<h2 id="preqc-1">PreQC</h2>
+<figure>
+<img src="figure/preassembly/repeatBranches.png" alt="Repeat Branches" /><figcaption>Repeat Branches</figcaption>
+</figure>
+</section>
+<section class="slide level1">
+
+<h2 id="preqc-2">PreQC</h2>
+<figure>
+<img src="figure/preassembly/errorBranches.png" alt="Error Branches" /><figcaption>Error Branches</figcaption>
+</figure>
+</section>
+<section class="slide level1">
+
+<h2 id="preqc-3">PreQC</h2>
+<figure>
+<img src="figure/preassembly/insertSize.png" alt="Insert Size" /><figcaption>Insert Size</figcaption>
+</figure>
+</section>
+<section class="slide level1">
+
+<h2 id="preqc-4">PreQC</h2>
+<figure>
+<img src="figure/preassembly/kmerCountDist.png" alt="Kmer Count Distribution" /><figcaption>Kmer Count Distribution</figcaption>
+</figure>
+</section>
+<section class="slide level1">
+
+<h2 id="preqc-5">PreQC</h2>
+<figure>
+<img src="figure/preassembly/contigLengths.png" alt="Simulated Contig Lengths" /><figcaption>Simulated Contig Lengths</figcaption>
+</figure>
+</section>
+<section class="slide level1">
+
+<h2 id="error-correction-approach">Error Correction Approach</h2>
+<p>Compensate for high error rate and indel in Pacbio reads by error correcting using relatively accurate Illumina short reads.</p>
+<ul>
+<li><p>pacBioToCA (based on Celera assembler)</p></li>
+<li><p>PreAssembly pipeline (from PacBio SMRTanalysis)</p></li>
+</ul>
+</section>
+<section class="slide level1">
+
+<h3 id="pacbiotoca-error-correction">pacBioToCA Error Correction</h3>
+<p>comes with SMRTanalysis software package, but must be run from command line.</p>
+<ol type="1">
+<li>Create frg file for Illumina reads</li>
+<li>Create spec file (by copy&amp;paste...)</li>
+<li><p>Run</p>
+<p>pacBioToCA -length 500 -partitions 200 -l ec_pacbio -t 16<br />-s pacbio.spec -fastq filtered_subreads.fastq $illuminaFrg</p></li>
+<li>wait for ~ 2 days</li>
+<li><p>receive a 250MB file called <code>ec_pacbio.fastq</code> and nothing else.</p></li>
+</ol>
+</section>
+<section class="slide level1">
+
+<h3 id="pacbiotoca-error-correction-1">pacBioToCA Error Correction</h3>
+<p>Pipeline steps:</p>
+<ol type="1">
+<li>Create a Gatekeeper store with Illumina reads</li>
+<li>OBT: quality trimming, kmer frequency, overlap kmers</li>
+<li>OBT: build overlap store</li>
+<li>OBT: deduplicate reads (needs lotsa memory)</li>
+<li>OBT: trim reads</li>
+<li>Overlap: overlap store</li>
+<li>Overlap: kmer based error correction</li>
+<li>Overlap: Unitigs</li>
+<li>ASM: error correction</li>
+<li>ASM: Unitigs, create fastq, delete everything else</li>
+</ol>
+</section>
+<section class="slide level1">
+
+<h3 id="pacbiotoca-error-correction-2">pacbioToCA Error Correction</h3>
+<p>see <a href="report.html#toc_17">report.html</a></p>
+<ul>
+<li>Corrected reads are actually shorter than before.</li>
+</ul>
+<p>(no information about mapping to original reads from pipeline)</p>
+<ul>
+<li><p>Computationally very intense (good for keeping clusters busy)</p></li>
+<li><p>Reduction in Depth makes assembly seem infeasible</p></li>
+</ul>
+</section>
+<section class="slide level1">
+
+<h3 id="smrtanalysis-preassembler-workflow">SMRTanalysis PreAssembler Workflow</h3>
+<p>could in theory be run from the web interface, but only with PacBio input (error correcting CLRs with circular consensus reads (CCR). Needs .bas.h5 (primary analysis result from sequencer).</p>
+<ol type="1">
+<li>start a fake job with only the CLRs from web interface</li>
+<li>interrupt, snatch <code>settings.xml</code> and <code>input.xml</code> from job directory</li>
+<li><p>run</p>
+<p>smrtpipe.py --distribute --output=result/<br /> --params=settings.xml xml:input.xml</p></li>
+<li><p>wait 1 - ? days depending on alignment parameters</p></li>
+</ol>
+</section>
+<section class="slide level1">
+
+<h3 id="smrtanalysis-preassembler-workflow-1">SMRTanalysis PreAssembler Workflow</h3>
+<p>see <a href="preassembler/workflow/Workflow.summary.html">Pipeline output</a></p>
+<ol type="1">
+<li>filter subreads, create store for short reads</li>
+<li>align short reads to long (14 hours)</li>
+<li>layout/consensus (14 hours)</li>
+<li>create files</li>
+</ol>
+<p>Alignment with blasr.</p>
+</section>
+<section class="slide level1">
+
+<h3 id="smrtanalysis-preassembler-workflow-2">SMRTanalysis PreAssembler Workflow</h3>
+<p>see <a href="report.html#toc_32">report.html</a></p>
+<ul>
+<li><p>Fewer, even shorter reads</p></li>
+<li><p>Bad results, but minimal relaxation of alignment criteria produced ~200GB of alignment files which then could not be read</p></li>
+<li><p>Very sensitive to parameters for alignment between PacBio and Illumina Reads</p></li>
+<li><p>Mapping information between corrected and original reads, better diagnostics</p></li>
+</ul>
+</section>
+<section class="slide level1">
+
+<h3 id="resulting-reads">Resulting Reads</h3>
+<figure>
+<img src="figure/preAssemblyCumLength.png" alt="cumulative read lengths" /><figcaption>cumulative read lengths</figcaption>
+</figure>
+</section>
+<section class="slide level1">
+
+<h2 id="hierarchical-assembly">Hierarchical Assembly</h2>
+<p>Compensate for short read length by assembling high-fidelity Illumina reads (with high coverage) and resolve repeats and gaps using long Pacbio reads.</p>
+<ol type="1">
+<li>Run standard assembler</li>
+<li>Use Cerulean or PBJelly to scaffold and fill gaps</li>
+</ol>
+<p>Relatively new, few assemblers have native support for including Pacbio CLRs (in contrast to Mate Pair and Sanger reads)</p>
+</section>
+<section class="slide level1">
+
+<h3 id="abyss-longscaff">Abyss + Longscaff</h3>
+<p>Version 1.3.7 from Dec 11 2013 can use Pacbio CLRs internally with BWA version 0.7.5a+ (with bwa mem support).</p>
+<ol type="1">
+<li>run <code>abyss-pe</code> with parameter <code>k=64</code> and library paths</li>
+<li>watch it crash after initial contigging</li>
+<li>run <code>bwa mem</code> manually</li>
+<li>restart abyss (hooray makefile!)</li>
+<li>receive fasta and graph files (dot) for unitigs, contigs, scaffolds and long-scaff</li>
+</ol>
+</section>
+<section class="slide level1">
+
+<h3 id="abyss-longscaff-1">Abyss + Longscaff</h3>
+<blockquote>
+<p>Simpson, JT et al. Genome Res 2009</p>
+</blockquote>
+<ul>
+<li>Easy to use (once you get around the bug)</li>
+<li>Very fast</li>
+</ul>
+</section>
+<section class="slide level1">
+
+<h3 id="abyss-longscaff-2">Abyss + Longscaff</h3>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">set</th>
+<th style="text-align: right;"># &gt;2kb</th>
+<th style="text-align: right;">N50</th>
+<th style="text-align: right;">max</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">scaffolds</td>
+<td style="text-align: right;">698</td>
+<td style="text-align: right;">52136</td>
+<td style="text-align: right;">200210</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">longscaff</td>
+<td style="text-align: right;">475</td>
+<td style="text-align: right;">81601</td>
+<td style="text-align: right;">435667</td>
+</tr>
+</tbody>
+</table>
+<p>see <a href="report.html#toc_37">report.html</a></p>
+</section>
+<section class="slide level1">
+
+<h3 id="abyss-cerulean">Abyss + Cerulean</h3>
+<ol type="1">
+<li>run <code>abyss-pe k=64</code> (without long read library)</li>
+<li>align pacbio reads to assembled contigs (<em>not</em> scaffolds?) with blasr</li>
+<li>run Cerulean on alignment and <code>${name}-contigs.dot</code></li>
+</ol>
+</section>
+<section class="slide level1">
+
+<h3 id="abyss-cerulean-1">Abyss + Cerulean</h3>
+<blockquote>
+<p>Deshpande V, et al. Algorithms Bioinformatics 2013</p>
+</blockquote>
+<ul>
+<li>Also quite easy</li>
+<li>Not scalable: Crashed on different larger dataset</li>
+</ul>
+</section>
+<section class="slide level1">
+
+<h3 id="abyss-cerulean-2">Abyss + Cerulean</h3>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">set</th>
+<th style="text-align: right;"># &gt;2kb</th>
+<th style="text-align: right;">N50</th>
+<th style="text-align: right;">max</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">scaffolds</td>
+<td style="text-align: right;">698</td>
+<td style="text-align: right;">52136</td>
+<td style="text-align: right;">200210</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">longscaff</td>
+<td style="text-align: right;">475</td>
+<td style="text-align: right;">81601</td>
+<td style="text-align: right;">435667</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">cerulean</td>
+<td style="text-align: right;">310</td>
+<td style="text-align: right;">106883</td>
+<td style="text-align: right;">366413</td>
+</tr>
+</tbody>
+</table>
+<p>see <a href="report.html#toc_42">report.html</a></p>
+</section>
+<section class="slide level1">
+
+<h3 id="sga-assembly">SGA assembly</h3>
+<p>String Graph Assembler promises to be more memory-efficient with equally good results. Same first author as abyss.</p>
+<ol type="1">
+<li>write longish shell script</li>
+<li>wait comparatively long</li>
+<li>receive error corrected reads fastq, assembly fasta, not much else</li>
+</ol>
+</section>
+<section class="slide level1">
+
+<h3 id="sga-assembly-1">SGA assembly</h3>
+<ol type="1">
+<li>Create PreQC report</li>
+<li>Error Correction using kmer frequencies (3 hours)</li>
+<li>Assembly</li>
+<li>Scaffolding: Align reads to contigs using BWA</li>
+</ol>
+</section>
+<section class="slide level1">
+
+<h3 id="sga-error-correction">SGA error correction</h3>
+<p>discarded ~ 5M reads</p>
+<figure>
+<img src="figure/sgaCorrectBaseByCycle.png" alt="Base By Cycle" /><figcaption>Base By Cycle</figcaption>
+</figure>
+</section>
+<section class="slide level1">
+
+<h3 id="sga-assembly-2">SGA assembly</h3>
+<blockquote>
+<p>Simpson JT. Genome Res. 2012</p>
+</blockquote>
+<ul>
+<li>more complex workflow, more parameters</li>
+<li>in-built error correction</li>
+</ul>
+</section>
+<section class="slide level1">
+
+<h3 id="sga-assembly-3">SGA assembly</h3>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">set</th>
+<th style="text-align: right;"># &gt;2kb</th>
+<th style="text-align: right;">N50</th>
+<th style="text-align: right;">max</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">SOAP</td>
+<td style="text-align: right;">521</td>
+<td style="text-align: right;">78347</td>
+<td style="text-align: right;">280862</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SGA</td>
+<td style="text-align: right;">467</td>
+<td style="text-align: right;">57237</td>
+<td style="text-align: right;">199401</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Abyss</td>
+<td style="text-align: right;">698</td>
+<td style="text-align: right;">51236</td>
+<td style="text-align: right;">200210</td>
+</tr>
+</tbody>
+</table>
+<p>see <a href="report.html#toc_56">report.html</a></p>
+</section>
+<section class="slide level1">
+
+<h3 id="soap-denovo">SOAP denovo</h3>
+<ol type="1">
+<li>create protocol file with parameters</li>
+<li>write wrapper script for cluster submission</li>
+<li>wait (~ 14 hours)</li>
+<li>receive graph files (prop) and statistics</li>
+</ol>
+</section>
+<section class="slide level1">
+
+<h3 id="soap-denovo-1">SOAP denovo</h3>
+<blockquote>
+<p>Luo, R. et al. SOAPdenovo2: an empirically improved memory-efficient short-read de novo assembler. Gigascience 1, 18 (2012).</p>
+</blockquote>
+<ul>
+<li>more complex workflow with more parameters</li>
+</ul>
+</section>
+<section class="slide level1">
+
+<h3 id="soap-denovo-2">SOAP denovo</h3>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">set</th>
+<th style="text-align: right;"># &gt;2kb</th>
+<th style="text-align: right;">N50</th>
+<th style="text-align: right;">max</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">SOAP</td>
+<td style="text-align: right;">521</td>
+<td style="text-align: right;">78347</td>
+<td style="text-align: right;">280862</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SGA</td>
+<td style="text-align: right;">467</td>
+<td style="text-align: right;">57237</td>
+<td style="text-align: right;">199401</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Abyss</td>
+<td style="text-align: right;">698</td>
+<td style="text-align: right;">51236</td>
+<td style="text-align: right;">200210</td>
+</tr>
+</tbody>
+</table>
+<p>see <a href="report.html#toc_64">report.html</a></p>
+</section>
+<section class="slide level1">
+
+<h2 id="pbjelly">PBJelly</h2>
+<p>Created for filling scaffold gaps.</p>
+<ol type="1">
+<li>create Protocol.xml with alignment options and cluster parameters</li>
+<li>create shell script to run different stages</li>
+<li>receive <code>jelly.out.fasta</code> (do NOT run more than one PBJelly per directory!)</li>
+</ol>
+</section>
+<section class="slide level1">
+
+<h2 id="pbjelly-1">PBJelly</h2>
+<blockquote>
+<p>English AC, et al. PLoS One. 2012</p>
+</blockquote>
+<ol type="1">
+<li>Mapping with <code>blasr</code></li>
+<li>find supporting mappings on gap/contig edges</li>
+<li>extract sequence information</li>
+<li>local assembly of pacbio reads</li>
+</ol>
+</section>
+<section class="slide level1">
+
+<h2 id="pbjelly-2">PBJelly</h2>
+<ul>
+<li>Some problems: blasr dumped cores for some sequence chunks</li>
+<li>Assembly crashed on certain pacbio reads</li>
+<li>but results are still good!</li>
+</ul>
+</section>
+<section class="slide level1">
+
+<h2 id="pbjelly-3">PBJelly</h2>
+<p>Gap statistics</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">set</th>
+<th style="text-align: right;">gapped.contigs</th>
+<th style="text-align: right;">overall</th>
+<th style="text-align: right;">overall.width</th>
+<th style="text-align: right;">width.mean</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">cerulean</td>
+<td style="text-align: right;">316</td>
+<td style="text-align: right;">799</td>
+<td style="text-align: right;">529462</td>
+<td style="text-align: right;">1675.51</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pbj.cerulean</td>
+<td style="text-align: right;">152</td>
+<td style="text-align: right;">224</td>
+<td style="text-align: right;">64066</td>
+<td style="text-align: right;">421.49</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">sga</td>
+<td style="text-align: right;">337</td>
+<td style="text-align: right;">612</td>
+<td style="text-align: right;">17250</td>
+<td style="text-align: right;">51.19</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pbj.sga</td>
+<td style="text-align: right;">26</td>
+<td style="text-align: right;">31</td>
+<td style="text-align: right;">927</td>
+<td style="text-align: right;">35.65</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">soap</td>
+<td style="text-align: right;">514</td>
+<td style="text-align: right;">3084</td>
+<td style="text-align: right;">33891</td>
+<td style="text-align: right;">65.94</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">pbj.soap</td>
+<td style="text-align: right;">246</td>
+<td style="text-align: right;">2705</td>
+<td style="text-align: right;">19088</td>
+<td style="text-align: right;">77.59</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="slide level1">
+
+<h2 id="pbjelly-4">PBJelly</h2>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">set</th>
+<th style="text-align: right;"># &gt;2kb</th>
+<th style="text-align: right;">N50</th>
+<th style="text-align: right;">max</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">sga</td>
+<td style="text-align: right;">183</td>
+<td style="text-align: right;">234931</td>
+<td style="text-align: right;">767671</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SOAP</td>
+<td style="text-align: right;">174</td>
+<td style="text-align: right;">201830</td>
+<td style="text-align: right;">541843</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Cerulean</td>
+<td style="text-align: right;">238</td>
+<td style="text-align: right;">159023</td>
+<td style="text-align: right;">489237</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="slide level1">
+
+<h2 id="all-contig-stats">All Contig Stats</h2>
+<figure>
+<img src="figure/pbjContigs.png" alt="Contig lengths and N50" /><figcaption>Contig lengths and N50</figcaption>
+</figure>
+</section>
+<section class="slide level1">
+
+<h2 id="all-contig-stats-1">All Contig Stats</h2>
+<figure>
+<img src="figure/allContigStat.png" alt="Contig lengths and counts" /><figcaption>Contig lengths and counts</figcaption>
+</figure>
+</section>
+<section class="slide level1">
+
+<h2 id="conclusion">Conclusion</h2>
+<figure>
+<img src="figure/resultsTable.jpg" alt="very subjective results overview" /><figcaption>very subjective results overview</figcaption>
+</figure>
+</section>
+<section id="quality-checks-for-assembly-selection" class="slide level1">
+<h1>Quality Checks for Assembly Selection</h1>
+</section>
+<section class="slide level1">
+
+<h2 id="size-is-not-everything">Size Is Not Everything</h2>
+<h2 id="quality-assessment-needed."><strong>Quality Assessment needed.</strong></h2>
+<p>But we do not have the luxury of <strong>Assemblathon</strong> or <strong>GAGE</strong> to have a reference to compare to!</p>
+<figure>
+<img src="figure/sizeVsQuality.png" alt="N50 vs sum of z-scores from different evaluations (Assemblathon 2)" /><figcaption>N50 vs sum of z-scores from different evaluations (Assemblathon 2)</figcaption>
+</figure>
+</section>
+<section class="slide level1">
+
+<h3 id="alignment-to-close-relative-u.-hordei">Alignment to Close Relative (<em>U. hordei</em>)</h3>
+<figure>
+<img src="figure/wgsAlignment.png" alt="Nucmer Alignment of SGA Scaffolds to U. hordei assembly" /><figcaption>Nucmer Alignment of SGA Scaffolds to U. hordei assembly</figcaption>
+</figure>
+</section>
+<section class="slide level1">
+
+<h3 id="alignment-of-pacbio-reads">Alignment of PacBio reads</h3>
+<p>Aligned with <code>bwa mem -a -T 60 -k 16 -A 2 -L 4 -t 8 -S -P -k 32</code></p>
+<figure>
+<img src="figure/bwaMappingRatio.png" alt="matching contigs" /><figcaption>matching contigs</figcaption>
+</figure>
+</section>
+<section class="slide level1">
+
+<h3 id="alignment-of-pacbio-reads-1">Alignment of PacBio reads</h3>
+<figure>
+<img src="figure/bwaDepth.png" alt="2D density plot of depth vs contig length" /><figcaption>2D density plot of depth vs contig length</figcaption>
+</figure>
+<p>A number of contigs with very high depth (&gt;300) were found - A random BLAST produced rDNA.</p>
+</section>
+<section class="slide level1">
+
+<h3 id="alignment-of-pacbio-reads-2">Alignment of PacBio reads</h3>
+<figure>
+<img src="figure/bwaAlnDetails.png" alt="Various other results" /><figcaption>Various other results</figcaption>
+</figure>
+</section>
+<section class="slide level1">
+
+<h3 id="cegma-check-for-presence-of-core-genes">CEGMA: Check for Presence of Core Genes</h3>
+<blockquote>
+<p>Parra G, et al. CEGMA: a pipeline to accurately annotate core genes in eukaryotic genomes. Bioinformatics. 2007;23(9):1061–7</p>
+</blockquote>
+<ul>
+<li>Select 1788 KOGs (eukaryotic orthologous groups) from genes with high identity in organisms from Yeasts to Humans.</li>
+<li>Use BLAST to find candidate regions</li>
+<li>refine with GeneWise and HMMER</li>
+<li>output GFF and report</li>
+</ul>
+<p>Could be used to examine tentative gene structure!</p>
+</section>
+<section class="slide level1">
+
+<h3 id="cegma">CEGMA</h3>
+<figure>
+<img src="figure/cegmaPlot.png" alt="CEGMA results" /><figcaption>CEGMA results</figcaption>
+</figure>
+</section>
+<section class="slide level1">
+
+<h3 id="reapr">REAPR</h3>
+<blockquote>
+<p>Hunt M, et al. Genome Biol. 2013</p>
+</blockquote>
+<figure>
+<img src="figure/reaprOutput.png" alt="REAPR output" /><figcaption>REAPR output</figcaption>
+</figure>
+</section>
+<section class="slide level1">
+
+<h3 id="reapr-1">REAPR</h3>
+<ul>
+<li>align reads back to assembly</li>
+<li>infer mismatches and structural errors from paired information (expected insert size distribution)</li>
+<li>analyse observed fragment coverage distribution (FCD) vs expected FCD</li>
+<li>warn on soft-clipping</li>
+</ul>
+</section>
+<section class="slide level1">
+
+<h4 id="literature">Literature</h4>
+<ol type="1">
+<li>Simpson JT, Wong K, Jackman SD, et al. ABySS: a parallel assembler for short read sequence data. Genome Res. 2009;19(6):1117–23.</li>
+<li>Bradnam KR, Fass JN, Alexandrov A, et al. Assemblathon 2: evaluating de novo methods of genome assembly in three vertebrate species. Gigascience. 2013;2(1):10.</li>
+<li>Deshpande V, Fung E, Pham S, Bafna V. Cerulean: A hybrid assembly using high throughput short and long reads. Algorithms Bioinforma. 2013;8126:349–363.</li>
+<li>Simpson JT, Durbin R. Efficient de novo assembly of large genomes using compressed data structures. Genome Res. 2012;22(3):549–56.</li>
+<li>Simpson J. Exploring Genome Characteristics and Sequence Quality Without a Reference. arXiv Prepr. 2013:1–29.</li>
+<li>Salzberg SL, Phillippy AM, Zimin A, et al. GAGE: A critical evaluation of genome assemblies and assembly algorithms. Genome Res. 2012;22(3):557–67.</li>
+<li>English AC, Richards S, Han Y, et al. Mind the gap: upgrading genomes with Pacific Biosciences RS long-read sequencing technology. PLoS One. 2012;7(11):e47768.</li>
+<li>El-Metwally S, Hamza T, Zakaria M, Helmy M. Next-Generation Sequence Assembly: Four Stages of Data Processing and Computational Challenges Markel S, ed. PLoS Comput. Biol. 2013;9(12):e1003345.</li>
+<li>Hunt M, Kikuchi T, Sanders M, et al. REAPR: a universal tool for genome assembly evaluation. Genome Biol. 2013;14(5):R47.</li>
+<li>Luo R, Liu B, Xie Y, et al. SOAPdenovo2: an empirically improved memory-efficient short-read de novo assembler. Gigascience. 2012;1(1):18.</li>
+<li>Boetzer M, Pirovano W. Toward almost closed genomes with GapFiller. Genome Biol. 2012;13(6):R56.</li>
+<li>Parra G, Bradnam K, Korf I. CEGMA: a pipeline to accurately annotate core genes in eukaryotic genomes. Bioinformatics. 2007;23(9):1061–7.</li>
+</ol>
+</section>
+    </div>
+  </div>
+
+  <script src="reveal.js/lib/js/head.min.js"></script>
+  <script src="reveal.js/js/reveal.min.js"></script>
+
+  <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        theme: 'simple', // available themes are in /css/theme
+        transition: 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+//          { src: 'reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; }, }
+//          { src: 'reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+]});
+    </script>
+  </body>
+</html>

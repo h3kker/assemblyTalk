@@ -1,0 +1,11 @@
+PASS	Basic Statistics	ec_pacbio.fastq
+FAIL	Per base sequence quality	ec_pacbio.fastq
+PASS	Per sequence quality scores	ec_pacbio.fastq
+PASS	Per base sequence content	ec_pacbio.fastq
+PASS	Per base GC content	ec_pacbio.fastq
+FAIL	Per sequence GC content	ec_pacbio.fastq
+PASS	Per base N content	ec_pacbio.fastq
+WARN	Sequence Length Distribution	ec_pacbio.fastq
+PASS	Sequence Duplication Levels	ec_pacbio.fastq
+WARN	Overrepresented sequences	ec_pacbio.fastq
+FAIL	Kmer Content	ec_pacbio.fastq

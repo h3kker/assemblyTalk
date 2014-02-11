@@ -1,0 +1,1293 @@
+# *de novo* assembly of *U. bromivora*
+
+```{r setup, echo=F, include=F, cache=T}
+require(ggplot2)
+require(plyr)
+require(ShortRead)
+require(rjson)
+opts_chunk$set(cache=T, echo=F, out.width='500px', dpi=150, warning=F, message=F)
+ggplot <- function(...) ggplot2::ggplot(...) + theme_bw() + theme(legend.position='bottom')
+markdownToBsHTML<-function(output, ...) { 
+	tmp<-markdownToHTML(..., options=c(markdownHTMLOptions(default=T), 'toc'))
+	tmp<-gsub('<table>', '<table class="table table-condensed table-bordered table-hover">', tmp)
+	cat(tmp, file=output)
+}
+```
+
+```{r contigStats, include=F}
+contigStats<-function(set) {
+	tmp.df<-do.call(rbind, lapply(names(set), function(n) { tmp<-sort(set[[n]][set[[n]]>1000], decreasing=T); data.frame(set=n, n50=tmp[min(which(cumsum(tmp)>(sum(tmp)/2)))], idx=1:length(tmp), length=cumsum(tmp)) }))
+	print(ggplot(tmp.df, aes(x=idx, y=length, color=paste(set, 'N50: ', n50)))+geom_line(size=1.2, alpha=.75) + theme(legend.key.size=unit(.5, 'cm'), legend.position=c(.8, .5)))
+}
+```
+
+## Data Sets and basic Quality Control
+
+```{r loadSets, dependson=c('setup'), cache=T}
+pb.filtered<-readFastq('filtered_subreads.fastq')
+pb.filtered.fa<-readDNAStringSet('filtered_subreads.fasta')
+pb.filterSummary<-read.csv('preassembly/result-nonsensitive/data/filtered_subread_summary.csv')
+```
+
+### PacBio long reads
+
+#### Productive ZMWs:
+
+```{r filterStats, results='asis', dependson=c('loadSets')}
+tmp.p<-as.vector(table(sub(' .*', '', unique(paste(pb.filterSummary$MovieName, pb.filterSummary$HoleNumber)))))
+tmp.subreads<-as.vector(table(pb.filterSummary$MovieName))
+kable(data.frame(moviename=levels(pb.filterSummary$MovieName), productive=tmp.p, subreads=tmp.subreads, rounds=tmp.subreads/tmp.p))
+```
+
+#### Length distribution of filtered subreads:
+
+```{r pacbioStats, results='asis', dependson=c('loadSets')}
+tmp.w<-width(pb.filtered)
+tmp.df<-data.frame(value=c(count=length(tmp.w), quantile(tmp.w, c(0, .25, .5, .75, 1)), mean=mean(tmp.w), sd=sd(tmp.w)))
+kable(tmp.df, format='markdown')
+```
+
+```{r pacbioLengthDist, fig.cap='Read length distribution', dependson=c('loadSets')}
+ggplot(data.frame(length=tmp.w), aes(x=length))+geom_density()
+```
+
+#### Quality by cycle:
+
+```{r pacbioQualityByCycle, fig.cap='Pacbio Mean Quality By Cycle', dependson=c('loadSets')}
+tmp.df<-data.frame(qual=as.vector(runmean(Rle(colMeans(as(quality(pb.filtered), 'matrix'), na.rm=T)), k=25)))
+tmp.df$cycle<-1:nrow(tmp.df)
+ggplot(tmp.df, aes(x=cycle, y=qual))+geom_line()
+```
+
+#### Qualities by read:
+
+```{r pacbioQualityByRead, fig.cap='Mean Quality per Read', dependson=c('loadSets')}
+tmp.df<-data.frame(qual=rowMeans(as(quality(pb.filtered), 'matrix'), na.rm=T))
+ggplot(tmp.df, aes(x=qual))+geom_density()
+```
+
+#### GC content
+
+```{r setupPacbioGC, dependson=c('loadSets')}
+tmp.gc<-rowSums(letterFrequency(sread(pb.filtered), letters=c('G', 'C'), as.prob=T))
+```
+
+Note the bimodal distribution: a larger proportion of reads with around 52% GC and a smaller subpopulation with 36%. Preliminary analysis suggest that the smaller population could be mtDNA, but also bacterial. **TODO** show, analyse further (kmer partitioning/spectra?).
+
+```{r pacbioGC, fig.cap='Distribution of GC Content per Read', dependson=c('setupPacbioGC')}
+ggplot(data.frame(gc=tmp.gc), aes(x=gc))+geom_density()
+````
+
+
+### Illumina PE100 reads
+
+Stats calculated with fastqc.
+
+```{r runFastQC, results='asis'}
+cat(paste('    ', readLines('../scripts/run_fastqc.sh'), '\n'))
+```
+
+```{r setupIlluminaQC}
+tmp.fqc<-lapply(c('1', '2'), function(r) {
+	dir=paste0('fastqc/440_A_CGTACG_L003.', r, '_fastqc/')
+	tmp.basic<-read.delim(paste0(dir, 'Basic_Statistics.tab'))
+	tmp.basic<-tmp.basic[,-3]
+	tmp.qualByCycle<-read.delim(paste0(dir, 'Per_base_sequence_quality.tab'))
+	tmp.qualByCycle$Cycle<-as.numeric(sub('-.*', '', tmp.qualByCycle$Base))
+	tmp.qualDist<-read.delim(paste0(dir, 'Per_sequence_quality_scores.tab'))
+	tmp.gcDist<-read.delim(paste0(dir, 'Per_sequence_GC_content.tab'))
+	list(read=paste0('read', r), basic=tmp.basic, qualByCycle=tmp.qualByCycle, qualDist=tmp.qualDist, gcDist=tmp.gcDist)
+})
+names(tmp.fqc)<-c('read1', 'read2')
+```
+
+```{r illuOverview, results='asis', dependson=c('setupIlluminaQC')}
+tmp.df<-do.call(rbind, lapply(tmp.fqc, function(f) { cbind(read=f[['read']], f[['basic']]) }))
+kable(tmp.df)
+```
+
+#### Quality By Cycle
+
+```{r illuQualityByCycle, fig.cap='Quality By Cycle (black line is mean, shaded area shows lower and upper quartile)', dependson=c('setupIlluminaQC')}
+ggplot(tmp.fqc$read1$qualByCycle, aes(x=Cycle))+geom_line(aes(y=Mean))+geom_ribbon(aes(ymin=Lower.Quartile, ymax=Upper.Quartile), fill='#a6cee3', alpha=.5)+ggtitle('read1')+ylim(0, 45)
+ggplot(tmp.fqc$read2$qualByCycle, aes(x=Cycle))+geom_line(aes(y=Mean))+geom_ribbon(aes(ymin=Lower.Quartile, ymax=Upper.Quartile), fill='#a6cee3', alpha=.5)+ggtitle('read2')+ylim(0, 45)
+```
+
+#### Mean Quality per Read
+
+```{r illuQualityByRead, fig.cap='Distribution of mean qualities per read', dependson=c('setupIlluminaQC')}
+ggplot(tmp.fqc$read1$qualDist, aes(x=Quality, y=Count))+geom_line()+ggtitle('read1')
+ggplot(tmp.fqc$read2$qualDist, aes(x=Quality, y=Count))+geom_line()+ggtitle('read2')
+```
+
+#### GC Content per Read
+
+```{r illuGC, fig.cap='Distribution of GC Content per Read', dependson=c('setupIlluminaQC')}
+ggplot(tmp.fqc$read1$gcDist, aes(x=GC.Content, y=Count))+geom_line()+ggtitle('read1')
+ggplot(tmp.fqc$read2$gcDist, aes(x=GC.Content, y=Count))+geom_line()+ggtitle('read2')
+```
+
+### Pre-QC
+
+Preqc pipeline from SGA: 
+
+> Simpson, J. Exploring Genome Characteristics and Sequence Quality Without a Reference. arXiv Prepr. 1–29 (2013). at <http://arxiv.org/abs/1307.8026>
+
+Run on Illumina data set.
+
+```{r runPreQC, results='asis'}
+cat(paste('    ', readLines('../scripts/run_sga_preqc.sh'), '\n'))
+```
+
+```{r loadPreQC}
+tmp.preqc<-fromJSON(file='sga/440_A_CGTACG_L003.preqc')
+tmp.kmerDepth<-do.call(rbind, lapply(tmp.preqc$KmerDistribution$distribution, function(l) { data.frame(depth=l[['kmer-depth']], count=l[['count']]) }))
+tmp.branching<-data.frame(do.call(rbind, lapply(tmp.preqc[['BranchClassification']], unlist)))
+tmp.n50<-do.call(rbind, lapply(tmp.preqc[['SimulateAssembly']], function(e) { Nl<-rev(sort(e$walk_length)); Nlcum<-cumsum(Nl); data.frame(k=e$k, n50=Nl[which(Nlcum-sum(e$walk_length)/2 >=0)[1]]); } ))
+tmp.fragsize<-data.frame(size=tmp.preqc[['FragmentSize']]$sizes)
+```
+
+Estimated Genome Size: `r tmp.preqc$GenomeSize$size` bp.
+
+#### Fragment size estimation
+
+Mean: `r mean(tmp.fragsize$size)` +/- `r sd(tmp.fragsize$size)`, median: `r median(tmp.fragsize$size)`
+
+```{r preQCFragSize, fig.cap='estimated fragment sizes', dependson=c('loadPreQC')}
+ggplot(tmp.fragsize, aes(x=size))+geom_density()
+```
+
+#### Kmer depth
+
+This should be a bimodal distribution with a peak at low depths (for error kmers) and a second one at higher depths (correct kmers). Calculated for k=`r tmp.preqc$KmerDistribution$k`. 
+
+```{r preQCkmerDepth, fig.cap='kmer depth vs. count', dependson=c('loadPreQC')}
+ggplot(tmp.kmerDepth, aes(x=depth, y=count))+geom_line()
+```
+
+#### Graph branching
+
+This measure is a predictor of the complexity of the assembly graph (number of
+possibilities). In comparison to the provided test data sets, repeat and
+variant branches look good, but the number of error branches is very high.
+
+**XXX Illumina error correction?**
+
+```{r preQCbranching, fig.cap='k vs. frequency of branches', dependson=c('loadPreQC')}
+ggplot(melt(tmp.branching[,-c(7,8)], id=1:3), aes(x=k, y=value/num_kmers))+geom_line(aes(color=variable))
+```
+
+#### Simulated contig length N50
+
+For estimating k. Should be chosen as high as possible.
+
+```{r preQCSimulatedContig, fig.cap='k vs. N50', dependson=c('loadPreQC')}
+ggplot(tmp.n50, aes(x=k, y=n50))+geom_line()
+```
+
+## PacBioToCA Error Correction
+
+See http://sourceforge.net/apps/mediawiki/wgs-assembler/index.php?title=PacBioToCA
+
+Parameters for fragment (actually insert) size from PreQC and other (post-hoc) estimations.
+
+```{r runPacBioToCA, results='asis'}
+cat(paste('    ', readLines('../scripts/runCorrection.sh'), '\n'))
+```
+
+Outputs Celera-specific frg and a pair of .fasta/.qual files. The latter can be converted to fastq using `faqual_to_fastq.py`
+
+### New run 
+
+```{r loadPacbioEc}
+pb.ec<-readFastq('ec_pacbio.fastq')
+```
+
+```{r pacbioEcStats, results='asis', dependson=c('loadSets', 'loadPacbioEc')}
+tmp.filtered.w<-width(pb.filtered)
+tmp.ec.w<-width(pb.ec)
+tmp.df<-data.frame(
+	corrected=c(count=length(tmp.ec.w), quantile(tmp.ec.w, c(0, .25, .5, .75, 1)), mean=mean(tmp.ec.w), sd=sd(tmp.ec.w), coverage=sum(tmp.ec.w)/2e7), 
+	filtered=c(count=length(tmp.filtered.w), quantile(tmp.filtered.w, c(0, .25, .5, .75, 1)), mean=mean(tmp.filtered.w), sd=sd(tmp.filtered.w), coverage=sum(tmp.filtered.w)/2e7)
+)
+
+kable(tmp.df, format='markdown')
+```
+
+#### Length distribution
+
+```{r pacbioEcLengths, dependson=c('loadPacbioEc', 'loadSets')}
+tmp.df<-rbind(data.frame(set='corrected', length=tmp.ec.w), data.frame(set='filtered', length=tmp.filtered.w))
+ggplot(tmp.df, aes(x=length, fill=set))+geom_histogram(position='dodge')
+```
+
+#### Quality by cycle:
+
+```{r pacbioEcQualityByCycle, fig.cap='Pacbio Mean Quality By Cycle', dependson=c('loadPacbioEc')}
+tmp.df<-data.frame(qual=as.vector(runmean(Rle(colMeans(as(quality(pb.ec), 'matrix'), na.rm=T)), k=25)))
+tmp.df$cycle<-1:nrow(tmp.df)
+ggplot(tmp.df, aes(x=cycle, y=qual))+geom_line()
+```
+
+#### Qualities by read:
+
+```{r pacbioEcQualityByRead, fig.cap='Mean Quality per Read', dependson=c('loadPacbioEc')}
+tmp.df<-data.frame(qual=rowMeans(as(quality(pb.ec), 'matrix'), na.rm=T))
+ggplot(tmp.df, aes(x=qual))+geom_density()
+```
+
+#### GC content
+
+```{r setupPacbioEcGC, dependson=c('loadSets', 'loadPacbioEc')}
+tmp.gc<-rbind(
+	data.frame(set='corrected', gc=rowSums(letterFrequency(sread(pb.ec), letters=c('G', 'C'), as.prob=T))),
+	data.frame(set='filtered', gc=rowSums(letterFrequency(sread(pb.filtered), letters=c('G', 'C'), as.prob=T)))
+)
+```
+
+```{r pacbioEcGC, fig.cap='Distribution of GC Content per Read', dependson=c('setupPacbioEcGC')}
+ggplot(tmp.gc, aes(x=gc, color=set))+geom_density()
+````
+
+### Kmer correlation
+
+Characterize changes from error correction by kmer spectrum of reads.
+
+```{r pacbioEcKmerSpectra, dependson=c('setupPacbioEc')}
+tmp.ill<-sample(readFastq('illumina/440_A_CGTACG_L003_R1_001.fastq', format='fastq'), size=1e6)
+tmp<-lapply(list(pb.filtered, pb.ec, tmp.ill), function(s) { tmp.km<-colMeans(oligonucleotideFrequency(sread(s), width=5, as.prob=T)); data.frame(kmer=names(tmp.km), freq=tmp.km) })
+tmp.df<-merge(merge(tmp[[1]], tmp[[2]], by='kmer'), tmp[[3]], by='kmer')
+names(tmp.df)<-c('kmer', 'freq.filtered', 'freq.corrected', 'freq.illumina')
+```
+
+#### Error Corrected to Filtered
+
+Good linear fit
+
+```{r pacbioKmerEcToFiltered, fig.cap='5mer frequency differences in corrected pacbio reads. Scatterplot of relative frequency in filtered (x) and corrected (y)', dependson=c('pacbioEcKmerSpectra')}
+ggplot(tmp.df, aes(x=freq.filtered, y=freq.corrected))+geom_point(alpha=.5)
+```
+
+relative frequency (log2 ratios) shows some patterns (not examined in detail)
+
+```{r pacbioKmerEcToFilteredBar, fig.cap='Barchart of log2 ratios of relative frequencies', fig.width=28, out.width=1200, dpi=300, dependson=c('pacbioEcKmerSpectra')}
+ggplot(tmp.df, aes(x=kmer, y=log2(freq.filtered/freq.corrected)))+geom_bar(stat='identity')+theme(axis.text.x=element_text(angle=45, hjust=1, size=3))
+ggplot(subset(tmp.df, abs(log2(freq.filtered/freq.corrected))>.25), aes(x=kmer, y=log2(freq.filtered/freq.corrected)))+geom_bar(stat='identity')+theme(axis.text.x=element_text(angle=45, hjust=1, size=8))
+```
+
+#### Kmer correlation
+
+Illumina kmer spectrum calculated on a random subset of 1M reads of illumina/440_A_CGTACG_L003_R1_001.fastq (memory consumption limits!). Celera error correction very aggressively turns the pacbio reads into illumina reads! The result has more to do with illumina than the original.
+
+```{r pacbioKmerCorrelation, fig.cap='pearson correlation matrix of kmer frequency', dependson=c('pacbioEcKmerSpectra')}
+ggplot(subset(melt(cor(tmp.df[,-1])), X1!=X2), aes(x=X1, y=X2))+geom_tile(aes(fill=value))+scale_fill_gradient(low='#fdd0a2', high='#8c2d04', space='Lab')+scale_x_discrete('')+scale_y_discrete('')
+
+```{r pacbioKmerToIllumina, fig.cap='log2 ratios of filtered/corrected vs filtered/illumina', dependson=c('pacbioEcKmerSpectra'), dpi=150}
+ggplot(tmp.df, aes(x=log2(freq.filtered/freq.corrected), y=log2(freq.illumina/freq.corrected)))+geom_point()
+```
+
+### Comparison with run with incomplete 2nd read
+
+**Spoiler** only marginal differences
+
+```{r loadOldPacbioEc}
+pb.oldPacbioEc<-readFastq('ec_pacbio.old.fastq')
+```
+
+#### Basic
+
+```{r oldPacbioEcStats, results='asis', dependson=c('loadSets', 'loadOldPacbioEc', 'loadPacbioEc')}
+tmp.filtered.w<-width(pb.filtered)
+tmp.ec.w<-width(pb.ec)
+tmp.oldec.w<-width(pb.oldPacbioEc)
+tmp.df<-data.frame(
+	old.corrected=c(count=length(tmp.oldec.w), quantile(tmp.oldec.w, c(0, .25, .5, .75, 1)), mean=mean(tmp.oldec.w), sd=sd(tmp.oldec.w), coverage=sum(tmp.oldec.w)/2e7), 
+	corrected=c(count=length(tmp.ec.w), quantile(tmp.ec.w, c(0, .25, .5, .75, 1)), mean=mean(tmp.ec.w), sd=sd(tmp.ec.w), coverage=sum(tmp.ec.w)/2e7), 
+	filtered=c(count=length(tmp.filtered.w), quantile(tmp.filtered.w, c(0, .25, .5, .75, 1)), mean=mean(tmp.filtered.w), sd=sd(tmp.filtered.w), coverage=sum(tmp.filtered.w)/2e7)
+)
+
+kable(tmp.df, format='markdown')
+```
+
+#### Length distribution of corrected and filtered subreads:
+
+```{r oldPacbioEcLengthDist, fig.cap='Read length distribution', dependson=c('loadSets', 'loadOldPacbioEc', 'loadPacbioEc')}
+ggplot(rbind(data.frame(set='corrected', length=tmp.ec.w), data.frame(set='filtered', length=tmp.filtered.w), data.frame(set='old corrected', length=tmp.oldec.w)),
+ 	aes(x=length, color=set))+geom_density()
+```
+
+#### Quality by cycle:
+
+```{r oldPacbioEcQualityByCycle, fig.cap='Pacbio Mean Quality By Cycle', dependson=c('loadOldPacbioEc')}
+tmp.df<-data.frame(qual=as.vector(runmean(Rle(colMeans(as(quality(pb.oldPacbioEc), 'matrix'), na.rm=T)), k=25)))
+tmp.df$cycle<-1:nrow(tmp.df)
+ggplot(tmp.df, aes(x=cycle, y=qual))+geom_line()
+```
+
+#### Qualities by read:
+
+```{r oldPacbioEcQualityByRead, fig.cap='Mean Quality per Read', dependson=c('loadOldPacbioEc')}
+tmp.df<-data.frame(qual=rowMeans(as(quality(pb.oldPacbioEc), 'matrix'), na.rm=T))
+ggplot(tmp.df, aes(x=qual))+geom_density()
+```
+
+#### GC content
+
+```{r setupOldPacbioEcGC, dependson=c('loadSets', 'loadOldPacbioEc')}
+tmp.gc<-rbind(
+	data.frame(set='corrected', gc=rowSums(letterFrequency(sread(pb.ec), letters=c('G', 'C'), as.prob=T))),
+	data.frame(set='old.corrected', gc=rowSums(letterFrequency(sread(pb.oldPacbioEc), letters=c('G', 'C'), as.prob=T))),
+	data.frame(set='filtered', gc=rowSums(letterFrequency(sread(pb.filtered), letters=c('G', 'C'), as.prob=T)))
+)
+```
+
+```{r oldPacbioEcGC, fig.cap='Distribution of GC Content per Read', dependson=c('setupOldPacbioEcGC')}
+ggplot(tmp.gc, aes(x=gc, color=set))+geom_density()
+````
+
+## Pacbio PreAssembly pipeline
+
+A similar correction pipeline to pacBioToCA. Very difficult to run! 
+
+`smrtpipe.py --distribute --output=result-nonsensitive/ --params=settings-nonsensitive.xml xml:input.xml &`
+
+Compare settings in `settings.xml` and `settings-nonsensitive.xml`. The
+minScore parameter for the `blasr` mapping seems to make all the difference. If
+set too high: `align.b4` of illumina against pacbio grows to 120GB, subsequent
+processing crashes. 
+
+Complete pacbio run: needs to start from SMRTcell raw data!
+
+```{r loadPreAssembly}
+pb.preass<-readFastq('preassembly/result-nonsensitive/data/corrected.fastq')
+```
+
+### Stats
+
+#### Basic
+
+```{r preAssemblyStats, results='asis', dependson=c('loadPacbioEc', 'loadPreAssembly')}
+tmp.preass.w<-width(pb.preass)
+tmp.df<-data.frame(
+	filtered=c(count=length(tmp.filtered.w), quantile(tmp.filtered.w, c(0, .25, .5, .75, 1)), mean=mean(tmp.filtered.w), sd=sd(tmp.filtered.w), coverage=sum(tmp.filtered.w)/2e7),
+	corrected=c(count=length(tmp.ec.w), quantile(tmp.ec.w, c(0, .25, .5, .75, 1)), mean=mean(tmp.ec.w), sd=sd(tmp.ec.w), coverage=sum(tmp.ec.w)/2e7), 
+	preassembly=c(count=length(tmp.preass.w), quantile(tmp.preass.w, c(0, .25, .5, .75, 1)), mean=mean(tmp.preass.w), sd=sd(tmp.preass.w), coverage=sum(tmp.preass.w)/2e7)
+)
+
+kable(tmp.df, format='markdown')
+```
+
+#### Length Distribution
+
+```{r preAssemblyLength, results='asis', dependson=c('loadPacbioEc', 'loadPreAssembly')}
+tmp.df<-rbind(data.frame(set='filtered', length=tmp.filtered.w), data.frame(set='ec', length=tmp.ec.w), data.frame(set='preassembly', length=tmp.preass.w))
+ggplot(tmp.df, aes(x=length, fill=set))+geom_histogram(position='dodge', binwidth=1000)
+```
+
+```{r preAssemblyCumLength, results='asis', dependson=c('loadPacbioEc', 'loadPreAssembly'), fig.width=14, out.width='800px'}
+tmp.df<-rbind(data.frame(set='filtered', idx=1:length(tmp.filtered.w), length=cumsum(sort(tmp.filtered.w, decreasing=T))), data.frame(set='ec', idx=1:length(tmp.ec.w), length=cumsum(sort(tmp.ec.w, decreasing=T))), data.frame(set='preassembly', idx=1:length(tmp.preass.w), length=cumsum(sort(tmp.preass.w, decreasing=T))))
+ggplot(tmp.df, aes(x=idx, y=length, color=set))+geom_line(size=2, alpha=.75)+scale_x_continuous('index')+scale_y_continuous('cumulative length')
+```
+
+#### GC content
+
+```{r setupPreassemblyGC, dependson=c('loadPreAssembly', 'loadPacbioEc')}
+tmp.gc<-rbind(
+	data.frame(set='filtered', gc=rowSums(letterFrequency(sread(pb.filtered), letters=c('G', 'C'), as.prob=T))),
+	data.frame(set='corrected', gc=rowSums(letterFrequency(sread(pb.ec), letters=c('G', 'C'), as.prob=T))),
+	data.frame(set='preassembly', gc=rowSums(letterFrequency(sread(pb.preass), letters=c('G', 'C'), as.prob=T)))
+)
+```
+
+```{r preassemblyGC, fig.cap='Distribution of GC Content per Read', dependson=c('setupPreassemblyGC')}
+ggplot(tmp.gc, aes(x=gc, color=set))+geom_density()
+````
+
+
+## Abyss Assembly
+
+> Simpson, J. T. et al. ABySS: a parallel assembler for short read sequence data. Genome Res. 19, 1117–23 (2009).
+
+http://www.bcgsc.ca/platform/bioinfo/software/abyss
+
+Version 1.3.7 from Dec 11, 2013 has the ability to use long reads (e.g. pacbio) to scaffold a short-read assembly, but has a few quirks (bugs) to work around.
+
+```{r runAbyss, results='asis'}
+cat(paste('    ', readLines('../scripts/run_abyss_k64_uncorrected.sh'), '\n'))
+```
+
+### Basic stats 
+
+Abyss-fac output (all contigs >= 200bp):
+
+```{r abyssStat, results='asis'}
+tmp.abStat<-read.csv('abyss-k64/pacbio_abyss_k64.summary.csv')
+kable(tmp.abStat)
+```
+
+```{r loadAbyss}
+outs<-c(contigs='abyss-k64/pacbio_abyss_k64-contigs.fa', scaffolds='abyss-k64/pacbio_abyss_k64-scaffolds.fa', longscaff='abyss-k64/pacbio_abyss_k64-long-scaffs.fa')
+all.fa<-lapply(outs, function(f) { 
+	tmp<-readDNAStringSet(f) 
+	names(tmp)<-gsub(' .*', '', names(tmp))
+	tmp
+})
+all.width<-lapply(all.fa, function(fa) { 
+	tmp<-width(fa)
+	names(tmp)<-names(fa)
+	tmp
+})
+all.len<-unlist(lapply(all.width, sum))
+```
+
+```{r abyssContigs, out.width=1000, fig.width=14, dependson=c('loadAbyss', 'contigStats')}
+contigStats(all.width)
+```
+
+Cumulative sum of contig lengths for all and contigs longer than 500bp. Abyss leaves a large number of *chaff* (very small contigs).
+
+```{r abyssContigCumsum, dependson=c('loadAbyss')}
+tmp.df<-do.call(rbind, lapply(names(all.width), function(set) { data.frame(set=set, contig=1:length(all.width[[set]]), cumsum=cumsum(all.width[[set]][order(all.width[[set]], decreasing=T)])) }))
+ggplot(tmp.df, aes(x=contig, y=cumsum, color=set))+geom_line()+ggtitle('all contigs')
+tmp.df<-do.call(rbind, lapply(names(all.width), function(set) { tmp.w<-all.width[[set]][all.width[[set]]>500]; data.frame(set=set, contig=1:length(tmp.w), cumsum=cumsum(tmp.w[order(tmp.w, decreasing=T)])) }))
+ggplot(tmp.df, aes(x=contig, y=cumsum, color=set))+geom_line()+ggtitle('only contigs > 500bp')
+```
+
+### Effect of different length cutoffs
+
+Number of remaining contigs after length filtering.
+
+```{r abyssContigStat, results='asis', dependson=c('loadAbyss')}
+tmp.df<-do.call(rbind, lapply(names(all.width), function(set) { tmp.h<-hist(all.width[[set]], plot=F, breaks=2^(floor(log2(min(all.width[[set]]))):ceiling(log2(max(all.width[[set]]))))); data.frame(set=set, size=tmp.h$breaks[-1], cumsum=length(all.width[[set]])-cumsum(tmp.h$counts)) }))
+ggplot(tmp.df, aes(x=factor(size), y=cumsum, fill=set))+geom_bar(stat='identity', position='dodge')+scale_x_discrete('length cutoff')+scale_y_continuous('number of remaining contigs')
+```
+
+### GC content
+
+```{r abyssContigsGC, dependson=c('loadAbyss')}
+tmp.gc<-do.call(rbind, lapply(names(all.fa), function(set) {
+	data.frame(set=set, gc=rowSums(letterFrequency(all.fa[[set]], letters=c('G', 'C'), as.prob=T)))
+}))
+ggplot(tmp.gc, aes(x=gc, color=set))+geom_density()
+```
+
+
+### K-mer content
+
+Examining 4mer content reveals two distinct contig/scaffold populations. This should be examined further! (contamination, mtDNA?) Only contigs > 500 bp are examined.
+
+```{r setup4mer, dependson=c('loadAbyss')}
+tmp.contig4mer<-oligonucleotideFrequency(all.fa[['contigs']][width(all.fa[['contigs']])>500], width=4, as.prob=T)
+tmp.longsc4mer<-oligonucleotideFrequency(all.fa[['longscaff']][width(all.fa[['longscaff']])>500], width=4, as.prob=T)
+```
+
+Contig kmer heatmap:
+
+```{r contig4merHeatmap, out.width=1000, fig.width=14, fig.height=14, dependson=c('setupContig4mer'), fig.cap='4mer clustering of contigs'}
+heatmap(tmp.contig4mer, cexRow=.3, cexCol=.3)
+```
+
+Long scaffold heatmap:
+
+```{r longscaff4merHeatmap, out.width=1000, fig.width=14, fig.height=14, dependson=c('setupContig4mer'), fig.cap='4mer clustering of long scaffolds'}
+heatmap(tmp.longsc4mer, cexRow=.3, cexCol=.3)
+```
+
+## Refinement with Cerulean
+
+Works similar to the last step in the abyss assembly: Alignment of Pacbio reads
+against contigs and iterative scaffolding, repeat resolving... using a
+simplified assembly graph. NB: Cerulean aligns against contigs, which are not
+yet joined using paired end information. Maybe try to get it to start from
+scaffolds? 
+
+> Deshpande V, Fung E, Pham S, Bafna V. Cerulean: A hybrid assembly using high throughput short and long reads. Algorithms Bioinforma. 2013;8126:349–363. Available at: http://arxiv.org/abs/1307.7933 
+
+Run cerulean `../scripts/run_cerulean.sh`:
+
+```{r runCerulean, results='asis'}
+cat(paste('    ', readLines('../scripts/run_cerulean.sh'), '\n'))
+```
+
+```{r loadCerulean, dependson=c('loadAbyss')}
+all.fa$cerulean<-readDNAStringSet('abyss-k64/pacbio_abyss_k64_cerulean.fasta')
+all.width$cerulean<-width(all.fa$cerulean)
+names(all.width$cerulean)<-names(all.fa$cerulean)
+all.len<-c(all.len, cerulean=sum(all.width$cerulean))
+```
+
+### Basic Stats
+
+Abyss-fac output (all contigs >= 200bp) in comparison to Abyss scaffolding:
+
+`abyss-fac -d, *-{contigs,long-scaffs}.fa *_cerulean.fasta | sed -e s/sum/sum,set/ > cerulean_abyss_k64.summary.csv`
+
+```{r ceruleanStats, results='asis'}
+tmp.abStat<-read.csv('abyss-k64/cerulean_abyss_k64.summary.csv')
+kable(tmp.abStat)
+```
+
+```{r ceruleanContigs, out.width=1000, fig.width=14, dependson=c('loadCerulean', 'contigStats')}
+contigStats(all.width)
+```
+
+```{r ceruleanContigCumsum, dependson=c('loadCerulean')}
+tmp.df<-do.call(rbind, lapply(names(all.width), function(set) { 
+	data.frame(set=set, contig=1:length(all.width[[set]]), cumsum=cumsum(all.width[[set]][order(all.width[[set]], decreasing=T)])) 
+}))
+ggplot(tmp.df, aes(x=contig, y=cumsum, color=set))+geom_line()+ggtitle('all contigs')
+tmp.df<-do.call(rbind, lapply(names(all.width), function(set) { tmp.w<-all.width[[set]][all.width[[set]]>500]; data.frame(set=set, contig=1:length(tmp.w), cumsum=cumsum(tmp.w[order(tmp.w, decreasing=T)])) }))
+ggplot(tmp.df, aes(x=contig, y=cumsum, color=set))+geom_line()+ggtitle('only contigs > 500bp')
+```
+
+### Effect of different length cutoffs
+
+Number of remaining contigs after length filtering.
+
+```{r ceruleanContigStat, results='asis', dependson=c('loadCerulean')}
+tmp.df<-do.call(rbind, lapply(names(all.width), function(set) { 
+	tmp.h<-hist(all.width[[set]], plot=F, breaks=2^(floor(log2(min(all.width[[set]]))):ceiling(log2(max(all.width[[set]])))))
+	data.frame(set=set, size=tmp.h$breaks[-1], cumsum=length(all.width[[set]])-cumsum(tmp.h$counts)) 
+}))
+ggplot(tmp.df, aes(x=factor(size), y=cumsum, fill=set))+geom_bar(stat='identity', position='dodge')+scale_x_discrete('length cutoff')+scale_y_continuous('number of remaining contigs')
+```
+
+### GC content
+
+The Cerulean contigs seem to lose the 34% GC contigs. Most contigs have the familiar 52% GC, with a small shoulder at about 45%. There is a small hump at 34% GC, maybe Cerulean collapsed to one (or few) contigs?
+
+```{r ceruleanContigsGC, dependson=c('loadCerulean')}
+tmp.gc<-do.call(rbind, lapply(names(all.fa), function(set) {
+	data.frame(set=set, gc=rowSums(letterFrequency(all.fa[[set]], letters=c('G', 'C'), as.prob=T)))
+}))
+ggplot(tmp.gc, aes(x=gc, color=set))+geom_density()
+```
+
+#### XXX Look for 34% GC contigs
+
+## BWA-Alignment of Abyss contigs to Pacbio reads
+
+Abyss uses `bwa` to align long reads against the assembled scaffolds with
+parameters `bwa mem -a -t2 -S -P -k64`. This algorithm matches exact seed
+matches (length = `-k64` and extends these with a Smith-Waterman alignment. It
+outputs all found alignments (even if query sequence matches locally to
+different parts of ref sequence).
+
+### Alignment to filtered subreads
+
+Examine alignment (don't forget to convert .sam.gz to BAM: `zcat filtered_subreads.fastq-8.sam.gz | samtools view -Sb - > filtered_subreads.fastq-8.bam`).
+
+```{r loadAbyssBam}
+tmp.sam<-scanBam('abyss-k64/filtered_subreads.fastq-8.bam', param=ScanBamParam(what=c('rname', 'qname', 'pos', 'qwidth')))[[1]]
+```
+
+```{r alignStats, dependson=c('loadAbyss', 'loadAbyssBam', 'loadSets')}
+tmp.pb.width<-width(pb.filtered.fa)
+names(tmp.pb.width)<-names(pb.filtered.fa)
+
+tmp.aln<-data.frame(set='filtered', query=tmp.sam[['qname']], ref=tmp.sam[['rname']], qwidth=tmp.sam[['qwidth']], rwidth=all.width$scaffolds[tmp.sam[['rname']]], qtotal=tmp.pb.width[tmp.sam[['qname']]])
+tmp.qu.df<-ddply(tmp.aln, .(query), summarise, count=length(query), mean.reflength=mean(rwidth), mean.hitlength=mean(qwidth), width=mean(qtotal))
+tmp.qu.df[is.na(tmp.qu.df$mean.hitlength), ]$count<-0
+
+tmp.ref.df<-ddply(tmp.aln, .(ref), summarise, count=length(ref), mean.qwidth=mean(qwidth), mean.qtotal=mean(qtotal))
+tmp.ref.df<-merge(data.frame(contig=names(all.width$scaffolds), width=all.width$scaffolds), tmp.ref.df, by.x='contig', by.y='ref', all.x=T)
+tmp.ref.df[is.na(tmp.ref.df$count), ]$count<-0
+```
+
+#### Scaffolds
+
+Overall `r sum(tmp.ref.df$count>0)` of `r nrow(tmp.ref.df)` (`r sum(tmp.ref.df$count>0)/nrow(tmp.ref.df)*100` %) scaffolds had a match to at least one pacbio read. 
+
+```{r alignStatsPlot, dependson=c('alignStats'), fig.cap='Histogram of number of hits per scaffold'}
+tmp.h<-hist(tmp.ref.df$count, breaks=c(0, 2^(0:ceiling(log2(max(tmp.ref.df$count))))), right=F, plot=F)
+tmp.df<-data.frame(nhits=tmp.h$breaks[-length(tmp.h$breaks)], cumsum=cumsum(tmp.h$counts), count=tmp.h$counts)
+tmp.df$minhits<-factor(tmp.df$nhits, labels=paste0('=<', tmp.df$nhits), ordered=T)
+ggplot(tmp.df, aes(x=factor(nhits), y=count))+geom_bar(stat='identity')
+ggplot(subset(tmp.df, nhits>0), aes(x=factor(nhits), y=count))+geom_bar(stat='identity')
+```
+
+Contigs with more than 1000 hits: (discarded for further analysis).
+
+```{r alignHighHits, dependson=c('alignStats')}
+tmp.ref.df[tmp.ref.df$count>1000, ]
+all.fa$scaffolds[tmp.ref.df[tmp.ref.df$count>1000, ]$contig]
+tmp.ref.df<-subset(tmp.ref.df, count<=1000)
+```
+
+(Unsurprisingly) there is a size dependency on number of hits. A large number of *chaff* contigs seem to have no hits, but there are also a few small contigs with large number of hits. These could be filtered out (low complexity?).
+
+```{r alignSizeVsCount, dependson=c('alignStats'), dpi=150, fig.cap='Scatterplot of scaffold width vs. number of hits for that scaffold, density of scaffold widths for scaffolds with and without aligned Pacbio reads'}
+ggplot(tmp.ref.df, aes(x=width, y=count))+geom_point()
+tmp.ref.df$m<-ifelse(tmp.ref.df$count==0, 'nomatch', 'match')
+ggplot(tmp.ref.df, aes(x=width, color=m))+geom_density()+scale_x_log10()
+```
+
+Although the contigs do not show the bimodal GC distribution, there are long contigs for both classes of pacbio reads. There is no noticable GC bias in match vs. nomatch contigs.
+
+```{r alignGc, dependson=c('alignSizeVsCount'), dpi=150, fig.cap='GC content of a scaffold vs. number of hits, points sized by scaffold width. Density of GC contents for scaffolds with and without aligned Pacbio reads'}
+tmp.gc<-rowSums(letterFrequency(all.fa$scaffolds, letters=c('G', 'C'), as.prob=T))
+names(tmp.gc)<-names(all.fa$scaffolds)
+tmp.ref.df$gc<-tmp.gc[tmp.ref.df$contig]
+ggplot(tmp.ref.df, aes(x=gc, y=count))+geom_point(aes(size=width), alpha=.5)
+ggplot(tmp.ref.df, aes(x=gc, color=m))+geom_density()
+```
+
+#### Pacbio reads
+
+`r sum(tmp.qu.df$count>0)` of `r nrow(tmp.qu.df)` pacbio reads aligned at least one time (`r sum(tmp.qu.df$count>0)/nrow(tmp.qu.df)*100` %).
+
+```{r alignPacbioStatsPlot, dependson=c('alignStats'), fig.cap='Histogram of hit counts per Pacbio read'}
+tmp.h<-hist(tmp.qu.df$count, breaks=c(0, 2^(0:ceiling(log2(max(tmp.qu.df$count))))), right=F, plot=F)
+tmp.df<-data.frame(nhits=tmp.h$breaks[-length(tmp.h$breaks)], cumsum=cumsum(tmp.h$counts), count=tmp.h$counts)
+tmp.df$minhits<-factor(tmp.df$nhits, labels=paste0('=<', tmp.df$nhits), ordered=T)
+ggplot(tmp.df, aes(x=factor(nhits), y=count))+geom_bar(stat='identity')
+ggplot(subset(tmp.df, nhits>0), aes(x=factor(nhits), y=count))+geom_bar(stat='identity')
+```
+
+Reads with >1000 hits:
+
+```{r alignPacbioHighHits, dependson=c('alignStats')}
+subset(tmp.qu.df, count>1000)
+pb.filtered.fa[subset(tmp.qu.df, count>1000)$query]
+tmp.qu.df<-subset(tmp.qu.df, count<=1000)
+```
+
+This is only a short segment (mean 74bp) of a 11kb pacbio read?
+
+No apparent size bias, but shorter pacbio reads seem to map worse (no surprise).
+
+```{r alignPacbioSizeVsCount, dependson=c('alignStats'), dpi=150, fig.cap='Scatterplot of read length vs. number of this for this read. Density of read lengths for reads with and without aligned scaffolds'}
+ggplot(tmp.qu.df, aes(x=width, y=count))+geom_point()
+tmp.qu.df$m<-ifelse(tmp.qu.df$count==0, 'nomatch', 'match')
+ggplot(tmp.qu.df, aes(x=width, color=m))+geom_density()
+```
+
+No GC bias for the mapped pacbio reads - there seems to be something real.
+
+```{r alignPacbioGc, dependson=c('alignPacbioSizeVsCount'), dpi=150, fig.cap='GC content of reads vs. number of hits, points sized by read length (y axis truncated at 100). Density of GC content for reads with and without aligned scaffolds'}
+tmp.gc<-rowSums(letterFrequency(pb.filtered.fa, letters=c('G', 'C'), as.prob=T))
+names(tmp.gc)<-names(pb.filtered.fa)
+tmp.qu.df$gc<-tmp.gc[tmp.qu.df$query]
+ggplot(tmp.qu.df, aes(x=gc, y=count))+geom_point(aes(size=width), alpha=.5)+scale_y_continuous(limits=c(0, 100))
+ggplot(tmp.qu.df, aes(x=gc, color=m))+geom_density()
+```
+
+### Alignment to corrected reads
+
+Only shown as comparison, results for scaffolding with uncorrected reads was better! Would be nice to figure out why.
+
+```{r loadCorrectedAbyssBam}
+tmp.sam<-scanBam('abyss-k64-corrected/ec_pacbio.fastq-8.bam', param=ScanBamParam(what=c('rname', 'qname', 'pos', 'qwidth')))[[1]]
+```
+
+```{r correctedAlignStats, dependson=c('loadCorrectedAbyssBam', 'alignStats')}
+tmp.pbc<-readDNAStringSet('ec_pacbio.fasta')
+tmp.pbc.width<-width(tmp.pbc)
+names(tmp.pbc.width)<-names(tmp.pbc)
+tmp.n<-data.frame(set='corrected', query=tmp.sam[['qname']], ref=tmp.sam[['rname']], qwidth=tmp.sam[['qwidth']], rwidth=all.width$scaffolds[tmp.sam[['rname']]], qtotal=tmp.pbc.width[tmp.sam[['qname']]])
+tmp.aln<-rbind(tmp.aln, tmp.n)
+tmp<-ddply(tmp.n, .(query), summarise, count=length(query), mean.reflength=mean(rwidth), mean.hitlength=mean(qwidth), width=mean(qtotal))
+tmp$set<-'corrected'
+tmp[is.na(tmp$mean.hitlength), ]$count<-0
+tmp$m<-ifelse(tmp$count==0, 'nomatch', 'match')
+tmp.gc<-rowSums(letterFrequency(tmp.pbc, letters=c('G', 'C'), as.prob=T))
+names(tmp.gc)<-names(tmp.pbc)
+tmp$gc<-tmp.gc[tmp$query]
+tmp.qu.df<-rbind(cbind(tmp.qu.df, set='filtered'), tmp)
+
+tmp<-ddply(tmp.n, .(ref), summarise, count=length(ref), mean.qwidth=mean(qwidth), mean.qtotal=mean(qtotal))
+tmp<-merge(data.frame(contig=names(all.width$scaffolds), width=all.width$scaffolds), tmp, by.x='contig', by.y='ref', all.x=T)
+tmp$set<-'corrected'
+tmp[is.na(tmp$count), ]$count<-0
+tmp$m<-ifelse(tmp$count==0, 'nomatch', 'match')
+tmp.gc<-rowSums(letterFrequency(all.fa$scaffolds, letters=c('G', 'C'), as.prob=T))
+names(tmp.gc)<-names(all.fa$scaffolds)
+tmp$gc<-tmp.gc[tmp$contig]
+tmp.ref.df<-rbind(cbind(tmp.ref.df, set='filtered'), tmp)
+```
+
+#### Scaffolds
+
+Overall `r sum(tmp.ref.df$set=='corrected' & tmp.ref.df$count>0)` of `r nlevels(tmp.ref.df$contig)` 
+(`r sum(tmp.ref.df$set=='corrected' & tmp.ref.df$count>0)/nlevels(tmp.ref.df$contig)*100` %) 
+scaffolds had a match to at least one pacbio read. 
+
+```{r correctedAlignStatsPlot, dependson=c('correctedAlignStats'), fig.cap='Histogram of hit counts per scaffold'}
+tmp.df<-do.call(rbind, by(tmp.ref.df, tmp.ref.df$set, function(t) { 
+	tmp.h<-hist(t$count, breaks=c(0, 2^(0:ceiling(log2(max(t$count))))), right=F, plot=F)
+	tmp<-data.frame(set=unique(t$set), nhits=tmp.h$breaks[-length(tmp.h$breaks)], cumsum=cumsum(tmp.h$counts), count=tmp.h$counts)
+	tmp$minhits<-factor(tmp$nhits, labels=paste0('=<', tmp$nhits), ordered=T)
+	tmp
+}))
+
+ggplot(tmp.df, aes(x=factor(nhits), y=count, fill=set))+geom_bar(stat='identity', position='dodge')
+ggplot(subset(tmp.df, nhits>0), aes(x=factor(nhits), y=count, fill=set))+geom_bar(stat='identity', position='dodge')
+```
+
+```{r correctedAlignHigh, dependson=c('correctedAlignStats')}
+tmp.ref.df[tmp.ref.df$count>1000, ]
+all.fa$scaffolds[tmp.ref.df[tmp.ref.df$count>1000, ]$contig]
+tmp.ref.df<-subset(tmp.ref.df, count<=1000)
+```
+
+```{r correctedAlignVsFiltered, dependson=c('correctedAlignHigh'), dpi=150, fig.cap='count of aligned pacbio reads per scaffold in corrected (y) and uncorrected (x) set'}
+ggplot(dcast(tmp.ref.df, contig ~ set, value.var='count'), aes(x=filtered, y=corrected))+geom_point(alpha=.5)
+```
+
+```{r correctedAlignSizeVsCount, dependson=c('correctedAlignHigh'), dpi=150, fig.cap='Scatterplot of scaffold width vs. number of hits for that scaffold, density of scaffold widths for scaffolds with and without aligned Pacbio reads'}
+ggplot(tmp.ref.df, aes(x=width, y=count, color=set))+geom_point()
+ggplot(tmp.ref.df, aes(x=width, color=m))+geom_density()+scale_x_log10()+facet_wrap(~set)
+```
+
+```{r correctedAlignGc, dependson=c('correctedAlignHigh'), dpi=150, fig.cap='GC content of a scaffold vs. number of hits, points sized by scaffold width. Density of GC contents for scaffolds with and without aligned Pacbio reads'}
+ggplot(tmp.ref.df, aes(x=gc, y=count, color=set))+geom_point(aes(size=width), alpha=.5)
+ggplot(tmp.ref.df, aes(x=gc, color=m))+geom_density()+facet_wrap(~set)
+```
+
+#### Pacbio reads
+
+`r sum(tmp.qu.df$set=='corrected' & tmp.qu.df$count>0)` of `r sum(tmp.qu.df$set=='corrected')` pacbio reads aligned at least one time (`r sum(tmp.qu.df$set=='corrected' & tmp.qu.df$count>0)/sum(tmp.qu.df$set=='corrected')*100` %).
+
+```{r correctedAlignPacbioStatsPlot, dependson=c('correctedAlignStats'), fig.cap='Histogram of hit counts per Pacbio read'}
+tmp.df<-do.call(rbind, by(tmp.qu.df, tmp.qu.df$set, function(t) { 
+	tmp.h<-hist(t$count, breaks=c(0, 2^(0:ceiling(log2(max(t$count))))), right=F, plot=F)
+	tmp<-data.frame(set=unique(t$set), nhits=tmp.h$breaks[-length(tmp.h$breaks)], cumsum=cumsum(tmp.h$counts), count=tmp.h$counts)
+	tmp$minhits<-factor(tmp$nhits, labels=paste0('=<', tmp$nhits), ordered=T)
+	tmp
+}))
+
+ggplot(tmp.df, aes(x=factor(nhits), y=count, fill=set))+geom_bar(stat='identity', position='dodge')
+ggplot(subset(tmp.df, nhits>0), aes(x=factor(nhits), y=count, fill=set))+geom_bar(stat='identity', position='dodge')
+```
+
+```{r correctedAlignPacbioSizeVsCount, dependson=c('correctedAlignHigh'), dpi=150, fig.cap='Scatterplot of scaffold width vs. number of hits for that scaffold, density of scaffold widths for scaffolds with and without aligned Pacbio reads'}
+ggplot(tmp.qu.df, aes(x=width, y=count, color=set))+geom_point()
+ggplot(tmp.qu.df, aes(x=width, color=m))+geom_density()+facet_wrap(~set)
+```
+
+```{r correctedAlignPacbioGc, dependson=c('correctedAlignHigh'), dpi=150, fig.cap='GC content of a scaffold vs. number of hits, points sized by scaffold width. Density of GC contents for scaffolds with and without aligned Pacbio reads'}
+ggplot(tmp.qu.df, aes(x=gc, y=count, color=set))+geom_point(aes(size=width), alpha=.5)
+ggplot(tmp.qu.df, aes(x=gc, color=m))+geom_density()+facet_wrap(~set)
+```
+
+### Mapping graph
+
+Construct a mapping graph with reads/contigs as vertices and valid alignments between them as edges (bipartite graph!). 
+
+```{r setupMappingGraph, results='asis', dependson=c('alignStats', 'correctedAlignStats')}
+g.f<-graph.edgelist(as.matrix(subset(tmp.aln, set=='filtered' & !is.na(tmp.aln$ref))[,c('ref', 'query')]))
+g.c<-graph.edgelist(as.matrix(subset(tmp.aln, set=='corrected' & !is.na(tmp.aln$ref))[,c('ref', 'query')]))
+kable(data.frame(nodes=c(length(V(g.f)), length(V(g.c))), edges=c(length(E(g.f)), length(E(g.c))), density=c(graph.density(g.f), graph.density(g.c)), 
+	mean.degree=c(mean(degree(g.f)), mean(degree(g.c))), row.names=c('filtered', 'corrected')))
+```
+
+Not a connected graph: Connected components should be contigs that might be scaffolded using the mapping pacbio reads (minus false positives and branches). There are `r clusters(g.f)$no` components in the filtered and only `r clusters(g.c)$no` components in the corrected pacbio mapping.
+
+The node degree distribution shows a small number of highly connected 'super nodes' (with more than 1000 connections):
+
+Filtered Pacbio:
+
+```{r superNodesFilteredTable, results='asis', dependson=c('setupMappingGraph')}
+tmp<-degree(g.f)[degree(g.f)>1000]
+kable(data.frame(name=names(tmp), degree=tmp))
+```
+
+```{r superNodesFiltered, dependson=c('setupMappingGraph')}
+tmp.fa<-c(pb.filtered.fa, all.fa$scaffolds)
+tmp.fa[V(g.f)[degree(g.f)>1000]$name]
+g.f<-g.f-V(g.f)[degree(g.f)>1000]
+rm(tmp.fa)
+```
+Corrected Pacbio:
+
+```{r superNodesCorrectedTable, results='asis', dependson=c('setupMappingGraph')}
+tmp<-degree(g.c)[degree(g.c)>1000]
+kable(data.frame(name=names(tmp), degree=tmp))
+```
+
+```{r superNodesCorrected, dependson=c('setupMappingGraph')}
+tmp.fa<-c(tmp.pbc, all.fa$scaffolds)
+tmp.fa[V(g.c)[degree(g.c)>1000]$name]
+g.c<-g.c-V(g.c)[degree(g.c)>1000]
+rm(tmp.fa)
+```
+
+Removing these nodes results in a far more fragmented graph for the corrected
+mapping: from 2 to `r clusters(g.c)$no`. `r sum(clusters(g.c)$membership %in% which(clusters(g.c)$csize==1))` pacbio reads become disconnected from the
+mapping graph if these nodes are removed. The GC distribution shows a clear
+separation: The disconnected pacbio reads seem to belong to the 34% GC cluster.
+
+```{r disconnectedGc, dependson=c('superNodesCorrected')}
+tmp.gc<-rowSums(letterFrequency(tmp.pbc, letters=c('G', 'C'), as.prob=T))
+names(tmp.gc)<-names(tmp.pbc)
+tmp.df<-data.frame(seq=names(tmp.gc), gc=tmp.gc, set=ifelse(names(tmp.gc) %in% V(g.c)[clusters(g.c)$membership %in% which(clusters(g.c)$csize==1)]$name, 'disconnected', 'connected'))
+ggplot(tmp.df, aes(x=gc, color=set))+geom_density()
+g.c<-g.c-V(g.c)[clusters(g.c)$membership %in% which(clusters(g.c)$csize<=2)]
+```
+
+#### XXX further analysis of graph clusters/modularity
+
+Further examination of the mapping graph: Which communities form, what type of
+sequence behind this etc. Modularity could also help dissecting the large giant
+hairball. Find explanations why corrected mapping produces worse results!
+
+## XXX SGA assembly
+
+> Simpson JT, Durbin R. Efficient de novo assembly of large genomes using compressed data structures. Genome Res. 2012;22(3):549–56. 
+
+Run SGA with `../scripts/sga.sh` (too long to print here)
+
+### SGA Illumina error correction
+
+```{r setupSGAcorrected}
+
+tmp.fqc<-lapply(c('440_A_CGTACG_L003', 'reads.ec.k75'), function(r) {
+	dir=paste0('fastqc/', r, '_fastqc/')
+	tmp.basic<-read.delim(paste0(dir, 'Basic_Statistics.tab'))
+	tmp.basic<-tmp.basic[,-3]
+	tmp.qualByCycle<-read.delim(paste0(dir, 'Per_base_sequence_quality.tab'))
+	tmp.qualByCycle$Cycle<-as.numeric(sub('-.*', '', tmp.qualByCycle$Base))
+	tmp.qualDist<-read.delim(paste0(dir, 'Per_sequence_quality_scores.tab'))
+	tmp.gcDist<-read.delim(paste0(dir, 'Per_sequence_GC_content.tab'))
+	tmp.baseDist<-read.delim(paste0(dir, 'Per_base_sequence_content.tab'))
+	tmp.basecount<-rowSums(tmp.baseDist[,c('A','C','G','T')])
+	names(tmp.basecount)<-tmp.baseDist$Base
+	tmp.baseDist<-melt(tmp.baseDist, id.vars=c('Base'))
+	tmp.baseDist$rel<-tmp.baseDist$value/tmp.basecount[tmp.baseDist$Base]
+	names(tmp.baseDist)<-c('Cycle', 'Base', 'Count', 'Rel')
+	tmp.baseDist$Cycle<-as.numeric(sub('-.*', '', tmp.baseDist$Cycle))
+	list(set=r, basic=tmp.basic, qualByCycle=tmp.qualByCycle, qualDist=tmp.qualDist, gcDist=tmp.gcDist, baseDist=tmp.baseDist)
+})
+### strange
+tmp.fqc[[2]]$qualByCycle$Cycle<-tmp.fqc[[1]]$qualByCycle$Cycle
+names(tmp.fqc)<-c('Illumina Read1', 'Error Corrected')
+```
+
+```{r sgaCorrectOverview, results='asis', dependson=c('setupSGAcorrected')}
+tmp.df<-do.call(rbind, lapply(tmp.fqc, function(f) { cbind(set=f[['set']], f[['basic']]) }))
+kable(tmp.df)
+```
+
+#### Quality By Cycle
+
+```{r sgaCorrectQualityByCycle, fig.cap='Quality By Cycle (black line is mean, shaded area shows lower and upper quartile)', dependson=c('setupSGAcorrected')}
+tmp.df<-do.call(rbind, lapply(tmp.fqc, function(f) { cbind(set=f[['set']], f[['qualByCycle']]) }))
+ggplot(tmp.df, aes(x=Cycle))+geom_line(aes(y=Mean))+geom_ribbon(aes(ymin=Lower.Quartile, ymax=Upper.Quartile), fill='#a6cee3', alpha=.5)+facet_wrap(~set)
+```
+
+#### Base By Cycle
+
+```{r sgaCorrectBaseByCycle, fig.cap='Base ratio per cycle', dependson=c('setupSGAcorrected')}
+tmp.df<-do.call(rbind, lapply(tmp.fqc, function(f) { cbind(set=f[['set']], f[['baseDist']]) }))
+ggplot(tmp.df, aes(x=Cycle, y=Rel, color=Base))+geom_line()+facet_wrap(~set, ncol=1)
+```
+
+#### Mean Quality per Read
+
+```{r sgaCorrectQualityByRead, fig.cap='Distribution of mean qualities per read', dependson=c('setupSGAcorrected')}
+tmp.df<-do.call(rbind, lapply(tmp.fqc, function(f) { cbind(set=f[['set']], f[['qualDist']]) }))
+ggplot(tmp.df, aes(x=Quality, y=Count))+geom_line(aes(color=set))
+```
+
+#### GC Content per Read
+
+```{r sgaCorrectGC, fig.cap='Distribution of GC Content per Read', dependson=c('setupSGAcorrected')}
+tmp.df<-do.call(rbind, lapply(tmp.fqc, function(f) { cbind(set=f[['set']], f[['gcDist']]) }))
+ggplot(tmp.df, aes(x=GC.Content, y=Count))+geom_line(aes(color=set))
+```
+
+### Assembly
+
+abyss-fac output: 
+
+`abyss-fac -d, assemble.m75-contigs.fa scaffolds.n5.fa ../abyss-k64/*-{contigs,scaffolds}.fa | sed -e s/sum/sum,set/ > sga_abyss_summary.csv`
+
+```{r sgaStats, results='asis'}
+tmp.abStat<-read.csv('sga/sga_abyss_summary.csv')
+kable(tmp.abStat)
+```
+
+```{r loadSGA, dependson=c('loadCerulean')}
+sga.outs<-c(sga.contigs='sga/assemble.m75-contigs.fa', sga.scaffolds='sga/scaffolds.n5.fa')
+tmp.fa<-lapply(sga.outs, function(f) {
+	readDNAStringSet(f)
+})
+names(tmp.fa)<-names(sga.outs)
+all.fa<-c(all.fa, tmp.fa)
+
+for(n in names(sga.outs)) {
+	all.width[[n]]<-width(all.fa[[n]])
+	names(all.width[[n]])<-names(all.fa[[n]])
+	all.len[[n]]<-sum(all.width[[n]])
+}
+```
+
+```{r sgaContigs, out.width=1000, fig.width=14, dependson=c('loadSGA', 'contigStats')}
+tmp.subset<-c('contigs', 'scaffolds', 'sga.contigs', 'sga.scaffolds')
+contigStats(all.width[tmp.subset])
+```
+
+```{r sgaContigCumsum, dependson=c('loadSGA')}
+tmp.df<-do.call(rbind, lapply(tmp.subset, function(set) { 
+	data.frame(set=set, contig=1:length(all.width[[set]]), cumsum=cumsum(all.width[[set]][order(all.width[[set]], decreasing=T)])) 
+}))
+ggplot(tmp.df, aes(x=contig, y=cumsum, color=set))+geom_line()+ggtitle('all contigs')
+tmp.df<-do.call(rbind, lapply(tmp.subset, function(set) { tmp.w<-all.width[[set]][all.width[[set]]>500]; data.frame(set=set, contig=1:length(tmp.w), cumsum=cumsum(tmp.w[order(tmp.w, decreasing=T)])) }))
+ggplot(tmp.df, aes(x=contig, y=cumsum, color=set))+geom_line()+ggtitle('only contigs > 500bp')
+```
+
+### Effect of different length cutoffs
+
+Number of remaining contigs after length filtering.
+
+```{r sgaContigStat, results='asis', dependson=c('loadSGA')}
+tmp.df<-do.call(rbind, lapply(tmp.subset, function(set) { 
+	tmp.h<-hist(all.width[[set]], plot=F, breaks=2^(floor(log2(min(all.width[[set]]))):ceiling(log2(max(all.width[[set]])))))
+	data.frame(set=set, size=tmp.h$breaks[-1], cumsum=length(all.width[[set]])-cumsum(tmp.h$counts)) 
+}))
+ggplot(tmp.df, aes(x=factor(size), y=cumsum, fill=set))+geom_bar(stat='identity', position='dodge')+scale_x_discrete('length cutoff')+scale_y_continuous('number of remaining contigs')
+```
+
+## XXX SOAPdenovo
+
+> Luo, R. et al. SOAPdenovo2: an empirically improved memory-efficient short-read de novo assembler. Gigascience 1, 18 (2012). 
+
+### Protocol
+
+Build config file:
+
+```{r sdConf, results='asis'}
+cat('```\n', paste('    ', readLines('soap-denovo-k81/config'), '\n'), '```\n')
+```
+
+and wrapper shell script for cluster submission:
+
+```{r sdScript, results='asis'}
+cat('```\n', paste('    ', readLines('../scripts/run_soap.sh'), '\n'), '```\n')
+```
+
+### Assembly
+
+abyss-fac output: 
+
+`abyss-fac -d, U_bromivora.contig.fasta U_bromivora.scaffolds.fasta ../abyss-k64/*-{contigs,scaffolds}.fa ../sga/assemble.m75-contigs.fa ../sga/scaffolds.n5.fa |  sed -e s/sum/sum,set/ > soap_abyss_sga_summary.csv`
+
+```{r soapStats, results='asis'}
+tmp.abStat<-read.csv('soap-denovo-k81/soap_abyss_sga_summary.csv')
+kable(tmp.abStat)
+```
+
+```{r loadSOAP, dependson=c('loadSGA')}
+soap.outs<-c(soap.contigs='soap-denovo-k81/U_bromivora.contig.fasta', soap.scaffolds='soap-denovo-k81/U_bromivora.scaffolds.fasta')
+tmp.fa<-lapply(soap.outs, function(f) {
+	readDNAStringSet(f)
+})
+names(tmp.fa)<-names(soap.outs)
+all.fa<-c(all.fa, tmp.fa)
+
+for(n in names(soap.outs)) {
+	all.width[[n]]<-width(all.fa[[n]])
+	names(all.width[[n]])<-names(all.fa[[n]])
+	all.len[[n]]<-sum(all.width[[n]])
+}
+```
+
+```{r soapContigs, out.width=1000, fig.width=14, dependson=c('loadSOAP', 'contigStats')}
+tmp.subset<-c('contigs', 'scaffolds', 'sga.contigs', 'sga.scaffolds', 'soap.contigs', 'soap.scaffolds')
+contigStats(all.width[tmp.subset])
+```
+
+```{r soapContigCumsum, dependson=c('loadSOAP')}
+tmp.df<-do.call(rbind, lapply(tmp.subset, function(set) { 
+	data.frame(set=set, contig=1:length(all.width[[set]]), cumsum=cumsum(all.width[[set]][order(all.width[[set]], decreasing=T)])) 
+}))
+ggplot(tmp.df, aes(x=contig, y=cumsum, color=set))+geom_line()+ggtitle('all contigs')
+tmp.df<-do.call(rbind, lapply(tmp.subset, function(set) { tmp.w<-all.width[[set]][all.width[[set]]>500]; data.frame(set=set, contig=1:length(tmp.w), cumsum=cumsum(tmp.w[order(tmp.w, decreasing=T)])) }))
+ggplot(tmp.df, aes(x=contig, y=cumsum, color=set))+geom_line()+ggtitle('only contigs > 500bp')
+```
+
+### Effect of different length cutoffs
+
+Number of remaining contigs after length filtering.
+
+```{r soapContigStat, results='asis', dependson=c('loadSOAP')}
+tmp.df<-do.call(rbind, lapply(tmp.subset, function(set) { 
+	tmp.h<-hist(all.width[[set]], plot=F, breaks=2^(floor(log2(min(all.width[[set]]))):ceiling(log2(max(all.width[[set]])))))
+	data.frame(set=set, size=tmp.h$breaks[-1], cumsum=length(all.width[[set]])-cumsum(tmp.h$counts)) 
+}))
+ggplot(tmp.df, aes(x=factor(size), y=cumsum, fill=set))+geom_bar(stat='identity', position='dodge')+scale_x_discrete('length cutoff')+scale_y_continuous('number of remaining contigs')
+```
+
+### GC content
+
+```{r soapContigsGC, dependson=c('loadSOAP')}
+tmp.gc<-do.call(rbind, lapply(tmp.subset, function(set) {
+	data.frame(set=set, gc=rowSums(letterFrequency(all.fa[[set]], letters=c('G', 'C'), as.prob=T)))
+}))
+ggplot(tmp.gc, aes(x=gc, color=set))+geom_density()
+tmp.gc<-do.call(rbind, lapply(tmp.subset, function(set) {
+	data.frame(set=set, gc=rowSums(letterFrequency(all.fa[[set]][width(all.fa[[set]])>500], letters=c('G', 'C'), as.prob=T)))
+}))
+ggplot(tmp.gc, aes(x=gc, color=set))+geom_density()+ggtitle('only contigs > 500bp')
+```
+
+## XXX Gap filling with PBJelly
+
+Recommended step after Cerulean scaffolding. Cerulean does not fill the gaps it
+was able to span with sequences from the Pacbio reads, so there are long(ish)
+stretches of Ns left. This happens already when scaffolding with PE
+information, so the whole assembly should benefit from this.
+
+> English AC, Richards S, Han Y, et al. Mind the gap: upgrading genomes with Pacific Biosciences RS long-read sequencing technology. PLoS One. 2012;7(11):e47768. Available at: http://www.pubmedcentral.nih.gov/articlerender.fcgi?artid=3504050&tool=pmcentrez&rendertype=abstract
+
+### scaffold gaps
+
+Contigs are stretches of continuous assembled reads (rather kmers). These are joined to scaffolds with
+
+ 1. paired end information (pairs of reads spanning two contigs)
+ 2. long reads (pacbio) that have anchors mapping to two contigs
+
+In the first case, nothing is known about the sequence between. In the second
+case, the sequence is unreliable (15% error rate!) and multiple mappings need
+to be resolved. This is **not** addressed by Abyss or Cerulean!
+
+```{r gapStats, dependson=c('loadSGA')}
+all.gaps<-do.call(rbind, lapply(c('scaffolds', 'sga.scaffolds', 'longscaff', 'cerulean'), function(set) {
+		cbind(set=set, length=width(all.fa[[set]]), do.call(rbind, lapply(gregexpr('NN*', all.fa[[set]]), function(m) { 
+		data.frame(gaps=ifelse(m[1]!=-1, length(attr(m, 'match.length')), 0), gapwidth=ifelse(m[1]!=-1, sum(attr(m, 'match.length')), 0)) })
+	))
+}))
+```
+
+```{r gapStatsTab, results='asis', dependson=c('gapStats')}
+tmp.df<-ddply(all.gaps, .(set), summarise, 
+	count=length(set),
+	gapped.contigs=sum(gaps>0),
+	overall=sum(gaps),
+	per.contig.mean=mean(gaps),
+	overall.width=sum(gapwidth),
+	width.mean=mean(gapwidth[gapwidth>0]),
+	gap.ratio.mean=mean(gapwidth[gapwidth>0]/length[gapwidth>0])
+)
+kable(tmp.df)
+```
+
+```{r gapStatsPlot, dependson=c('gapStats'), dpi=150}
+ggplot(all.gaps, aes(x=length, y=gapwidth/gaps))+geom_point(aes(size=gaps, color=set))
+```
+
+### PBJelly
+
+Wrapper script:
+
+```{r pbJellyWrapper, results='asis'}
+cat(paste('    ', readLines('../scripts/run_pbjelly.sh'), '\n'))
+```
+
+Gap filling for Cerulean scaffolds:
+
+ 1. Create Protocol.xml
+
+```{r pbJellyProtocol, results='asis'}
+cat('```\n', paste('    ', readLines('abyss-k64/pbjelly/Protocol.xml'), '\n'), '```\n')
+```
+
+ 2. Run Stages
+    See http://sourceforge.net/p/pb-jelly/wiki/Home/?#058c
+
+```
+	cd pbjelly/
+	sh /groups/csf-ngs/projects/20131203_Armin_PacbioEC/scripts/run_pbjelly.sh setup Protocol.xml
+	sh /groups/csf-ngs/projects/20131203_Armin_PacbioEC/scripts/run_pbjelly.sh mapping Protocol.xml
+	# problematic: need to change default parameters. this does not work as documented:
+	#sh /groups/csf-ngs/projects/20131203_Armin_PacbioEC/scripts/run_pbjelly.sh support Protocol.xml -x "--minMapqv 0 --debug"
+	# runs locally (need to module load python!)
+	Jelly.py support Protocol.xml -x "--minMapq 0 --debug"
+	sh /groups/csf-ngs/projects/20131203_Armin_PacbioEC/scripts/run_pbjelly.sh extraction Protocol.xml
+	# longest step, 4-6 hours
+	sh /groups/csf-ngs/projects/20131203_Armin_PacbioEC/scripts/run_pbjelly.sh assembly Protocol.xml
+	sh /groups/csf-ngs/projects/20131203_Armin_PacbioEC/scripts/run_pbjelly.sh output Protocol.xml
+```
+
+There were some problems: Frequent core dumps during assembly stage from blasr. gdb backtrace:
+
+```
+> gdb --core core `which blasr`
+[...]
+Core was generated by `blasr /clustertmp/csfs/gecko-solexa-tmp/uni_JaAUe4.fasta /clustertmp/csfs/gecko'.
+Program terminated with signal 6, Aborted.
+[New process 3629]
+#0  0x0000000000847f25 in raise ()
+(gdb) bt
+#0  0x0000000000847f25 in raise ()
+#1  0x000000000080cdb0 in abort ()
+#2  0x0000000000808544 in __assert_fail ()
+#3  0x00000000004475db in MapReadToGenome<SuffixArray<unsigned char, std::vector<int, std::allocator<int> >, DefaultCompareStrings<unsigned char>, DNATuple>, FASTASequence, SMRTSequence, ChainedMatchPos> ()
+#4  0x0000000000486480 in MapRead<SMRTSequence, FASTASequence, SuffixArray<unsigned char, std::vector<int, std::allocator<int> >, DefaultCompareStrings<unsigned char>, DNATuple>, TupleCountTable<FASTASequence, DNATuple> > ()
+#5  0x0000000000413d36 in MapReads ()
+#6  0x000000000041e46b in main ()
+```
+
+Output maybe incomplete! It seems some sequence chunks cause problems. 
+
+Also in assembly stage:
+
+```
+2014-01-07 16:08:07,111 [WARNING] read m131128_163657_42164_c100589642550000001823099704281491_s1_p0/87351/0_2417 gave too many alignments
+Traceback (most recent call last):
+  File "/groups/csf-ngs/bin/assembly/Jelly_13.10.22/bin/Assembly.py", line 802, in <module>
+    run()
+  File "/groups/csf-ngs/bin/assembly/Jelly_13.10.22/bin/Assembly.py", line 781, in run
+    args.predictedGapSize, args.maxTrim, args.maxWiggle, basedir=args.tempDir)
+  File "/groups/csf-ngs/bin/assembly/Jelly_13.10.22/bin/Assembly.py", line 319, in getSubSeqs
+    if a != SUPPORTFLAGS.none and b != SUPPORTFLAGS.none:
+UnboundLocalError: local variable 'b' referenced before assignment
+```
+
+after some (but not all) too many alignments warnings.
+
+Result file: `jelly.out.fasta`.
+
+### Contig stats after PBJelly
+
+abyss-fac output: 
+
+`abyss-fac -d, abyss-k64/pacbio_abyss_k64_cerulean.fasta abyss-k64/pbjelly/jelly.out.fasta sga/scaffolds.n5.fasta sga/pbjelly/jelly.out.fasta  soap-denovo-k81/U_bromivora.scaffolds.fasta soap-denovo-k81/pbjelly/jelly.out.fasta |  sed -e s/sum/sum,set/ > pbj_summary.csv`
+
+```{r pbjStats, results='asis'}
+
+tmp.pbjStat<-read.csv('pbj_summary.csv')
+kable(tmp.pbjStat)
+```
+
+```{r loadPBJelly, dependson=c('loadSOAP')}
+pbj.outs<-c(pbj.cerulean='abyss-k64/pbjelly/jelly.out.fasta', pbj.sga='sga/pbjelly/jelly.out.fasta', pbj.soap='soap-denovo-k81/pbjelly/jelly.out.fasta')
+tmp.fa<-lapply(pbj.outs, function(f) {
+        readDNAStringSet(f)
+})
+names(tmp.fa)<-names(pbj.outs)
+all.fa<-c(all.fa, tmp.fa)
+
+for(n in names(pbj.outs)) {
+        all.width[[n]]<-width(all.fa[[n]])
+        names(all.width[[n]])<-names(all.fa[[n]])
+        all.len[[n]]<-sum(all.width[[n]])
+}
+```
+	
+```{r pbjContigs, out.width=1000, fig.width=14, dependson=c('loadPBJelly', 'contigStats')}
+tmp.subset<-c('scaffolds', 'cerulean', 'pbj.cerulean', 'sga.scaffolds', 'pbj.sga', 'soap.scaffolds', 'pbj.soap')
+contigStats(all.width[tmp.subset])
+```
+
+```{r pbjContigCumsum, dependson=c('loadPBJelly')}
+tmp.df<-do.call(rbind, lapply(tmp.subset, function(set) { 
+	data.frame(set=set, contig=1:length(all.width[[set]]), cumsum=cumsum(all.width[[set]][order(all.width[[set]], decreasing=T)])) 
+}))
+ggplot(tmp.df, aes(x=contig, y=cumsum, color=set))+geom_line()+ggtitle('all contigs')
+tmp.df<-do.call(rbind, lapply(tmp.subset, function(set) { tmp.w<-all.width[[set]][all.width[[set]]>500]; data.frame(set=set, contig=1:length(tmp.w), cumsum=cumsum(tmp.w[order(tmp.w, decreasing=T)])) }))
+ggplot(tmp.df, aes(x=contig, y=cumsum, color=set))+geom_line()+ggtitle('only contigs > 500bp')
+```
+#### Length cutoffs
+
+```{r pbjContigStat, results='asis', dependson=c('loadPBJelly')}
+tmp.df<-do.call(rbind, lapply(tmp.subset, function(set) { 
+	tmp.h<-hist(all.width[[set]], plot=F, breaks=2^(floor(log2(min(all.width[[set]]))):ceiling(log2(max(all.width[[set]])))))
+	data.frame(set=set, size=tmp.h$breaks[-1], cumsum=length(all.width[[set]])-cumsum(tmp.h$counts)) 
+}))
+ggplot(tmp.df, aes(x=factor(size), y=cumsum, fill=set))+geom_bar(stat='identity', position='dodge')+scale_x_discrete('length cutoff')+scale_y_continuous('number of remaining contigs')
+```
+
+```{r allContigStat, results='asis', dependson=c('loadPBJelly'), fig.width=12}
+tmp.df<-do.call(rbind,lapply(names(all.width), function(set) { data.frame(set=set, length=all.width[[set]][all.width[[set]]>2000]) }))
+library(gridExtra)
+grid.arrange(ggplot(tmp.df, aes(x=set, y=length))+geom_boxplot()+theme(axis.text.x=element_text(angle=90, vjust=0.5)), ggplot(tmp.df, aes(x=set))+geom_histogram()+theme(axis.text.x=element_text(angle=90, vjust=0.5)), ncol=2)
+```
+
+### Gap stats after PBJelly
+
+Regarding every NN* as a gap.
+
+```{r postPbjGapStats, dependson=c('loadPBJelly')}
+all.gaps<-do.call(rbind, lapply(tmp.subset, function(set) {
+		cbind(set=set, length=width(all.fa[[set]]), do.call(rbind, lapply(gregexpr('NN*', all.fa[[set]]), function(m) { 
+		data.frame(gaps=ifelse(m[1]!=-1, length(attr(m, 'match.length')), 0), gapwidth=ifelse(m[1]!=-1, sum(attr(m, 'match.length')), 0)) })
+	))
+}))
+```
+
+```{r postPbjGapStatsTab, results='asis', dependson=c('postPbjGapStats')}
+tmp.df<-ddply(all.gaps, .(set), summarise, 
+	count=length(set),
+	gapped.contigs=sum(gaps>0),
+	overall=sum(gaps),
+	per.contig.mean=mean(gaps),
+	overall.width=sum(gapwidth),
+	width.mean=mean(gapwidth[gapwidth>0]),
+	gap.ratio.mean=mean(gapwidth[gapwidth>0]/length[gapwidth>0])
+)
+kable(tmp.df)
+```
+
+```{r postPbjGapStatsPlot, dependson=c('postPbjGapStats'), dpi=300, fig.width=14}
+ggplot(subset(all.gaps, length>1000), aes(x=length, y=gaps, size=gapwidth/length))+geom_point(aes(color=set)) + scale_x_log10()
+```
+
+## BWA Alignment of Pacbio Reads to Assembly Scaffolds
+
+```{r setupBwa, include=F}
+pileups=c(abyss='abyss-k64/pacbio_abyss_k64-scaffolds.sorted.bam.pileup.tab', sga='sga/scaffolds.n5.sorted.bam.pileup.tab', soap='soap-denovo-k81/U_bromivora.scaffolds.sorted.bam.pileup.tab')
+bwa.pileups<-do.call(rbind, lapply(names(pileups), function(n) {
+	cbind(set=n, read.delim(pileups[n]))
+}))
+aligns=c(abyss='abyss-k64/pacbio_abyss_k64-scaffolds.sorted.bam.align.tab', sga='sga/scaffolds.n5.bam.align.tab', soap='soap-denovo-k81/U_bromivora.scaffolds.bam.align.tab');
+bwa.alns<-do.call(rbind, lapply(names(aligns), function(n) {
+	cbind(set=n, read.delim(aligns[n]))
+}))
+```
+
+```{r bwaMappingRatio, dependson=c('setupBwa'), fig.width=10, out.width=700}
+grid.arrange(ggplot(bwa.pileups, aes(x=set, fill=coverage>0))+geom_bar() +scale_fill_manual(values=c('#BF6430', '#2A4480'))+ggtitle('all contigs'), ggplot(subset(bwa.pileups, len>1000), aes(x=set, fill=coverage>0))+geom_bar()+scale_fill_manual(values=c('#BF6430', '#2A4480'))+ggtitle('contigs > 1000bp'), ncol=2)
+```
+
+Some contigs have high mapping depth (>200) for sga and soap-denovo, random blasts for these contigs shows rRNA genes.
+
+```{r bwaDepth, dependson=c('setupBwa'), fig.width=10, out.width=700}
+ggplot(subset(bwa.pileups, len>500), aes(x=len, y=pmin(depth, 50)))+geom_density2d(color='#000000')+facet_wrap(~set, ncol=3)
+```
+
+```{r bwaAlnDetails, dependson=c('setupBwa'), fig.width=12, fig.height=7, out.width=700}
+tmp.pblens<-width(pb.filtered.fa)
+names(tmp.pblens)<-names(pb.filtered.fa)
+bwa.alns$ref<-ifelse(bwa.alns$ref=='', NA, bwa.alns$ref)
+bwa.alns$pb.readlen<-tmp.pblens[bwa.alns$ref]
+tmp.df<-melt(bwa.alns, id.vars=c('set', 'ref', 'qu'))
+
+ggplot(tmp.df, aes(x=set, y=pmax(value, .1)))+geom_boxplot(size=1.2, outlier.size=.5)+scale_y_log10('')+facet_wrap(~variable, scales='free_y', ncol=4)
+```
+
+## CEGMA - Presence of core genes
+
+```{r setupCegma, include=F}
+cegma<-read.table('cegma.tab', header=T)
+```
+
+```{r cegmaPlot, dependson=c('setupCegma'), fig.width=10, out.width=700}
+grid.arrange(ggplot(tst, aes(x=set, y=completeness))+geom_bar(stat='identity')+facet_wrap(~group), ggplot(tst, aes(x=set, y=ortho))+geom_bar(stat='identity')+scale_y_continuous('% Orthologs')+facet_wrap(~group), ncol=2)
+```
+
+## XXX Celera assembly of corrected pacbio reads + illumina?
+
+**XXX not done**
+
+## ALLPATHS-LG
+
+not done! requires short + long Illumina data (with ~ 180bp insert + 3kb insert).
+
+## Further reading
+
+> Earl D, Bradnam K, St John J, et al. Assemblathon 1: a competitive assessment of de novo short read assembly methods. Genome Res. 2011;21(12):2224–41. Available at: http://www.pubmedcentral.nih.gov/articlerender.fcgi?artid=3227110&tool=pmcentrez&rendertype=abstract [Accessed December 13, 2013].
+>
+> El-Metwally S, Hamza T, Zakaria M, Helmy M. Next-Generation Sequence Assembly: Four Stages of Data Processing and Computational Challenges Markel S, ed. PLoS Comput. Biol. 2013;9(12):e1003345. Available at: http://dx.plos.org/10.1371/journal.pcbi.1003345 [Accessed December 12, 2013].
+>
+> Salzberg SL, Phillippy AM, Zimin A, et al. GAGE: A critical evaluation of genome assemblies and assembly algorithms. Genome Res. 2012;22(3):557–67. Available at: http://www.pubmedcentral.nih.gov/articlerender.fcgi?artid=3290791&tool=pmcentrez&rendertype=abstract [Accessed December 13, 2013].

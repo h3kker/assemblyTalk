@@ -1,0 +1,1570 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+   xmlns:ns1="pype://v0.1/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+>
+  <rdf:Description rdf:about="file://Anonymous/data/filtered_subreads.chunk005of006.fastq">
+    <ns1:prereq rdf:resource="task://Anonymous/P_Filter/subreads_005of006"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>20/12/2013 17:00:39</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/shortreads.chunk014of016.afg">
+    <ns1:exists>True</ns1:exists>
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/makeAfg_014of016"/>
+    <ns1:modified>20/12/2013 17:59:34</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_PreAssembler/consensus_007of016">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>4:44:53</ns1:compute>
+    <ns1:md5>1d047154eb981c3079054bdff78d1c2d</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/layout.chunk007of016.ids"/>
+    <ns1:prereq rdf:resource="file://Anonymous/corrected.bnk#InitialBank"/>
+    <ns1:elapsed>4:45:00.239477</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/consensus.chunk015of016.ctg">
+    <ns1:exists>True</ns1:exists>
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/consensus_015of016"/>
+    <ns1:modified>21/12/2013 21:19:17</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_Fetch/toFofn">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>0:00:03</ns1:compute>
+    <ns1:md5>d7eed4cd45beecdc5425dbcbc824576e</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous//groups/csf-ngs/projects/20131203_Armin_PacbioEC/data/preassembly/input.xml"/>
+    <ns1:elapsed>0:00:06.703675</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/consensus.chunk001of016.ctg">
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/consensus_001of016"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>22/12/2013 02:06:37</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/data/filtered_subreads.fasta">
+    <ns1:prereq rdf:resource="task://Anonymous/P_Filter/subreads.subreads.Gather"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>20/12/2013 17:01:04</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/layout.chunk007of016.ids">
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/consensus.layoutIds.Scatter"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>21/12/2013 14:51:16</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_Fetch/getChemistry">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>0:00:11</ns1:compute>
+    <ns1:md5>ce359dd7cb4f8f7792ee47d89f20a446</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/input.fofn"/>
+    <ns1:elapsed>0:00:18.938199</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/data/filtered_subreads.chunk002of006.fastq">
+    <ns1:exists>True</ns1:exists>
+    <ns1:prereq rdf:resource="task://Anonymous/P_Filter/subreads_002of006"/>
+    <ns1:modified>20/12/2013 17:00:21</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/data/ccs_reads.chunk001of006.fastq">
+    <ns1:exists>True</ns1:exists>
+    <ns1:prereq rdf:resource="task://Anonymous/P_Filter/ccsSubreads_001of006"/>
+    <ns1:modified>20/12/2013 16:59:02</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/data/ccs_reads.chunk006of006.fasta">
+    <ns1:exists>True</ns1:exists>
+    <ns1:prereq rdf:resource="task://Anonymous/P_Filter/ccsSubreads_006of006"/>
+    <ns1:modified>20/12/2013 16:59:30</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/fastq.chunk009of016.fofn">
+    <ns1:exists>True</ns1:exists>
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/makeAfg.fofn.Scatter"/>
+    <ns1:modified>20/12/2013 17:37:29</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/shortreads.chunk001of016.afg">
+    <ns1:exists>True</ns1:exists>
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/makeAfg_001of016"/>
+    <ns1:modified>20/12/2013 18:02:59</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/shortreads.chunk003of016.afg">
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/makeAfg_003of016"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>20/12/2013 17:52:04</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/input.chunk005of006.fofn">
+    <ns1:md5>a4dc419ce6868c39afd77e1158e8a970</ns1:md5>
+    <ns1:prereq rdf:resource="task://Anonymous/P_Filter/subreads.plsFofn.Scatter"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>18/12/2013 21:11:58</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/layout.chunk016of016.ids">
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/consensus.layoutIds.Scatter"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>21/12/2013 14:51:16</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/fastq.chunk004of006.fofn">
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/align.fofn.Scatter"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>20/12/2013 17:37:28</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/layout.chunk009of016.ids">
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/consensus.layoutIds.Scatter"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>21/12/2013 14:51:16</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/fastq.chunk004of016.fofn">
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/makeAfg.fofn.Scatter"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>20/12/2013 17:37:29</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/layout.chunk008of016.ids">
+    <ns1:exists>True</ns1:exists>
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/consensus.layoutIds.Scatter"/>
+    <ns1:modified>21/12/2013 14:51:16</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/data/ccs_reads.chunk005of006.fastq">
+    <ns1:exists>True</ns1:exists>
+    <ns1:prereq rdf:resource="task://Anonymous/P_Filter/ccsSubreads_005of006"/>
+    <ns1:modified>20/12/2013 16:59:31</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_Filter/subreads.subreads.Gather">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>0:00:04</ns1:compute>
+    <ns1:md5>bd27d78988a94cbea2b262444dee6df7</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/data/filtered_subreads.chunk005of006.fasta"/>
+    <ns1:prereq rdf:resource="file://Anonymous/data/filtered_subreads.chunk006of006.fasta"/>
+    <ns1:prereq rdf:resource="file://Anonymous/data/filtered_subreads.chunk002of006.fasta"/>
+    <ns1:prereq rdf:resource="file://Anonymous/data/filtered_subreads.chunk001of006.fasta"/>
+    <ns1:prereq rdf:resource="file://Anonymous/data/filtered_subreads.chunk004of006.fasta"/>
+    <ns1:prereq rdf:resource="file://Anonymous/data/filtered_subreads.chunk003of006.fasta"/>
+    <ns1:elapsed>0:00:19.079469</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_PreAssembler/align_003of006">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>23:58:16.350141</ns1:compute>
+    <ns1:md5>49213977c1ab853d056eab81d2873a9e</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/fastq.chunk003of006.fofn"/>
+    <ns1:prereq rdf:resource="file://Anonymous/filtered_longreads.fasta"/>
+    <ns1:prereq rdf:resource="file://Anonymous/data/filtered_regions.chunk003of006.fofn"/>
+    <ns1:elapsed>12:32:56.917899</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/data/ccs_reads.chunk005of006.fasta">
+    <ns1:exists>True</ns1:exists>
+    <ns1:prereq rdf:resource="task://Anonymous/P_Filter/ccsSubreads_005of006"/>
+    <ns1:modified>20/12/2013 16:59:31</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/shortreads.chunk002of016.afg">
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/makeAfg_002of016"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>20/12/2013 17:46:59</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/layout.chunk012of016.ids">
+    <ns1:exists>True</ns1:exists>
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/consensus.layoutIds.Scatter"/>
+    <ns1:modified>21/12/2013 14:51:16</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_PreAssembler/consensus_010of016">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>6:18:14</ns1:compute>
+    <ns1:md5>50980bec48319519ae6e23fa815c659d</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/layout.chunk010of016.ids"/>
+    <ns1:prereq rdf:resource="file://Anonymous/corrected.bnk#InitialBank"/>
+    <ns1:elapsed>6:18:27.866559</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/results/overview.xml">
+    <ns1:prereq rdf:resource="task://Anonymous/P_Fetch/overviewRpt"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>20/12/2013 16:57:09</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/layout.ids">
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/layout"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>21/12/2013 14:51:08</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/fastq.chunk001of016.fofn">
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/makeAfg.fofn.Scatter"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>20/12/2013 17:37:29</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/layout.chunk004of016.ids">
+    <ns1:exists>True</ns1:exists>
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/consensus.layoutIds.Scatter"/>
+    <ns1:modified>21/12/2013 14:51:16</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/data/filtered_subreads.chunk003of006.fastq">
+    <ns1:exists>True</ns1:exists>
+    <ns1:prereq rdf:resource="task://Anonymous/P_Filter/subreads_003of006"/>
+    <ns1:modified>20/12/2013 17:00:40</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_PreAssembler/makeAfg_006of016">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>0:02:37</ns1:compute>
+    <ns1:md5>125d2261af917760b7eaca57a9cb689e</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/fastq.chunk006of016.fofn"/>
+    <ns1:prereq rdf:resource="file://Anonymous/data/filtered_regions.chunk006of016.fofn"/>
+    <ns1:elapsed>0:02:50.275837</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_PreAssembler/align_006of006">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>22:07:17.443763</ns1:compute>
+    <ns1:md5>40708fa4b69f8daf5dcab7b4c238987b</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/fastq.chunk006of006.fofn"/>
+    <ns1:prereq rdf:resource="file://Anonymous/filtered_longreads.fasta"/>
+    <ns1:prereq rdf:resource="file://Anonymous/data/filtered_regions.chunk006of006.fofn"/>
+    <ns1:elapsed>13:47:28.005898</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/fastq.chunk012of016.fofn">
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/makeAfg.fofn.Scatter"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>20/12/2013 17:37:29</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_Filter/subreads.plsFofn.Scatter">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>0:00:02</ns1:compute>
+    <ns1:md5>6b9ca6315362270c736bbddc49f6561f</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/input.fofn"/>
+    <ns1:elapsed>0:00:03.326136</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/fastq.chunk014of016.fofn">
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/makeAfg.fofn.Scatter"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>20/12/2013 17:37:29</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/data/filtered_summary.chunk001of006.csv">
+    <ns1:prereq rdf:resource="task://Anonymous/P_Filter/filter_001of006"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>20/12/2013 16:58:36</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/data/ccs_reads.chunk006of006.fastq">
+    <ns1:exists>True</ns1:exists>
+    <ns1:prereq rdf:resource="task://Anonymous/P_Filter/ccsSubreads_006of006"/>
+    <ns1:modified>20/12/2013 16:59:30</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/data/ccs_reads.chunk003of006.fastq">
+    <ns1:exists>True</ns1:exists>
+    <ns1:prereq rdf:resource="task://Anonymous/P_Filter/ccsSubreads_003of006"/>
+    <ns1:modified>20/12/2013 17:00:02</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/data/filtered_regions.chunk010of016.fofn">
+    <ns1:md5>d41d8cd98f00b204e9800998ecf8427e</ns1:md5>
+    <ns1:exists>True</ns1:exists>
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/makeAfg.rgnFofn.Scatter"/>
+    <ns1:modified>18/12/2013 21:15:46</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_PreAssembler/makeAfg_011of016">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>0:02:54</ns1:compute>
+    <ns1:md5>ff458603b9fb42c60c65993ae20a6687</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/fastq.chunk011of016.fofn"/>
+    <ns1:prereq rdf:resource="file://Anonymous/data/filtered_regions.chunk011of016.fofn"/>
+    <ns1:elapsed>0:03:05.444004</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/consensus.chunk010of016.ctg">
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/consensus_010of016"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>21/12/2013 21:09:46</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/data/filtered_regions.chunk011of016.fofn">
+    <ns1:md5>d41d8cd98f00b204e9800998ecf8427e</ns1:md5>
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/makeAfg.rgnFofn.Scatter"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>18/12/2013 21:15:46</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_Filter/ccsSubreads_002of006">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>0:00:16</ns1:compute>
+    <ns1:md5>b8c01526f03b5f31d72a3305112edcac</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/input.chunk002of006.fofn"/>
+    <ns1:prereq rdf:resource="file://Anonymous/data/filtered_regions.chunk002of006.fofn"/>
+    <ns1:elapsed>0:00:31.625043</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_PreAssembler/outputFiles">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>0:02:55</ns1:compute>
+    <ns1:md5>f3cae1b331b42454fa32c8f8733488c0</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/corrected.bnk#WithConsensus"/>
+    <ns1:elapsed>0:03:03.093356</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/data/ccs_reads.chunk001of006.fasta">
+    <ns1:prereq rdf:resource="task://Anonymous/P_Filter/ccsSubreads_001of006"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>20/12/2013 16:59:02</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/align.chunk004of006.b4">
+    <ns1:exists>True</ns1:exists>
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/align_004of006"/>
+    <ns1:modified>21/12/2013 07:18:04</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/data/filtered_subread_summary.csv">
+    <ns1:prereq rdf:resource="task://Anonymous/P_Filter/subreadSummary"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>20/12/2013 17:02:42</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_Filter/subreads_002of006">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>0:01:06</ns1:compute>
+    <ns1:md5>1e862c6bd9b392c9d3888eae6ef627fe</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/input.chunk002of006.fofn"/>
+    <ns1:prereq rdf:resource="file://Anonymous/data/filtered_regions.chunk002of006.fofn"/>
+    <ns1:elapsed>0:01:26.855152</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/results/filterReports_filterSubreadStats.xml">
+    <ns1:exists>True</ns1:exists>
+    <ns1:prereq rdf:resource="task://Anonymous/P_FilterReports/subreadRpt"/>
+    <ns1:modified>20/12/2013 17:03:44</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/data/ccs_reads.chunk003of006.fasta">
+    <ns1:exists>True</ns1:exists>
+    <ns1:prereq rdf:resource="task://Anonymous/P_Filter/ccsSubreads_003of006"/>
+    <ns1:modified>20/12/2013 17:00:02</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_PreAssembler/makeAfg_009of016">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>0:02:30</ns1:compute>
+    <ns1:md5>9bcfeee6e72865dbe278e34721eabd8e</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/fastq.chunk009of016.fofn"/>
+    <ns1:prereq rdf:resource="file://Anonymous/data/filtered_regions.chunk009of016.fofn"/>
+    <ns1:elapsed>0:02:42.860148</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/data/ccs_reads.chunk004of006.fastq">
+    <ns1:exists>True</ns1:exists>
+    <ns1:prereq rdf:resource="task://Anonymous/P_Filter/ccsSubreads_004of006"/>
+    <ns1:modified>20/12/2013 16:58:25</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_Filter/ccsSubreads_001of006">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>0:00:15</ns1:compute>
+    <ns1:md5>ec710fd6c1852a587af2b7ec95b20cb4</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/input.chunk001of006.fofn"/>
+    <ns1:prereq rdf:resource="file://Anonymous/data/filtered_regions.chunk001of006.fofn"/>
+    <ns1:elapsed>0:00:22.430200</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/data/corrected.fasta">
+    <ns1:exists>True</ns1:exists>
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/outputFiles"/>
+    <ns1:modified>22/12/2013 03:17:26</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/align.b4">
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/align.blasrOut.Gather"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>21/12/2013 07:41:57</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/data/filtered_regions.chunk003of016.fofn">
+    <ns1:md5>95184d91dd521cfc3fe97e8917e6ac43</ns1:md5>
+    <ns1:exists>True</ns1:exists>
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/makeAfg.rgnFofn.Scatter"/>
+    <ns1:modified>18/12/2013 21:15:46</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/data/ccs_reads.chunk002of006.fastq">
+    <ns1:prereq rdf:resource="task://Anonymous/P_Filter/ccsSubreads_002of006"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>20/12/2013 16:59:16</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_PreAssembler/makeAfg_014of016">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>0:02:50</ns1:compute>
+    <ns1:md5>1fac204239d7ba1f869b617bf5ee721c</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/data/filtered_regions.chunk014of016.fofn"/>
+    <ns1:prereq rdf:resource="file://Anonymous/fastq.chunk014of016.fofn"/>
+    <ns1:elapsed>0:03:24.748585</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_Filter/subreads.subreadFastq.Gather">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>0:00:12</ns1:compute>
+    <ns1:md5>bcdfc7ba2894b5f894b9085ecdb53d63</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/data/filtered_subreads.chunk005of006.fastq"/>
+    <ns1:prereq rdf:resource="file://Anonymous/data/filtered_subreads.chunk003of006.fastq"/>
+    <ns1:prereq rdf:resource="file://Anonymous/data/filtered_subreads.chunk002of006.fastq"/>
+    <ns1:prereq rdf:resource="file://Anonymous/data/filtered_subreads.chunk006of006.fastq"/>
+    <ns1:prereq rdf:resource="file://Anonymous/data/filtered_subreads.chunk004of006.fastq"/>
+    <ns1:prereq rdf:resource="file://Anonymous/data/filtered_subreads.chunk001of006.fastq"/>
+    <ns1:elapsed>0:00:26.029858</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/shortreads.chunk015of016.afg">
+    <ns1:exists>True</ns1:exists>
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/makeAfg_015of016"/>
+    <ns1:modified>20/12/2013 17:40:57</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/data/filtered_summary.chunk002of006.csv">
+    <ns1:prereq rdf:resource="task://Anonymous/P_Filter/filter_002of006"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>20/12/2013 16:58:42</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_PreAssembler/consensus_001of016">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>4:54:51</ns1:compute>
+    <ns1:md5>d22f141492317c634393c6826c86f7ba</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/layout.chunk001of016.ids"/>
+    <ns1:prereq rdf:resource="file://Anonymous/corrected.bnk#InitialBank"/>
+    <ns1:elapsed>4:55:08.272231</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/data/filtered_summary.chunk003of006.csv">
+    <ns1:exists>True</ns1:exists>
+    <ns1:prereq rdf:resource="task://Anonymous/P_Filter/filter_003of006"/>
+    <ns1:modified>20/12/2013 16:59:29</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/consensus.chunk016of016.ctg">
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/consensus_016of016"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>22/12/2013 00:58:55</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/fastq.chunk005of006.fofn">
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/align.fofn.Scatter"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>20/12/2013 17:37:28</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_PreAssembler/align.fofn.Scatter">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>0:00:00</ns1:compute>
+    <ns1:md5>d42336caeacd841371a01cb785a61fe4</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/fastq.fofn"/>
+    <ns1:elapsed>0:00:00.663562</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_PreAssembler/align_002of006">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>23:23:01.272785</ns1:compute>
+    <ns1:md5>e182c8728e200487ed36cf53c4d59d90</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/filtered_longreads.fasta"/>
+    <ns1:prereq rdf:resource="file://Anonymous/fastq.chunk002of006.fofn"/>
+    <ns1:prereq rdf:resource="file://Anonymous/data/filtered_regions.chunk002of006.fofn"/>
+    <ns1:elapsed>13:44:16.891949</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_PreAssembler/makeAfg.rgnFofn.Scatter">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>0:00:01</ns1:compute>
+    <ns1:md5>0b923be124ad7c39651ca37558774e8c</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/data/filtered_regions.fofn"/>
+    <ns1:elapsed>0:00:00.831052</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/fastq.chunk010of016.fofn">
+    <ns1:exists>True</ns1:exists>
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/makeAfg.fofn.Scatter"/>
+    <ns1:modified>20/12/2013 17:37:29</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/data/filtered_regions.chunk008of016.fofn">
+    <ns1:md5>d41d8cd98f00b204e9800998ecf8427e</ns1:md5>
+    <ns1:exists>True</ns1:exists>
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/makeAfg.rgnFofn.Scatter"/>
+    <ns1:modified>18/12/2013 21:15:46</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/align.chunk001of006.b4">
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/align_001of006"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>21/12/2013 06:32:12</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/fastq.chunk006of016.fofn">
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/makeAfg.fofn.Scatter"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>20/12/2013 17:37:29</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/data/filtered_regions.chunk004of006.fofn">
+    <ns1:md5>011447fc38a2bb858fe542af05fd7b45</ns1:md5>
+    <ns1:prereq rdf:resource="task://Anonymous/P_Filter/filter_004of006"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>20/12/2013 16:58:04</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/fastq.chunk001of006.fofn">
+    <ns1:exists>True</ns1:exists>
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/align.fofn.Scatter"/>
+    <ns1:modified>20/12/2013 17:37:28</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/fastq.chunk015of016.fofn">
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/makeAfg.fofn.Scatter"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>20/12/2013 17:37:29</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_PreAssembler/filterLongReadsByLength">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>0:00:07</ns1:compute>
+    <ns1:md5>c1eac74cccd34cc2f42a8542de660ee6</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/data/filtered_subreads.fasta"/>
+    <ns1:elapsed>0:00:15.426019</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/data/filtered_regions.chunk004of016.fofn">
+    <ns1:md5>011447fc38a2bb858fe542af05fd7b45</ns1:md5>
+    <ns1:exists>True</ns1:exists>
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/makeAfg.rgnFofn.Scatter"/>
+    <ns1:modified>18/12/2013 21:15:46</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/shortreads.chunk005of016.afg">
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/makeAfg_005of016"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>20/12/2013 17:49:41</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/shortreads.chunk008of016.afg">
+    <ns1:exists>True</ns1:exists>
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/makeAfg_008of016"/>
+    <ns1:modified>20/12/2013 17:55:19</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/layout.chunk013of016.ids">
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/consensus.layoutIds.Scatter"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>21/12/2013 14:51:16</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/data/filtered_regions.chunk003of006.fofn">
+    <ns1:md5>95184d91dd521cfc3fe97e8917e6ac43</ns1:md5>
+    <ns1:exists>True</ns1:exists>
+    <ns1:prereq rdf:resource="task://Anonymous/P_Filter/filter_003of006"/>
+    <ns1:modified>20/12/2013 16:59:29</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_PreAssembler/consensus_004of016">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>4:44:16</ns1:compute>
+    <ns1:md5>83dc94ea8c0ac1cf550674160b61a185</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/layout.chunk004of016.ids"/>
+    <ns1:prereq rdf:resource="file://Anonymous/corrected.bnk#InitialBank"/>
+    <ns1:elapsed>4:44:27.929917</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_PreAssembler/consensus_003of016">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>13:26:30.373566</ns1:compute>
+    <ns1:md5>123eee5f39309295114cc7a311627d60</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/layout.chunk003of016.ids"/>
+    <ns1:prereq rdf:resource="file://Anonymous/corrected.bnk#InitialBank"/>
+    <ns1:elapsed>6:20:08.977005</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/data/filtered_summary.chunk005of006.csv">
+    <ns1:prereq rdf:resource="task://Anonymous/P_Filter/filter_005of006"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>20/12/2013 16:59:03</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/data/filtered_regions.chunk012of016.fofn">
+    <ns1:md5>d41d8cd98f00b204e9800998ecf8427e</ns1:md5>
+    <ns1:exists>True</ns1:exists>
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/makeAfg.rgnFofn.Scatter"/>
+    <ns1:modified>18/12/2013 21:15:46</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/consensus.chunk011of016.ctg">
+    <ns1:exists>True</ns1:exists>
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/consensus_011of016"/>
+    <ns1:modified>21/12/2013 21:07:18</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/data/corrected.fastq">
+    <ns1:exists>True</ns1:exists>
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/outputFiles"/>
+    <ns1:modified>22/12/2013 03:17:26</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_Filter/subreads_001of006">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>0:01:06</ns1:compute>
+    <ns1:md5>5135ab63981728115b042ef7d57ba777</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/input.chunk001of006.fofn"/>
+    <ns1:prereq rdf:resource="file://Anonymous/data/filtered_regions.chunk001of006.fofn"/>
+    <ns1:elapsed>0:01:12.652437</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/data/filtered_regions.chunk009of016.fofn">
+    <ns1:md5>d41d8cd98f00b204e9800998ecf8427e</ns1:md5>
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/makeAfg.rgnFofn.Scatter"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>18/12/2013 21:15:46</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/align.chunk002of006.b4">
+    <ns1:exists>True</ns1:exists>
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/align_002of006"/>
+    <ns1:modified>21/12/2013 07:21:50</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/fastq.chunk007of016.fofn">
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/makeAfg.fofn.Scatter"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>20/12/2013 17:37:29</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/input.fofn">
+    <ns1:md5>68be3a0ce548ede1a62c2e7becaf0802</ns1:md5>
+    <ns1:prereq rdf:resource="task://Anonymous/P_Fetch/toFofn"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>20/12/2013 16:55:55</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/fastq.chunk005of016.fofn">
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/makeAfg.fofn.Scatter"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>20/12/2013 17:37:29</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/data/filtered_regions.chunk006of006.fofn">
+    <ns1:md5>6b41b24c06cbcd601b81471b332b8bff</ns1:md5>
+    <ns1:prereq rdf:resource="task://Anonymous/P_Filter/filter_006of006"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>20/12/2013 16:58:52</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_Filter/ccsSubreads_003of006">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>0:00:17</ns1:compute>
+    <ns1:md5>c69f40c474fa53d21a3049e974e10dad</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/data/filtered_regions.chunk003of006.fofn"/>
+    <ns1:prereq rdf:resource="file://Anonymous/input.chunk003of006.fofn"/>
+    <ns1:elapsed>0:00:24.230765</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/consensus.chunk013of016.ctg">
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/consensus_013of016"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>21/12/2013 21:03:45</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/data/filtered_regions.chunk001of016.fofn">
+    <ns1:md5>d41d8cd98f00b204e9800998ecf8427e</ns1:md5>
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/makeAfg.rgnFofn.Scatter"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>18/12/2013 21:15:46</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_PreAssembler/layout">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>7:08:51</ns1:compute>
+    <ns1:md5>f7964d7208cfa8e031eabf9e8ccef1a9</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/align.b4"/>
+    <ns1:prereq rdf:resource="file://Anonymous/corrected.bnk#InitialBank"/>
+    <ns1:elapsed>7:09:04.618439</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/fastq.chunk002of016.fofn">
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/makeAfg.fofn.Scatter"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>20/12/2013 17:37:29</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/data/filtered_regions">
+    <ns1:exists>True</ns1:exists>
+    <ns1:prereq rdf:resource="task://Anonymous/P_Filter/filter_005of006"/>
+    <ns1:prereq rdf:resource="task://Anonymous/P_Filter/filter_004of006"/>
+    <ns1:prereq rdf:resource="task://Anonymous/P_Filter/filter_006of006"/>
+    <ns1:prereq rdf:resource="task://Anonymous/P_Filter/filter_001of006"/>
+    <ns1:prereq rdf:resource="task://Anonymous/P_Filter/filter_003of006"/>
+    <ns1:prereq rdf:resource="task://Anonymous/P_Filter/filter_002of006"/>
+    <ns1:modified>20/12/2013 16:59:29</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/data/ccs_reads.chunk002of006.fasta">
+    <ns1:prereq rdf:resource="task://Anonymous/P_Filter/ccsSubreads_002of006"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>20/12/2013 16:59:16</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/shortreads.chunk004of016.afg">
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/makeAfg_004of016"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>20/12/2013 17:44:08</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/data/filtered_regions.chunk002of006.fofn">
+    <ns1:md5>2c40cd58206ecdedc7894ac7c88c77bb</ns1:md5>
+    <ns1:prereq rdf:resource="task://Anonymous/P_Filter/filter_002of006"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>20/12/2013 16:58:42</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_PreAssembler/align_004of006">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>23:25:14.172915</ns1:compute>
+    <ns1:md5>62ddfca09a38d9bc81387b2ae41d77f2</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/filtered_longreads.fasta"/>
+    <ns1:prereq rdf:resource="file://Anonymous/data/filtered_regions.chunk004of006.fofn"/>
+    <ns1:prereq rdf:resource="file://Anonymous/fastq.chunk004of006.fofn"/>
+    <ns1:elapsed>13:40:31.355065</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_PreAssembler/consensus_014of016">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>7:14:01.422334</ns1:compute>
+    <ns1:md5>a140fbb244e13d11bf6ac3d15c7df5cd</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/layout.chunk014of016.ids"/>
+    <ns1:prereq rdf:resource="file://Anonymous/corrected.bnk#InitialBank"/>
+    <ns1:elapsed>5:07:50.477995</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_PreAssembler/makeAfg_015of016">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>1 day, 10:40:16.220445</ns1:compute>
+    <ns1:md5>5b64854b7dc226981962d11c25c37756</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/fastq.chunk015of016.fofn"/>
+    <ns1:prereq rdf:resource="file://Anonymous/data/filtered_regions.chunk015of016.fofn"/>
+    <ns1:elapsed>0:03:23.566111</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/data/filtered_regions.chunk005of016.fofn">
+    <ns1:md5>73695dc12c40314867e30f49f1aa40a4</ns1:md5>
+    <ns1:exists>True</ns1:exists>
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/makeAfg.rgnFofn.Scatter"/>
+    <ns1:modified>18/12/2013 21:15:46</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_Filter/ccsSubreads_004of006">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>0:00:10</ns1:compute>
+    <ns1:md5>71ed42a113fbcf203e1401dfe732225c</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/data/filtered_regions.chunk004of006.fofn"/>
+    <ns1:prereq rdf:resource="file://Anonymous/input.chunk004of006.fofn"/>
+    <ns1:elapsed>0:00:18.910877</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_PreAssembler/consensus_005of016">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>6:16:21</ns1:compute>
+    <ns1:md5>ade9ee99bee6c5ed90a6ec016a85976b</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/layout.chunk005of016.ids"/>
+    <ns1:prereq rdf:resource="file://Anonymous/corrected.bnk#InitialBank"/>
+    <ns1:elapsed>6:16:34.116181</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/fastq.chunk016of016.fofn">
+    <ns1:exists>True</ns1:exists>
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/makeAfg.fofn.Scatter"/>
+    <ns1:modified>20/12/2013 17:37:29</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_PreAssembler/consensus_009of016">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>6:09:00</ns1:compute>
+    <ns1:md5>b9e7acf3669ca4aceb9030a45d33cb8d</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/layout.chunk009of016.ids"/>
+    <ns1:prereq rdf:resource="file://Anonymous/corrected.bnk#InitialBank"/>
+    <ns1:elapsed>6:09:13.023603</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/results/preAssemblerReport.xml">
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/preAssemblerReport"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>22/12/2013 03:17:57</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/data/ccs_reads.fastq">
+    <ns1:exists>True</ns1:exists>
+    <ns1:prereq rdf:resource="task://Anonymous/P_Filter/ccsSubreads.CCSsubreadFastq.Gather"/>
+    <ns1:modified>20/12/2013 17:00:17</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/consensus.chunk007of016.ctg">
+    <ns1:exists>True</ns1:exists>
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/consensus_007of016"/>
+    <ns1:modified>22/12/2013 01:52:54</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_Filter/ccsSubreads.CCSsubreads.Gather">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>0:00:01</ns1:compute>
+    <ns1:md5>e2cadd61f1cacbe3bf1b325cddd9450c</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/data/ccs_reads.chunk002of006.fasta"/>
+    <ns1:prereq rdf:resource="file://Anonymous/data/ccs_reads.chunk001of006.fasta"/>
+    <ns1:prereq rdf:resource="file://Anonymous/data/ccs_reads.chunk005of006.fasta"/>
+    <ns1:prereq rdf:resource="file://Anonymous/data/ccs_reads.chunk004of006.fasta"/>
+    <ns1:prereq rdf:resource="file://Anonymous/data/ccs_reads.chunk003of006.fasta"/>
+    <ns1:prereq rdf:resource="file://Anonymous/data/ccs_reads.chunk006of006.fasta"/>
+    <ns1:elapsed>0:00:11.346149</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/data/filtered_subreads.chunk004of006.fastq">
+    <ns1:prereq rdf:resource="task://Anonymous/P_Filter/subreads_004of006"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>20/12/2013 16:59:04</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/fastq.chunk003of016.fofn">
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/makeAfg.fofn.Scatter"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>20/12/2013 17:37:29</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_PreAssembler/align_005of006">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>2:27:19</ns1:compute>
+    <ns1:md5>0c15902bd30f57f4eb36b12702674b9c</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/filtered_longreads.fasta"/>
+    <ns1:prereq rdf:resource="file://Anonymous/fastq.chunk005of006.fofn"/>
+    <ns1:prereq rdf:resource="file://Anonymous/data/filtered_regions.chunk005of006.fofn"/>
+    <ns1:elapsed>13:51:01.241810</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/consensus.chunk014of016.ctg">
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/consensus_014of016"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>22/12/2013 02:11:40</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_PreAssembler/makeAfg_001of016">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>1 day, 10:18:16.186943</ns1:compute>
+    <ns1:md5>05b0f9f3b194d733744b5ee3408b2f41</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/fastq.chunk001of016.fofn"/>
+    <ns1:prereq rdf:resource="file://Anonymous/data/filtered_regions.chunk001of016.fofn"/>
+    <ns1:elapsed>0:03:21.268934</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_Filter/filter.summary.Gather">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>0:00:02</ns1:compute>
+    <ns1:md5>f89dce46ca18fce81342053e6a82afc2</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/data/filtered_summary.chunk002of006.csv"/>
+    <ns1:prereq rdf:resource="file://Anonymous/data/filtered_summary.chunk004of006.csv"/>
+    <ns1:prereq rdf:resource="file://Anonymous/data/filtered_summary.chunk001of006.csv"/>
+    <ns1:prereq rdf:resource="file://Anonymous/data/filtered_summary.chunk003of006.csv"/>
+    <ns1:prereq rdf:resource="file://Anonymous/data/filtered_summary.chunk005of006.csv"/>
+    <ns1:prereq rdf:resource="file://Anonymous/data/filtered_summary.chunk006of006.csv"/>
+    <ns1:elapsed>0:00:17.424100</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_PreAssembler/consensus_008of016">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>6:13:53</ns1:compute>
+    <ns1:md5>9a8d9f2a30956cc7475931673d553502</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/layout.chunk008of016.ids"/>
+    <ns1:prereq rdf:resource="file://Anonymous/corrected.bnk#InitialBank"/>
+    <ns1:elapsed>6:14:06.828841</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/data/filtered_regions.chunk001of006.fofn">
+    <ns1:md5>3b811d9fda39ce0a436c637cd3766337</ns1:md5>
+    <ns1:prereq rdf:resource="task://Anonymous/P_Filter/filter_001of006"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>20/12/2013 16:58:36</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/shortreads.chunk016of016.afg">
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/makeAfg_016of016"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>20/12/2013 17:56:08</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/consensus.chunk004of016.ctg">
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/consensus_004of016"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>22/12/2013 01:51:47</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/data/filtered_regions.chunk007of016.fofn">
+    <ns1:md5>3b811d9fda39ce0a436c637cd3766337</ns1:md5>
+    <ns1:exists>True</ns1:exists>
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/makeAfg.rgnFofn.Scatter"/>
+    <ns1:modified>18/12/2013 21:15:46</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/input.chunk006of006.fofn">
+    <ns1:md5>bfd2032f5c82396c07fefb3faafbabce</ns1:md5>
+    <ns1:prereq rdf:resource="task://Anonymous/P_Filter/subreads.plsFofn.Scatter"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>18/12/2013 21:11:58</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_FilterReports/loadingRpt">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>0:00:20</ns1:compute>
+    <ns1:md5>1b1ad6e031f972cab51d7e9feaaa71af</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/data/filtered_summary.csv"/>
+    <ns1:elapsed>0:00:27.453777</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/align.chunk005of006.b4">
+    <ns1:exists>True</ns1:exists>
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/align_005of006"/>
+    <ns1:modified>21/12/2013 07:28:34</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_Filter/filter_001of006">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>1 day, 11:21:02.339793</ns1:compute>
+    <ns1:md5>8c75316924a1f1fd1f0ee9afb1ae091a</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/input.chunk001of006.fofn"/>
+    <ns1:elapsed>0:02:08.945791</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/data/filtered_subreads.chunk004of006.fasta">
+    <ns1:prereq rdf:resource="task://Anonymous/P_Filter/subreads_004of006"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>20/12/2013 16:59:04</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/data/idmap.csv">
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/layout"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>21/12/2013 14:51:08</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_Filter/filter_003of006">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>0:02:13</ns1:compute>
+    <ns1:md5>127ae4a753edced667483a119bb8e2db</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/input.chunk003of006.fofn"/>
+    <ns1:elapsed>0:02:17.716630</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_PreAssembler/consensus_013of016">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>6:12:14</ns1:compute>
+    <ns1:md5>81efb80a8ac4788e596c190065448958</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/layout.chunk013of016.ids"/>
+    <ns1:prereq rdf:resource="file://Anonymous/corrected.bnk#InitialBank"/>
+    <ns1:elapsed>6:12:27.615008</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/data/filtered_subreads.chunk001of006.fastq">
+    <ns1:exists>True</ns1:exists>
+    <ns1:prereq rdf:resource="task://Anonymous/P_Filter/subreads_001of006"/>
+    <ns1:modified>20/12/2013 16:59:52</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_PreAssembler/makeAfg_008of016">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>0:03:03</ns1:compute>
+    <ns1:md5>62129f88c2fda633f064a0d1e15c7aa5</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/fastq.chunk008of016.fofn"/>
+    <ns1:prereq rdf:resource="file://Anonymous/data/filtered_regions.chunk008of016.fofn"/>
+    <ns1:elapsed>0:03:13.081766</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/input.chunk001of006.fofn">
+    <ns1:md5>40d7de1bfbf8de801aa186afdaefdb69</ns1:md5>
+    <ns1:prereq rdf:resource="task://Anonymous/P_Filter/subreads.plsFofn.Scatter"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>18/12/2013 21:11:58</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous//groups/csf-ngs/projects/20131203_Armin_PacbioEC/data/preassembly/input.xml">
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>17/12/2013 13:49:20</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/layout.chunk011of016.ids">
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/consensus.layoutIds.Scatter"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>21/12/2013 14:51:16</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_PreAssembler/consensus_011of016">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>6:15:45</ns1:compute>
+    <ns1:md5>1390330a7e73c8956d5c435dc6161f6b</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/layout.chunk011of016.ids"/>
+    <ns1:prereq rdf:resource="file://Anonymous/corrected.bnk#InitialBank"/>
+    <ns1:elapsed>6:16:00.113828</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_PreAssembler/makeAfg_010of016">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>0:02:33</ns1:compute>
+    <ns1:md5>f8cb16ea797821c92d98a4e17d6a78c7</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/data/filtered_regions.chunk010of016.fofn"/>
+    <ns1:prereq rdf:resource="file://Anonymous/fastq.chunk010of016.fofn"/>
+    <ns1:elapsed>0:02:34.674262</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/data/filtered_regions.chunk005of006.fofn">
+    <ns1:md5>73695dc12c40314867e30f49f1aa40a4</ns1:md5>
+    <ns1:prereq rdf:resource="task://Anonymous/P_Filter/filter_005of006"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>20/12/2013 16:59:03</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/data/chemistry_mapping.xml">
+    <ns1:exists>True</ns1:exists>
+    <ns1:prereq rdf:resource="task://Anonymous/P_Fetch/getChemistry"/>
+    <ns1:modified>20/12/2013 16:56:41</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/consensus.chunk009of016.ctg">
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/consensus_009of016"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>21/12/2013 21:00:31</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/layout.chunk003of016.ids">
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/consensus.layoutIds.Scatter"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>21/12/2013 14:51:16</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_Filter/subreads_006of006">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>1 day, 11:18:32.252777</ns1:compute>
+    <ns1:md5>62b8735b8da6a699faa39cadbecd3195</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/input.chunk006of006.fofn"/>
+    <ns1:prereq rdf:resource="file://Anonymous/data/filtered_regions.chunk006of006.fofn"/>
+    <ns1:elapsed>0:01:11.677966</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/data/filtered_regions.chunk002of016.fofn">
+    <ns1:md5>2c40cd58206ecdedc7894ac7c88c77bb</ns1:md5>
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/makeAfg.rgnFofn.Scatter"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>18/12/2013 21:15:46</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_Filter/ccsSubreads.CCSsubreadFastq.Gather">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>0:00:01</ns1:compute>
+    <ns1:md5>65c32d724035484ff4d607b8781e5995</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/data/ccs_reads.chunk002of006.fastq"/>
+    <ns1:prereq rdf:resource="file://Anonymous/data/ccs_reads.chunk005of006.fastq"/>
+    <ns1:prereq rdf:resource="file://Anonymous/data/ccs_reads.chunk006of006.fastq"/>
+    <ns1:prereq rdf:resource="file://Anonymous/data/ccs_reads.chunk001of006.fastq"/>
+    <ns1:prereq rdf:resource="file://Anonymous/data/ccs_reads.chunk004of006.fastq"/>
+    <ns1:prereq rdf:resource="file://Anonymous/data/ccs_reads.chunk003of006.fastq"/>
+    <ns1:elapsed>0:00:13.232676</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_Filter/subreads_005of006">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>0:01:22</ns1:compute>
+    <ns1:md5>de921e62fc2d9e24c36b4d01f54baa97</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/data/filtered_regions.chunk005of006.fofn"/>
+    <ns1:prereq rdf:resource="file://Anonymous/input.chunk005of006.fofn"/>
+    <ns1:elapsed>0:01:34.691382</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_PreAssembler/makeAfg_012of016">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>0:02:30</ns1:compute>
+    <ns1:md5>baa6f39f7afe3b4dea07ed61135cca09</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/data/filtered_regions.chunk012of016.fofn"/>
+    <ns1:prereq rdf:resource="file://Anonymous/fastq.chunk012of016.fofn"/>
+    <ns1:elapsed>0:02:40.837481</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_PreAssembler/makeAfg_002of016">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>0:02:44</ns1:compute>
+    <ns1:md5>177033d4aaed1fb754b13700d8a11870</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/fastq.chunk002of016.fofn"/>
+    <ns1:prereq rdf:resource="file://Anonymous/data/filtered_regions.chunk002of016.fofn"/>
+    <ns1:elapsed>0:02:46.961657</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/shortreads.chunk010of016.afg">
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/makeAfg_010of016"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>20/12/2013 17:43:32</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_PreAssembler/consensus.layoutIds.Scatter">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>0:00:03</ns1:compute>
+    <ns1:md5>38e1a6748bece22d95f70be9ffb02eb0</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/layout.ids"/>
+    <ns1:elapsed>0:00:02.890542</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_PreAssembler/consensus_002of016">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>4:02:08</ns1:compute>
+    <ns1:md5>a352038ab0eac89e251519516ce8d955</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/layout.chunk002of016.ids"/>
+    <ns1:prereq rdf:resource="file://Anonymous/corrected.bnk#InitialBank"/>
+    <ns1:elapsed>4:02:18.392625</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/data/ccs_reads.fasta">
+    <ns1:exists>True</ns1:exists>
+    <ns1:prereq rdf:resource="task://Anonymous/P_Filter/ccsSubreads.CCSsubreads.Gather"/>
+    <ns1:modified>20/12/2013 17:00:31</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/data/filtered_regions.chunk014of016.fofn">
+    <ns1:md5>d41d8cd98f00b204e9800998ecf8427e</ns1:md5>
+    <ns1:exists>True</ns1:exists>
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/makeAfg.rgnFofn.Scatter"/>
+    <ns1:modified>18/12/2013 21:15:46</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/data/filtered_subreads.chunk006of006.fasta">
+    <ns1:exists>True</ns1:exists>
+    <ns1:prereq rdf:resource="task://Anonymous/P_Filter/subreads_006of006"/>
+    <ns1:modified>20/12/2013 17:00:31</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/shortreads.afg">
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/makeAfg.afgOut.Gather"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>20/12/2013 18:47:13</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/data/filtered_regions.fofn">
+    <ns1:md5>bf1685099a5ab52e782f4494ef96c6c2</ns1:md5>
+    <ns1:exists>True</ns1:exists>
+    <ns1:prereq rdf:resource="task://Anonymous/P_Filter/filter.rgnFofn.Gather"/>
+    <ns1:modified>20/12/2013 17:00:27</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_Fetch/overviewRpt">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>0:00:24</ns1:compute>
+    <ns1:md5>4942195a00250cc0d9ff79fa9292a927</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/input.fofn"/>
+    <ns1:elapsed>0:00:46.958525</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_PreAssembler/makeAfg.afgOut.Gather">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>1 day, 10:14:47.227075</ns1:compute>
+    <ns1:md5>1902437be0fe9cb5e9cabf5e17204680</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/shortreads.chunk010of016.afg"/>
+    <ns1:prereq rdf:resource="file://Anonymous/shortreads.chunk009of016.afg"/>
+    <ns1:prereq rdf:resource="file://Anonymous/shortreads.chunk014of016.afg"/>
+    <ns1:prereq rdf:resource="file://Anonymous/shortreads.chunk016of016.afg"/>
+    <ns1:prereq rdf:resource="file://Anonymous/shortreads.chunk015of016.afg"/>
+    <ns1:prereq rdf:resource="file://Anonymous/shortreads.chunk005of016.afg"/>
+    <ns1:prereq rdf:resource="file://Anonymous/shortreads.chunk011of016.afg"/>
+    <ns1:prereq rdf:resource="file://Anonymous/shortreads.chunk008of016.afg"/>
+    <ns1:prereq rdf:resource="file://Anonymous/shortreads.chunk013of016.afg"/>
+    <ns1:prereq rdf:resource="file://Anonymous/shortreads.chunk001of016.afg"/>
+    <ns1:prereq rdf:resource="file://Anonymous/shortreads.chunk002of016.afg"/>
+    <ns1:prereq rdf:resource="file://Anonymous/shortreads.chunk003of016.afg"/>
+    <ns1:prereq rdf:resource="file://Anonymous/shortreads.chunk007of016.afg"/>
+    <ns1:prereq rdf:resource="file://Anonymous/shortreads.chunk004of016.afg"/>
+    <ns1:prereq rdf:resource="file://Anonymous/shortreads.chunk006of016.afg"/>
+    <ns1:prereq rdf:resource="file://Anonymous/shortreads.chunk012of016.afg"/>
+    <ns1:elapsed>0:44:10.501608</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_PreAssembler/consensus_015of016">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>6:27:45</ns1:compute>
+    <ns1:md5>05a4858ba77027d6b601c9ffaa455174</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/layout.chunk015of016.ids"/>
+    <ns1:prereq rdf:resource="file://Anonymous/corrected.bnk#InitialBank"/>
+    <ns1:elapsed>6:27:59.014922</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/data/filtered_summary.chunk004of006.csv">
+    <ns1:exists>True</ns1:exists>
+    <ns1:prereq rdf:resource="task://Anonymous/P_Filter/filter_004of006"/>
+    <ns1:modified>20/12/2013 16:58:04</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/fastq.chunk002of006.fofn">
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/align.fofn.Scatter"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>20/12/2013 17:37:28</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_PreAssembler/loadConsensus">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>0:38:34</ns1:compute>
+    <ns1:md5>86bb18cf4caeda917f76fbb2e246c5dc</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/consensus.ctg"/>
+    <ns1:elapsed>0:38:39.824036</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/data/ccs_reads.chunk004of006.fasta">
+    <ns1:exists>True</ns1:exists>
+    <ns1:prereq rdf:resource="task://Anonymous/P_Filter/ccsSubreads_004of006"/>
+    <ns1:modified>20/12/2013 16:58:25</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/data/filtered_subreads.chunk003of006.fasta">
+    <ns1:exists>True</ns1:exists>
+    <ns1:prereq rdf:resource="task://Anonymous/P_Filter/subreads_003of006"/>
+    <ns1:modified>20/12/2013 17:00:40</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_PreAssembler/consensus_016of016">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>6:58:31.318352</ns1:compute>
+    <ns1:md5>a26a9b32643f3d4c59053f5fd5e3d571</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/layout.chunk016of016.ids"/>
+    <ns1:prereq rdf:resource="file://Anonymous/corrected.bnk#InitialBank"/>
+    <ns1:elapsed>3:39:32.709056</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/layout.chunk005of016.ids">
+    <ns1:exists>True</ns1:exists>
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/consensus.layoutIds.Scatter"/>
+    <ns1:modified>21/12/2013 14:51:16</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/data/filtered_summary.chunk006of006.csv">
+    <ns1:exists>True</ns1:exists>
+    <ns1:prereq rdf:resource="task://Anonymous/P_Filter/filter_006of006"/>
+    <ns1:modified>20/12/2013 16:58:52</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_Filter/filter_005of006">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>1 day, 11:20:46.315043</ns1:compute>
+    <ns1:md5>d48ab6528bb1bcb59122e3d6c67248d8</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/input.chunk005of006.fofn"/>
+    <ns1:elapsed>0:02:35.598439</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/data/filtered_regions.chunk016of016.fofn">
+    <ns1:md5>d41d8cd98f00b204e9800998ecf8427e</ns1:md5>
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/makeAfg.rgnFofn.Scatter"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>18/12/2013 21:15:46</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/consensus.chunk006of016.ctg">
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/consensus_006of016"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>22/12/2013 02:04:48</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/layout.chunk015of016.ids">
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/consensus.layoutIds.Scatter"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>21/12/2013 14:51:16</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_Filter/filter.rgnFofn.Gather">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>0:00:02</ns1:compute>
+    <ns1:md5>131a22db07f90287a7e616eac626d03f</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/input.fofn"/>
+    <ns1:prereq rdf:resource="file://Anonymous/data/filtered_regions.chunk001of006.fofn"/>
+    <ns1:prereq rdf:resource="file://Anonymous/data/filtered_regions.chunk005of006.fofn"/>
+    <ns1:prereq rdf:resource="file://Anonymous/data/filtered_regions.chunk002of006.fofn"/>
+    <ns1:prereq rdf:resource="file://Anonymous/data/filtered_regions.chunk003of006.fofn"/>
+    <ns1:prereq rdf:resource="file://Anonymous/data/filtered_regions.chunk004of006.fofn"/>
+    <ns1:prereq rdf:resource="file://Anonymous/data/filtered_regions.chunk006of006.fofn"/>
+    <ns1:elapsed>0:00:01.415014</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_Filter/subreadSummary">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>0:01:58</ns1:compute>
+    <ns1:md5>bcbda1f6a3d196d2b27f8757f95f520b</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/data/filtered_regions.fofn"/>
+    <ns1:elapsed>0:02:12.066324</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/data/filtered_subreads.chunk005of006.fasta">
+    <ns1:prereq rdf:resource="task://Anonymous/P_Filter/subreads_005of006"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>20/12/2013 17:00:39</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/data/filtered_regions.chunk015of016.fofn">
+    <ns1:md5>d41d8cd98f00b204e9800998ecf8427e</ns1:md5>
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/makeAfg.rgnFofn.Scatter"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>18/12/2013 21:15:46</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/data/filtered_subreads.chunk006of006.fastq">
+    <ns1:prereq rdf:resource="task://Anonymous/P_Filter/subreads_006of006"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>20/12/2013 17:00:31</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_PreAssembler/consensus.consensusOut.Gather">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>2:06:15.383709</ns1:compute>
+    <ns1:md5>0589316c5fe252cd1a7e6d597f55b144</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/consensus.chunk012of016.ctg"/>
+    <ns1:prereq rdf:resource="file://Anonymous/consensus.chunk008of016.ctg"/>
+    <ns1:prereq rdf:resource="file://Anonymous/consensus.chunk005of016.ctg"/>
+    <ns1:prereq rdf:resource="file://Anonymous/consensus.chunk010of016.ctg"/>
+    <ns1:prereq rdf:resource="file://Anonymous/consensus.chunk006of016.ctg"/>
+    <ns1:prereq rdf:resource="file://Anonymous/consensus.chunk009of016.ctg"/>
+    <ns1:prereq rdf:resource="file://Anonymous/consensus.chunk004of016.ctg"/>
+    <ns1:prereq rdf:resource="file://Anonymous/consensus.chunk001of016.ctg"/>
+    <ns1:prereq rdf:resource="file://Anonymous/consensus.chunk015of016.ctg"/>
+    <ns1:prereq rdf:resource="file://Anonymous/consensus.chunk016of016.ctg"/>
+    <ns1:prereq rdf:resource="file://Anonymous/consensus.chunk002of016.ctg"/>
+    <ns1:prereq rdf:resource="file://Anonymous/consensus.chunk013of016.ctg"/>
+    <ns1:prereq rdf:resource="file://Anonymous/consensus.chunk011of016.ctg"/>
+    <ns1:prereq rdf:resource="file://Anonymous/consensus.chunk003of016.ctg"/>
+    <ns1:prereq rdf:resource="file://Anonymous/consensus.chunk007of016.ctg"/>
+    <ns1:prereq rdf:resource="file://Anonymous/consensus.chunk014of016.ctg"/>
+    <ns1:elapsed>0:23:59.346180</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/align.chunk003of006.b4">
+    <ns1:exists>True</ns1:exists>
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/align_003of006"/>
+    <ns1:modified>21/12/2013 06:10:30</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_PreAssembler/makeBank">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>0:52:42</ns1:compute>
+    <ns1:md5>c1038abd635ff03345cb4610eac53a19</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/shortreads.afg"/>
+    <ns1:elapsed>0:52:44.260854</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/results/filterReports_loading.xml">
+    <ns1:exists>True</ns1:exists>
+    <ns1:prereq rdf:resource="task://Anonymous/P_FilterReports/loadingRpt"/>
+    <ns1:modified>20/12/2013 17:00:21</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_Filter/ccsSubreads_006of006">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>0:00:16</ns1:compute>
+    <ns1:md5>c5e9369688ba3e51bddf18386743d976</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/input.chunk006of006.fofn"/>
+    <ns1:prereq rdf:resource="file://Anonymous/data/filtered_regions.chunk006of006.fofn"/>
+    <ns1:elapsed>0:00:25.633330</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_FilterReports/adapterRpt">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>0:01:12</ns1:compute>
+    <ns1:md5>2fff8d4ec8b5e44b35f1c3312c7a8b60</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/input.fofn"/>
+    <ns1:elapsed>0:01:36.201559</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/consensus.ctg">
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/consensus.consensusOut.Gather"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>22/12/2013 02:35:40</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/layout.chunk002of016.ids">
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/consensus.layoutIds.Scatter"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>21/12/2013 14:51:16</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_Filter/filter_002of006">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>1 day, 11:21:16.324611</ns1:compute>
+    <ns1:md5>e53b69f5a67444340504a7c4449cd652</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/input.chunk002of006.fofn"/>
+    <ns1:elapsed>0:02:14.908929</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/input.chunk003of006.fofn">
+    <ns1:md5>19a93e7355f174d66e1ba37bd520c737</ns1:md5>
+    <ns1:exists>True</ns1:exists>
+    <ns1:prereq rdf:resource="task://Anonymous/P_Filter/subreads.plsFofn.Scatter"/>
+    <ns1:modified>18/12/2013 21:11:58</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/input.chunk002of006.fofn">
+    <ns1:md5>02cbcb68b4726a0a73ac5008448ad60a</ns1:md5>
+    <ns1:prereq rdf:resource="task://Anonymous/P_Filter/subreads.plsFofn.Scatter"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>18/12/2013 21:11:58</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/data/filtered_regions.chunk006of016.fofn">
+    <ns1:md5>6b41b24c06cbcd601b81471b332b8bff</ns1:md5>
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/makeAfg.rgnFofn.Scatter"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>18/12/2013 21:15:46</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_PreAssembler/consensus_012of016">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>3:54:11</ns1:compute>
+    <ns1:md5>48a605f137bc4c80cc602b8146be745a</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/layout.chunk012of016.ids"/>
+    <ns1:prereq rdf:resource="file://Anonymous/corrected.bnk#InitialBank"/>
+    <ns1:elapsed>3:54:21.361993</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/consensus.chunk012of016.ctg">
+    <ns1:exists>True</ns1:exists>
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/consensus_012of016"/>
+    <ns1:modified>22/12/2013 01:04:12</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_PreAssembler/consensus_006of016">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>4:59:16</ns1:compute>
+    <ns1:md5>2baea4ce3f0bd7c320fc4f6ff3a89f43</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/layout.chunk006of016.ids"/>
+    <ns1:prereq rdf:resource="file://Anonymous/corrected.bnk#InitialBank"/>
+    <ns1:elapsed>4:59:21.317619</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/consensus.chunk005of016.ctg">
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/consensus_005of016"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>21/12/2013 21:07:52</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/data/filtered_summary.csv">
+    <ns1:exists>True</ns1:exists>
+    <ns1:prereq rdf:resource="task://Anonymous/P_Filter/filter.summary.Gather"/>
+    <ns1:modified>20/12/2013 16:59:47</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_PreAssembler/makeAfg_004of016">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>0:03:07</ns1:compute>
+    <ns1:md5>b660d12f25bf21bb1ed780360a3e14bf</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/fastq.chunk004of016.fofn"/>
+    <ns1:prereq rdf:resource="file://Anonymous/data/filtered_regions.chunk004of016.fofn"/>
+    <ns1:elapsed>0:03:10.944421</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/corrected.bnk#InitialBank">
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/makeBank"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>20/12/2013 19:39:58</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_FilterReports/statsRpt">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>0:00:58</ns1:compute>
+    <ns1:md5>778d81cfd2774cc88876e6d338e25479</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/data/filtered_summary.csv"/>
+    <ns1:elapsed>0:01:10.246034</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/layout.chunk001of016.ids">
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/consensus.layoutIds.Scatter"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>21/12/2013 14:51:16</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/filtered_longreads.fasta">
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/filterLongReadsByLength"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>20/12/2013 17:01:22</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/shortreads.chunk011of016.afg">
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/makeAfg_011of016"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>20/12/2013 17:52:54</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/corrected.bnk#WithConsensus">
+    <ns1:exists>True</ns1:exists>
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/loadConsensus"/>
+    <ns1:modified>22/12/2013 03:14:20</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/results/filterReports_filterStats.xml">
+    <ns1:prereq rdf:resource="task://Anonymous/P_FilterReports/statsRpt"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>20/12/2013 17:00:59</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/results/filterReports_adapters.xml">
+    <ns1:exists>True</ns1:exists>
+    <ns1:prereq rdf:resource="task://Anonymous/P_FilterReports/adapterRpt"/>
+    <ns1:modified>20/12/2013 16:57:58</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/fastq.fofn">
+    <ns1:exists>True</ns1:exists>
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/useFastqAsShortReads"/>
+    <ns1:modified>20/12/2013 17:37:23</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_PreAssembler/align.blasrOut.Gather">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>0:13:12</ns1:compute>
+    <ns1:md5>42fc4847d3bb9fb93fb95a9698cbf9d6</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/align.chunk002of006.b4"/>
+    <ns1:prereq rdf:resource="file://Anonymous/align.chunk001of006.b4"/>
+    <ns1:prereq rdf:resource="file://Anonymous/align.chunk003of006.b4"/>
+    <ns1:prereq rdf:resource="file://Anonymous/align.chunk004of006.b4"/>
+    <ns1:prereq rdf:resource="file://Anonymous/align.chunk005of006.b4"/>
+    <ns1:prereq rdf:resource="file://Anonymous/align.chunk006of006.b4"/>
+    <ns1:elapsed>0:13:21.768414</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/fastq.chunk011of016.fofn">
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/makeAfg.fofn.Scatter"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>20/12/2013 17:37:29</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_PreAssembler/useFastqAsShortReads">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>0:41:23</ns1:compute>
+    <ns1:md5>674d895f6ff83fc29952514ae53b889a</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous//groups/csf-ngs/projects/20131203_Armin_PacbioEC/data/preassembly/input.xml"/>
+    <ns1:elapsed>0:41:34.158814</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/data/filtered_regions.chunk013of016.fofn">
+    <ns1:md5>d41d8cd98f00b204e9800998ecf8427e</ns1:md5>
+    <ns1:exists>True</ns1:exists>
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/makeAfg.rgnFofn.Scatter"/>
+    <ns1:modified>18/12/2013 21:15:46</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/fastq.chunk006of006.fofn">
+    <ns1:exists>True</ns1:exists>
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/align.fofn.Scatter"/>
+    <ns1:modified>20/12/2013 17:37:28</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/fastq.chunk013of016.fofn">
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/makeAfg.fofn.Scatter"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>20/12/2013 17:37:29</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/shortreads.chunk009of016.afg">
+    <ns1:exists>True</ns1:exists>
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/makeAfg_009of016"/>
+    <ns1:modified>20/12/2013 17:49:45</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_PreAssembler/makeAfg_003of016">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>0:02:02</ns1:compute>
+    <ns1:md5>de910a7b962727fb4c63a5fe9567291c</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/fastq.chunk003of016.fofn"/>
+    <ns1:prereq rdf:resource="file://Anonymous/data/filtered_regions.chunk003of016.fofn"/>
+    <ns1:elapsed>0:02:20.502853</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/shortreads.chunk012of016.afg">
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/makeAfg_012of016"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>20/12/2013 17:46:15</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/fastq.chunk008of016.fofn">
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/makeAfg.fofn.Scatter"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>20/12/2013 17:37:29</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_Filter/filter_004of006">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>1 day, 11:21:17.268931</ns1:compute>
+    <ns1:md5>d6be0ec586d9f8a76f76ba8bb957d825</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/input.chunk004of006.fofn"/>
+    <ns1:elapsed>0:01:36.710621</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_PreAssembler/makeAfg_013of016">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>0:03:09</ns1:compute>
+    <ns1:md5>dbc1c64029aa6ec8a47dbfe6122c589b</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/data/filtered_regions.chunk013of016.fofn"/>
+    <ns1:prereq rdf:resource="file://Anonymous/fastq.chunk013of016.fofn"/>
+    <ns1:elapsed>0:03:22.352153</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/data/filtered_subreads.chunk002of006.fasta">
+    <ns1:prereq rdf:resource="task://Anonymous/P_Filter/subreads_002of006"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>20/12/2013 17:00:21</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/shortreads.chunk007of016.afg">
+    <ns1:exists>True</ns1:exists>
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/makeAfg_007of016"/>
+    <ns1:modified>20/12/2013 17:58:14</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_Filter/ccsSubreads_005of006">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>0:00:15</ns1:compute>
+    <ns1:md5>936c00aa58ec3cc31f1183438c6fb783</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/data/filtered_regions.chunk005of006.fofn"/>
+    <ns1:prereq rdf:resource="file://Anonymous/input.chunk005of006.fofn"/>
+    <ns1:elapsed>0:00:26.656331</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_PreAssembler/makeAfg.fofn.Scatter">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>0:00:01</ns1:compute>
+    <ns1:md5>85e1389b3e078ab5ff74d2193b3242ab</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/fastq.fofn"/>
+    <ns1:elapsed>0:00:01.033010</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/consensus.chunk002of016.ctg">
+    <ns1:exists>True</ns1:exists>
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/consensus_002of016"/>
+    <ns1:modified>22/12/2013 01:02:53</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_Filter/subreads_003of006">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>1 day, 11:18:17.184908</ns1:compute>
+    <ns1:md5>531168cc9d605ccc8626a42fd2cc6139</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/data/filtered_regions.chunk003of006.fofn"/>
+    <ns1:prereq rdf:resource="file://Anonymous/input.chunk003of006.fofn"/>
+    <ns1:elapsed>0:01:02.056038</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/align.chunk006of006.b4">
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/align_006of006"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>21/12/2013 07:25:01</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_FilterReports/subreadRpt">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>0:00:29</ns1:compute>
+    <ns1:md5>ad5df8cbb86e16952afd580696396ca4</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/data/filtered_subread_summary.csv"/>
+    <ns1:elapsed>0:00:57.025139</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_PreAssembler/makeAfg_005of016">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>0:03:10</ns1:compute>
+    <ns1:md5>a8b22b8b1f8e708e211af5bf47aeefe7</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/fastq.chunk005of016.fofn"/>
+    <ns1:prereq rdf:resource="file://Anonymous/data/filtered_regions.chunk005of016.fofn"/>
+    <ns1:elapsed>0:03:21.955747</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/shortreads.chunk006of016.afg">
+    <ns1:exists>True</ns1:exists>
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/makeAfg_006of016"/>
+    <ns1:modified>20/12/2013 18:01:06</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_PreAssembler/preAssemblerReport">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>0:00:11</ns1:compute>
+    <ns1:md5>ddd14773af5f516e710f28d5cd1eacf3</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/filtered_longreads.fasta"/>
+    <ns1:prereq rdf:resource="file://Anonymous/data/corrected.fasta"/>
+    <ns1:prereq rdf:resource="file://Anonymous/data/filtered_subreads.fasta"/>
+    <ns1:elapsed>0:00:25.264595</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_PreAssembler/makeAfg_007of016">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>0:02:28</ns1:compute>
+    <ns1:md5>a9c508b1057796a272432fb8330d5df9</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/fastq.chunk007of016.fofn"/>
+    <ns1:prereq rdf:resource="file://Anonymous/data/filtered_regions.chunk007of016.fofn"/>
+    <ns1:elapsed>0:02:49.669413</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_Filter/filter_006of006">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>0:01:36</ns1:compute>
+    <ns1:md5>12a12eb0a9a402f860d3c6d2deb473d8</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/input.chunk006of006.fofn"/>
+    <ns1:elapsed>0:02:06.995161</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/layout.chunk006of016.ids">
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/consensus.layoutIds.Scatter"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>21/12/2013 14:51:16</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/data/filtered_subreads.chunk001of006.fasta">
+    <ns1:prereq rdf:resource="task://Anonymous/P_Filter/subreads_001of006"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>20/12/2013 16:59:52</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/input.chunk004of006.fofn">
+    <ns1:md5>ba1e42b9208d325c2d6a7e4c29c8c555</ns1:md5>
+    <ns1:prereq rdf:resource="task://Anonymous/P_Filter/subreads.plsFofn.Scatter"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>18/12/2013 21:11:58</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/shortreads.chunk013of016.afg">
+    <ns1:exists>True</ns1:exists>
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/makeAfg_013of016"/>
+    <ns1:modified>20/12/2013 17:40:56</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/consensus.chunk008of016.ctg">
+    <ns1:exists>True</ns1:exists>
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/consensus_008of016"/>
+    <ns1:modified>21/12/2013 21:05:25</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_Filter/subreads_004of006">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>1 day, 11:19:47.390396</ns1:compute>
+    <ns1:md5>0daf0abd092e45f43c78d4c870d087f5</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/data/filtered_regions.chunk004of006.fofn"/>
+    <ns1:prereq rdf:resource="file://Anonymous/input.chunk004of006.fofn"/>
+    <ns1:elapsed>0:00:58.058501</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/layout.chunk014of016.ids">
+    <ns1:exists>True</ns1:exists>
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/consensus.layoutIds.Scatter"/>
+    <ns1:modified>21/12/2013 14:51:16</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/fastq.chunk003of006.fofn">
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/align.fofn.Scatter"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>20/12/2013 17:37:28</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_PreAssembler/align_001of006">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>1:37:12</ns1:compute>
+    <ns1:md5>e1413753cd9d294f6629eeb89f6f34f6</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/filtered_longreads.fasta"/>
+    <ns1:prereq rdf:resource="file://Anonymous/data/filtered_regions.chunk001of006.fofn"/>
+    <ns1:prereq rdf:resource="file://Anonymous/fastq.chunk001of006.fofn"/>
+    <ns1:elapsed>12:54:39.187154</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/layout.chunk010of016.ids">
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/consensus.layoutIds.Scatter"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>21/12/2013 14:51:16</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/consensus.chunk003of016.ctg">
+    <ns1:prereq rdf:resource="task://Anonymous/P_PreAssembler/consensus_003of016"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>21/12/2013 21:11:27</ns1:modified>
+  </rdf:Description>
+  <rdf:Description rdf:about="task://Anonymous/P_PreAssembler/makeAfg_016of016">
+    <ns1:status>TaskDone</ns1:status>
+    <ns1:compute>0:02:52</ns1:compute>
+    <ns1:md5>d2521ea71b0279c5cc3e1b28a2e1bff6</ns1:md5>
+    <ns1:prereq rdf:resource="file://Anonymous/fastq.chunk016of016.fofn"/>
+    <ns1:prereq rdf:resource="file://Anonymous/data/filtered_regions.chunk016of016.fofn"/>
+    <ns1:elapsed>0:03:09.503206</ns1:elapsed>
+  </rdf:Description>
+  <rdf:Description rdf:about="file://Anonymous/data/filtered_subreads.fastq">
+    <ns1:prereq rdf:resource="task://Anonymous/P_Filter/subreads.subreadFastq.Gather"/>
+    <ns1:exists>True</ns1:exists>
+    <ns1:modified>20/12/2013 17:01:11</ns1:modified>
+  </rdf:Description>
+</rdf:RDF>

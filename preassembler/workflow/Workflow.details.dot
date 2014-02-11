@@ -1,0 +1,859 @@
+digraph "workflow://Anonymous/Workflow" {
+"file://Anonymous/shortreads.chunk002of016.afg" [shape=component, label="shortreads.chunk002of016.afg", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/layout.chunk016of016.ids" [shape=component, label="layout.chunk016of016.ids", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_Filter/filter.rgnFofn.Gather" [shape=octagon, label="P_Filter/filter.rgnFofn.Gather\n0:00:01", color="#000000", fillcolor="#66C2A5", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_PreAssembler/align_005of006" [shape=octagon, label="P_PreAssembler/align_005of006\n13:51:01", color="#000000", fillcolor="#AAAAAA", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_PreAssembler/makeAfg_009of016" [shape=octagon, label="P_PreAssembler/makeAfg_009of016\n0:02:42", color="#000000", fillcolor="#AAAAAA", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/shortreads.chunk011of016.afg" [shape=component, label="shortreads.chunk011of016.afg", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/layout.chunk001of016.ids" [shape=component, label="layout.chunk001of016.ids", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/shortreads.chunk005of016.afg" [shape=component, label="shortreads.chunk005of016.afg", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/data/filtered_regions.chunk016of016.fofn" [shape=component, label="data/filtered_regions.chunk016of016.fofn", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/shortreads.afg" [shape=component, label="shortreads.afg", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/data/ccs_reads.chunk001of006.fasta" [shape=component, label="data/ccs_reads.chunk001of006.fasta", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_PreAssembler/consensus_002of016" [shape=octagon, label="P_PreAssembler/consensus_002of016\n4:02:18", color="#000000", fillcolor="#AAAAAA", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/fastq.chunk003of016.fofn" [shape=component, label="fastq.chunk003of016.fofn", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/align.b4" [shape=component, label="align.b4", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/layout.chunk011of016.ids" [shape=component, label="layout.chunk011of016.ids", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/corrected.bnk#InitialBank" [shape=component, label="corrected.bnk#InitialBank", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/input.chunk004of006.fofn" [shape=component, label="input.chunk004of006.fofn", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/layout.ids" [shape=component, label="layout.ids", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/consensus.chunk001of016.ctg" [shape=component, label="consensus.chunk001of016.ctg", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/data/idmap.csv" [shape=component, label="data/idmap.csv", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/data/filtered_regions.chunk009of016.fofn" [shape=component, label="data/filtered_regions.chunk009of016.fofn", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_PreAssembler/makeAfg_011of016" [shape=octagon, label="P_PreAssembler/makeAfg_011of016\n0:03:05", color="#000000", fillcolor="#AAAAAA", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_PreAssembler/consensus_012of016" [shape=octagon, label="P_PreAssembler/consensus_012of016\n3:54:21", color="#000000", fillcolor="#AAAAAA", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/consensus.chunk006of016.ctg" [shape=component, label="consensus.chunk006of016.ctg", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/layout.chunk002of016.ids" [shape=component, label="layout.chunk002of016.ids", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/consensus.chunk002of016.ctg" [shape=component, label="consensus.chunk002of016.ctg", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/consensus.chunk009of016.ctg" [shape=component, label="consensus.chunk009of016.ctg", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/shortreads.chunk016of016.afg" [shape=component, label="shortreads.chunk016of016.afg", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_PreAssembler/align_004of006" [shape=octagon, label="P_PreAssembler/align_004of006\n13:40:31", color="#000000", fillcolor="#AAAAAA", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/input.chunk002of006.fofn" [shape=component, label="input.chunk002of006.fofn", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/fastq.chunk011of016.fofn" [shape=component, label="fastq.chunk011of016.fofn", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/data/filtered_regions.chunk001of006.fofn" [shape=component, label="data/filtered_regions.chunk001of006.fofn", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/fastq.chunk008of016.fofn" [shape=component, label="fastq.chunk008of016.fofn", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/data/filtered_regions.chunk011of016.fofn" [shape=component, label="data/filtered_regions.chunk011of016.fofn", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_Filter/subreads_003of006" [shape=octagon, label="P_Filter/subreads_003of006\n0:01:02", color="#000000", fillcolor="#66C2A5", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_PreAssembler/makeAfg_001of016" [shape=octagon, label="P_PreAssembler/makeAfg_001of016\n0:03:21", color="#000000", fillcolor="#AAAAAA", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_FilterReports/loadingRpt" [shape=octagon, label="P_FilterReports/loadingRpt\n0:00:27", color="#000000", fillcolor="#66C2A5", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/data/filtered_subreads.chunk002of006.fasta" [shape=component, label="data/filtered_subreads.chunk002of006.fasta", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/fastq.chunk004of006.fofn" [shape=component, label="fastq.chunk004of006.fofn", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/results/preAssemblerReport.xml" [shape=component, label="results/preAssemblerReport.xml", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/filtered_longreads.fasta" [shape=component, label="filtered_longreads.fasta", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/layout.chunk013of016.ids" [shape=component, label="layout.chunk013of016.ids", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/consensus.chunk010of016.ctg" [shape=component, label="consensus.chunk010of016.ctg", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/data/filtered_regions.chunk004of006.fofn" [shape=component, label="data/filtered_regions.chunk004of006.fofn", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/align.chunk004of006.b4" [shape=component, label="align.chunk004of006.b4", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/results/filterReports_loading.xml" [shape=component, label="results/filterReports_loading.xml", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/data/filtered_subreads.chunk001of006.fasta" [shape=component, label="data/filtered_subreads.chunk001of006.fasta", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_PreAssembler/makeAfg_002of016" [shape=octagon, label="P_PreAssembler/makeAfg_002of016\n0:02:46", color="#000000", fillcolor="#AAAAAA", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/fastq.chunk001of016.fofn" [shape=component, label="fastq.chunk001of016.fofn", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/data/filtered_subreads.chunk004of006.fasta" [shape=component, label="data/filtered_subreads.chunk004of006.fasta", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/data/filtered_regions.chunk001of016.fofn" [shape=component, label="data/filtered_regions.chunk001of016.fofn", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/input.fofn" [shape=component, label="input.fofn", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_Filter/filter.summary.Gather" [shape=octagon, label="P_Filter/filter.summary.Gather\n0:00:17", color="#000000", fillcolor="#66C2A5", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_PreAssembler/useFastqAsShortReads" [shape=octagon, label="P_PreAssembler/useFastqAsShortReads\n0:41:34", color="#000000", fillcolor="#AAAAAA", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/layout.chunk010of016.ids" [shape=component, label="layout.chunk010of016.ids", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/fastq.chunk002of016.fofn" [shape=component, label="fastq.chunk002of016.fofn", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/data/filtered_regions.chunk002of016.fofn" [shape=component, label="data/filtered_regions.chunk002of016.fofn", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/data/filtered_subreads.chunk006of006.fastq" [shape=component, label="data/filtered_subreads.chunk006of006.fastq", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_FilterReports/subreadRpt" [shape=octagon, label="P_FilterReports/subreadRpt\n0:00:57", color="#000000", fillcolor="#66C2A5", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous//groups/csf-ngs/projects/20131203_Armin_PacbioEC/data/preassembly/input.xml" [shape=component, label="/groups/csf-ngs/projects/20131203_Armin_PacbioEC/data/preassembly/input.xml", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/data/filtered_subreads.chunk003of006.fasta" [shape=component, label="data/filtered_subreads.chunk003of006.fasta", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/fastq.fofn" [shape=component, label="fastq.fofn", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/fastq.chunk013of016.fofn" [shape=component, label="fastq.chunk013of016.fofn", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_PreAssembler/makeAfg_015of016" [shape=octagon, label="P_PreAssembler/makeAfg_015of016\n0:03:23", color="#000000", fillcolor="#AAAAAA", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/layout.chunk006of016.ids" [shape=component, label="layout.chunk006of016.ids", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/data/filtered_subread_summary.csv" [shape=component, label="data/filtered_subread_summary.csv", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/align.chunk005of006.b4" [shape=component, label="align.chunk005of006.b4", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_PreAssembler/consensus_015of016" [shape=octagon, label="P_PreAssembler/consensus_015of016\n6:27:59", color="#000000", fillcolor="#AAAAAA", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/data/filtered_summary.chunk002of006.csv" [shape=component, label="data/filtered_summary.chunk002of006.csv", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/results/filterReports_filterSubreadStats.xml" [shape=component, label="results/filterReports_filterSubreadStats.xml", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_PreAssembler/makeAfg.afgOut.Gather" [shape=octagon, label="P_PreAssembler/makeAfg.afgOut.Gather\n0:44:10", color="#000000", fillcolor="#AAAAAA", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/consensus.chunk016of016.ctg" [shape=component, label="consensus.chunk016of016.ctg", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_Filter/ccsSubreads_006of006" [shape=octagon, label="P_Filter/ccsSubreads_006of006\n0:00:25", color="#000000", fillcolor="#66C2A5", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/fastq.chunk015of016.fofn" [shape=component, label="fastq.chunk015of016.fofn", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/data/filtered_subreads.chunk005of006.fasta" [shape=component, label="data/filtered_subreads.chunk005of006.fasta", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/data/filtered_regions.chunk015of016.fofn" [shape=component, label="data/filtered_regions.chunk015of016.fofn", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_PreAssembler/consensus_001of016" [shape=octagon, label="P_PreAssembler/consensus_001of016\n4:55:08", color="#000000", fillcolor="#AAAAAA", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/layout.chunk015of016.ids" [shape=component, label="layout.chunk015of016.ids", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/data/filtered_subreads.fastq" [shape=component, label="data/filtered_subreads.fastq", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/input.chunk006of006.fofn" [shape=component, label="input.chunk006of006.fofn", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/data/filtered_regions.chunk006of006.fofn" [shape=component, label="data/filtered_regions.chunk006of006.fofn", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/input.chunk005of006.fofn" [shape=component, label="input.chunk005of006.fofn", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/data/ccs_reads.chunk006of006.fastq" [shape=component, label="data/ccs_reads.chunk006of006.fastq", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/data/filtered_regions.chunk006of016.fofn" [shape=component, label="data/filtered_regions.chunk006of016.fofn", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/data/ccs_reads.chunk006of006.fasta" [shape=component, label="data/ccs_reads.chunk006of006.fasta", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/data/filtered_subreads.fasta" [shape=component, label="data/filtered_subreads.fasta", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_Filter/filter_003of006" [shape=octagon, label="P_Filter/filter_003of006\n0:02:17", color="#000000", fillcolor="#66C2A5", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_Filter/subreads_006of006" [shape=octagon, label="P_Filter/subreads_006of006\n0:01:11", color="#000000", fillcolor="#66C2A5", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_Filter/ccsSubreads.CCSsubreadFastq.Gather" [shape=octagon, label="P_Filter/ccsSubreads.CCSsubreadFastq.Gather\n0:00:13", color="#000000", fillcolor="#66C2A5", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_Filter/subreads_001of006" [shape=octagon, label="P_Filter/subreads_001of006\n0:01:12", color="#000000", fillcolor="#66C2A5", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_PreAssembler/makeAfg_016of016" [shape=octagon, label="P_PreAssembler/makeAfg_016of016\n0:03:09", color="#000000", fillcolor="#AAAAAA", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/layout.chunk007of016.ids" [shape=component, label="layout.chunk007of016.ids", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/input.chunk001of006.fofn" [shape=component, label="input.chunk001of006.fofn", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/data/ccs_reads.chunk002of006.fastq" [shape=component, label="data/ccs_reads.chunk002of006.fastq", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_Filter/ccsSubreads_005of006" [shape=octagon, label="P_Filter/ccsSubreads_005of006\n0:00:26", color="#000000", fillcolor="#66C2A5", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/data/filtered_regions.chunk005of006.fofn" [shape=component, label="data/filtered_regions.chunk005of006.fofn", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/data/filtered_subreads.chunk006of006.fasta" [shape=component, label="data/filtered_subreads.chunk006of006.fasta", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_Filter/filter_004of006" [shape=octagon, label="P_Filter/filter_004of006\n0:01:36", color="#000000", fillcolor="#66C2A5", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/data/filtered_subreads.chunk001of006.fastq" [shape=component, label="data/filtered_subreads.chunk001of006.fastq", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_PreAssembler/makeAfg_014of016" [shape=octagon, label="P_PreAssembler/makeAfg_014of016\n0:03:24", color="#000000", fillcolor="#AAAAAA", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_PreAssembler/align_002of006" [shape=octagon, label="P_PreAssembler/align_002of006\n13:44:16", color="#000000", fillcolor="#AAAAAA", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_PreAssembler/makeAfg.rgnFofn.Scatter" [shape=octagon, label="P_PreAssembler/makeAfg.rgnFofn.Scatter\n0:00:00", color="#000000", fillcolor="#AAAAAA", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/fastq.chunk012of016.fofn" [shape=component, label="fastq.chunk012of016.fofn", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/layout.chunk003of016.ids" [shape=component, label="layout.chunk003of016.ids", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/consensus.chunk014of016.ctg" [shape=component, label="consensus.chunk014of016.ctg", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/data/filtered_regions.chunk012of016.fofn" [shape=component, label="data/filtered_regions.chunk012of016.fofn", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/data/ccs_reads.chunk005of006.fastq" [shape=component, label="data/ccs_reads.chunk005of006.fastq", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_PreAssembler/consensus_009of016" [shape=octagon, label="P_PreAssembler/consensus_009of016\n6:09:13", color="#000000", fillcolor="#AAAAAA", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/shortreads.chunk012of016.afg" [shape=component, label="shortreads.chunk012of016.afg", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_PreAssembler/consensus_011of016" [shape=octagon, label="P_PreAssembler/consensus_011of016\n6:16:00", color="#000000", fillcolor="#AAAAAA", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/data/ccs_reads.chunk005of006.fasta" [shape=component, label="data/ccs_reads.chunk005of006.fasta", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/data/filtered_summary.chunk005of006.csv" [shape=component, label="data/filtered_summary.chunk005of006.csv", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_PreAssembler/makeAfg_007of016" [shape=octagon, label="P_PreAssembler/makeAfg_007of016\n0:02:49", color="#000000", fillcolor="#AAAAAA", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/consensus.chunk012of016.ctg" [shape=component, label="consensus.chunk012of016.ctg", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/fastq.chunk002of006.fofn" [shape=component, label="fastq.chunk002of006.fofn", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/data/filtered_regions.fofn" [shape=component, label="data/filtered_regions.fofn", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/data/filtered_regions.chunk002of006.fofn" [shape=component, label="data/filtered_regions.chunk002of006.fofn", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/layout.chunk009of016.ids" [shape=component, label="layout.chunk009of016.ids", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/align.chunk002of006.b4" [shape=component, label="align.chunk002of006.b4", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_PreAssembler/consensus.layoutIds.Scatter" [shape=octagon, label="P_PreAssembler/consensus.layoutIds.Scatter\n0:00:02", color="#000000", fillcolor="#AAAAAA", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/fastq.chunk004of016.fofn" [shape=component, label="fastq.chunk004of016.fofn", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_PreAssembler/layout" [shape=octagon, label="P_PreAssembler/layout\n7:09:04", color="#000000", fillcolor="#AAAAAA", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/fastq.chunk007of016.fofn" [shape=component, label="fastq.chunk007of016.fofn", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/data/filtered_regions.chunk007of016.fofn" [shape=component, label="data/filtered_regions.chunk007of016.fofn", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_PreAssembler/filterLongReadsByLength" [shape=octagon, label="P_PreAssembler/filterLongReadsByLength\n0:00:15", color="#000000", fillcolor="#AAAAAA", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/shortreads.chunk009of016.afg" [shape=component, label="shortreads.chunk009of016.afg", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/layout.chunk008of016.ids" [shape=component, label="layout.chunk008of016.ids", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/layout.chunk014of016.ids" [shape=component, label="layout.chunk014of016.ids", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/layout.chunk004of016.ids" [shape=component, label="layout.chunk004of016.ids", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/align.chunk001of006.b4" [shape=component, label="align.chunk001of006.b4", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_PreAssembler/consensus_006of016" [shape=octagon, label="P_PreAssembler/consensus_006of016\n4:59:21", color="#000000", fillcolor="#AAAAAA", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/layout.chunk005of016.ids" [shape=component, label="layout.chunk005of016.ids", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/shortreads.chunk007of016.afg" [shape=component, label="shortreads.chunk007of016.afg", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_Filter/filter_005of006" [shape=octagon, label="P_Filter/filter_005of006\n0:02:35", color="#000000", fillcolor="#66C2A5", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/results/overview.xml" [shape=component, label="results/overview.xml", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/fastq.chunk014of016.fofn" [shape=component, label="fastq.chunk014of016.fofn", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_PreAssembler/consensus_016of016" [shape=octagon, label="P_PreAssembler/consensus_016of016\n3:39:32", color="#000000", fillcolor="#AAAAAA", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/data/filtered_subreads.chunk004of006.fastq" [shape=component, label="data/filtered_subreads.chunk004of006.fastq", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_Filter/subreads.plsFofn.Scatter" [shape=octagon, label="P_Filter/subreads.plsFofn.Scatter\n0:00:03", color="#000000", fillcolor="#66C2A5", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/layout.chunk012of016.ids" [shape=component, label="layout.chunk012of016.ids", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/data/filtered_summary.chunk001of006.csv" [shape=component, label="data/filtered_summary.chunk001of006.csv", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_Filter/filter_002of006" [shape=octagon, label="P_Filter/filter_002of006\n0:02:14", color="#000000", fillcolor="#66C2A5", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/shortreads.chunk010of016.afg" [shape=component, label="shortreads.chunk010of016.afg", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/data/filtered_regions.chunk008of016.fofn" [shape=component, label="data/filtered_regions.chunk008of016.fofn", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_PreAssembler/align.blasrOut.Gather" [shape=octagon, label="P_PreAssembler/align.blasrOut.Gather\n0:13:21", color="#000000", fillcolor="#AAAAAA", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/data/filtered_regions.chunk013of016.fofn" [shape=component, label="data/filtered_regions.chunk013of016.fofn", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_PreAssembler/consensus_007of016" [shape=octagon, label="P_PreAssembler/consensus_007of016\n4:45:00", color="#000000", fillcolor="#AAAAAA", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/data/filtered_regions.chunk014of016.fofn" [shape=component, label="data/filtered_regions.chunk014of016.fofn", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/data/ccs_reads.fastq" [shape=component, label="data/ccs_reads.fastq", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_Filter/subreads_002of006" [shape=octagon, label="P_Filter/subreads_002of006\n0:01:26", color="#000000", fillcolor="#66C2A5", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_Filter/filter_001of006" [shape=octagon, label="P_Filter/filter_001of006\n0:02:08", color="#000000", fillcolor="#66C2A5", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/consensus.chunk004of016.ctg" [shape=component, label="consensus.chunk004of016.ctg", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_Filter/filter_006of006" [shape=octagon, label="P_Filter/filter_006of006\n0:02:06", color="#000000", fillcolor="#66C2A5", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/data/filtered_subreads.chunk002of006.fastq" [shape=component, label="data/filtered_subreads.chunk002of006.fastq", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/data/ccs_reads.chunk002of006.fasta" [shape=component, label="data/ccs_reads.chunk002of006.fasta", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_PreAssembler/makeAfg_005of016" [shape=octagon, label="P_PreAssembler/makeAfg_005of016\n0:03:21", color="#000000", fillcolor="#AAAAAA", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/shortreads.chunk014of016.afg" [shape=component, label="shortreads.chunk014of016.afg", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_Filter/ccsSubreads_004of006" [shape=octagon, label="P_Filter/ccsSubreads_004of006\n0:00:18", color="#000000", fillcolor="#66C2A5", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/data/filtered_subreads.chunk003of006.fastq" [shape=component, label="data/filtered_subreads.chunk003of006.fastq", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/fastq.chunk005of016.fofn" [shape=component, label="fastq.chunk005of016.fofn", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_PreAssembler/align_003of006" [shape=octagon, label="P_PreAssembler/align_003of006\n12:32:56", color="#000000", fillcolor="#AAAAAA", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/consensus.ctg" [shape=component, label="consensus.ctg", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/data/filtered_subreads.chunk005of006.fastq" [shape=component, label="data/filtered_subreads.chunk005of006.fastq", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/data/ccs_reads.chunk004of006.fasta" [shape=component, label="data/ccs_reads.chunk004of006.fasta", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/consensus.chunk005of016.ctg" [shape=component, label="consensus.chunk005of016.ctg", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/consensus.chunk015of016.ctg" [shape=component, label="consensus.chunk015of016.ctg", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_Filter/subreadSummary" [shape=octagon, label="P_Filter/subreadSummary\n0:02:12", color="#000000", fillcolor="#66C2A5", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/results/filterReports_filterStats.xml" [shape=component, label="results/filterReports_filterStats.xml", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/consensus.chunk003of016.ctg" [shape=component, label="consensus.chunk003of016.ctg", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/shortreads.chunk001of016.afg" [shape=component, label="shortreads.chunk001of016.afg", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_PreAssembler/makeAfg_006of016" [shape=octagon, label="P_PreAssembler/makeAfg_006of016\n0:02:50", color="#000000", fillcolor="#AAAAAA", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/data/filtered_summary.chunk004of006.csv" [shape=component, label="data/filtered_summary.chunk004of006.csv", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_PreAssembler/outputFiles" [shape=octagon, label="P_PreAssembler/outputFiles\n0:03:03", color="#000000", fillcolor="#AAAAAA", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_Filter/ccsSubreads_003of006" [shape=octagon, label="P_Filter/ccsSubreads_003of006\n0:00:24", color="#000000", fillcolor="#66C2A5", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/fastq.chunk006of016.fofn" [shape=component, label="fastq.chunk006of016.fofn", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_PreAssembler/makeBank" [shape=octagon, label="P_PreAssembler/makeBank\n0:52:44", color="#000000", fillcolor="#AAAAAA", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_Fetch/getChemistry" [shape=octagon, label="P_Fetch/getChemistry\n0:00:18", color="#000000", fillcolor="#E78AC3", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_PreAssembler/makeAfg_010of016" [shape=octagon, label="P_PreAssembler/makeAfg_010of016\n0:02:34", color="#000000", fillcolor="#AAAAAA", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/data/corrected.fastq" [shape=component, label="data/corrected.fastq", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_Filter/subreads_005of006" [shape=octagon, label="P_Filter/subreads_005of006\n0:01:34", color="#000000", fillcolor="#66C2A5", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_FilterReports/adapterRpt" [shape=octagon, label="P_FilterReports/adapterRpt\n0:01:36", color="#000000", fillcolor="#66C2A5", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/shortreads.chunk006of016.afg" [shape=component, label="shortreads.chunk006of016.afg", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/data/chemistry_mapping.xml" [shape=component, label="data/chemistry_mapping.xml", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_PreAssembler/consensus_003of016" [shape=octagon, label="P_PreAssembler/consensus_003of016\n6:20:08", color="#000000", fillcolor="#AAAAAA", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/data/filtered_regions.chunk003of016.fofn" [shape=component, label="data/filtered_regions.chunk003of016.fofn", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/fastq.chunk003of006.fofn" [shape=component, label="fastq.chunk003of006.fofn", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/results/filterReports_adapters.xml" [shape=component, label="results/filterReports_adapters.xml", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_PreAssembler/makeAfg.fofn.Scatter" [shape=octagon, label="P_PreAssembler/makeAfg.fofn.Scatter\n0:00:01", color="#000000", fillcolor="#AAAAAA", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/data/filtered_summary.chunk006of006.csv" [shape=component, label="data/filtered_summary.chunk006of006.csv", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_PreAssembler/consensus.consensusOut.Gather" [shape=octagon, label="P_PreAssembler/consensus.consensusOut.Gather\n0:23:59", color="#000000", fillcolor="#AAAAAA", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/align.chunk006of006.b4" [shape=component, label="align.chunk006of006.b4", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_Fetch/toFofn" [shape=octagon, label="P_Fetch/toFofn\n0:00:06", color="#000000", fillcolor="#E78AC3", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_PreAssembler/align_001of006" [shape=octagon, label="P_PreAssembler/align_001of006\n12:54:39", color="#000000", fillcolor="#AAAAAA", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/shortreads.chunk015of016.afg" [shape=component, label="shortreads.chunk015of016.afg", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/fastq.chunk005of006.fofn" [shape=component, label="fastq.chunk005of006.fofn", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_Filter/subreads_004of006" [shape=octagon, label="P_Filter/subreads_004of006\n0:00:58", color="#000000", fillcolor="#66C2A5", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_Filter/subreads.subreadFastq.Gather" [shape=octagon, label="P_Filter/subreads.subreadFastq.Gather\n0:00:26", color="#000000", fillcolor="#66C2A5", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/data/filtered_regions.chunk003of006.fofn" [shape=component, label="data/filtered_regions.chunk003of006.fofn", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_Filter/ccsSubreads.CCSsubreads.Gather" [shape=octagon, label="P_Filter/ccsSubreads.CCSsubreads.Gather\n0:00:11", color="#000000", fillcolor="#66C2A5", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/consensus.chunk013of016.ctg" [shape=component, label="consensus.chunk013of016.ctg", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_PreAssembler/preAssemblerReport" [shape=octagon, label="P_PreAssembler/preAssemblerReport\n0:00:25", color="#000000", fillcolor="#AAAAAA", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/data/filtered_regions" [shape=component, label="data/filtered_regions", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_PreAssembler/makeAfg_013of016" [shape=octagon, label="P_PreAssembler/makeAfg_013of016\n0:03:22", color="#000000", fillcolor="#AAAAAA", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/data/ccs_reads.fasta" [shape=component, label="data/ccs_reads.fasta", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/shortreads.chunk003of016.afg" [shape=component, label="shortreads.chunk003of016.afg", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_PreAssembler/consensus_010of016" [shape=octagon, label="P_PreAssembler/consensus_010of016\n6:18:27", color="#000000", fillcolor="#AAAAAA", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/consensus.chunk011of016.ctg" [shape=component, label="consensus.chunk011of016.ctg", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/data/filtered_regions.chunk005of016.fofn" [shape=component, label="data/filtered_regions.chunk005of016.fofn", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/align.chunk003of006.b4" [shape=component, label="align.chunk003of006.b4", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/data/filtered_regions.chunk004of016.fofn" [shape=component, label="data/filtered_regions.chunk004of016.fofn", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_PreAssembler/align.fofn.Scatter" [shape=octagon, label="P_PreAssembler/align.fofn.Scatter\n0:00:00", color="#000000", fillcolor="#AAAAAA", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_PreAssembler/makeAfg_008of016" [shape=octagon, label="P_PreAssembler/makeAfg_008of016\n0:03:13", color="#000000", fillcolor="#AAAAAA", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_Filter/ccsSubreads_001of006" [shape=octagon, label="P_Filter/ccsSubreads_001of006\n0:00:22", color="#000000", fillcolor="#66C2A5", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_PreAssembler/consensus_013of016" [shape=octagon, label="P_PreAssembler/consensus_013of016\n6:12:27", color="#000000", fillcolor="#AAAAAA", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_PreAssembler/consensus_005of016" [shape=octagon, label="P_PreAssembler/consensus_005of016\n6:16:34", color="#000000", fillcolor="#AAAAAA", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_Filter/ccsSubreads_002of006" [shape=octagon, label="P_Filter/ccsSubreads_002of006\n0:00:31", color="#000000", fillcolor="#66C2A5", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_FilterReports/statsRpt" [shape=octagon, label="P_FilterReports/statsRpt\n0:01:10", color="#000000", fillcolor="#66C2A5", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_PreAssembler/loadConsensus" [shape=octagon, label="P_PreAssembler/loadConsensus\n0:38:39", color="#000000", fillcolor="#AAAAAA", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/corrected.bnk#WithConsensus" [shape=component, label="corrected.bnk#WithConsensus", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_PreAssembler/consensus_014of016" [shape=octagon, label="P_PreAssembler/consensus_014of016\n5:07:50", color="#000000", fillcolor="#AAAAAA", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/fastq.chunk010of016.fofn" [shape=component, label="fastq.chunk010of016.fofn", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/consensus.chunk007of016.ctg" [shape=component, label="consensus.chunk007of016.ctg", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/fastq.chunk016of016.fofn" [shape=component, label="fastq.chunk016of016.fofn", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_PreAssembler/consensus_004of016" [shape=octagon, label="P_PreAssembler/consensus_004of016\n4:44:27", color="#000000", fillcolor="#AAAAAA", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/shortreads.chunk008of016.afg" [shape=component, label="shortreads.chunk008of016.afg", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_PreAssembler/makeAfg_003of016" [shape=octagon, label="P_PreAssembler/makeAfg_003of016\n0:02:20", color="#000000", fillcolor="#AAAAAA", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/input.chunk003of006.fofn" [shape=component, label="input.chunk003of006.fofn", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/data/ccs_reads.chunk004of006.fastq" [shape=component, label="data/ccs_reads.chunk004of006.fastq", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/fastq.chunk006of006.fofn" [shape=component, label="fastq.chunk006of006.fofn", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/data/filtered_regions.chunk010of016.fofn" [shape=component, label="data/filtered_regions.chunk010of016.fofn", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/data/corrected.fasta" [shape=component, label="data/corrected.fasta", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/shortreads.chunk004of016.afg" [shape=component, label="shortreads.chunk004of016.afg", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_PreAssembler/makeAfg_004of016" [shape=octagon, label="P_PreAssembler/makeAfg_004of016\n0:03:10", color="#000000", fillcolor="#AAAAAA", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/data/filtered_summary.csv" [shape=component, label="data/filtered_summary.csv", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/data/ccs_reads.chunk003of006.fastq" [shape=component, label="data/ccs_reads.chunk003of006.fastq", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_Filter/subreads.subreads.Gather" [shape=octagon, label="P_Filter/subreads.subreads.Gather\n0:00:19", color="#000000", fillcolor="#66C2A5", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_PreAssembler/align_006of006" [shape=octagon, label="P_PreAssembler/align_006of006\n13:47:28", color="#000000", fillcolor="#AAAAAA", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_Fetch/overviewRpt" [shape=octagon, label="P_Fetch/overviewRpt\n0:00:46", color="#000000", fillcolor="#E78AC3", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/fastq.chunk009of016.fofn" [shape=component, label="fastq.chunk009of016.fofn", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/shortreads.chunk013of016.afg" [shape=component, label="shortreads.chunk013of016.afg", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/data/ccs_reads.chunk003of006.fasta" [shape=component, label="data/ccs_reads.chunk003of006.fasta", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/fastq.chunk001of006.fofn" [shape=component, label="fastq.chunk001of006.fofn", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/data/filtered_summary.chunk003of006.csv" [shape=component, label="data/filtered_summary.chunk003of006.csv", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_PreAssembler/makeAfg_012of016" [shape=octagon, label="P_PreAssembler/makeAfg_012of016\n0:02:40", color="#000000", fillcolor="#AAAAAA", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_PreAssembler/consensus_008of016" [shape=octagon, label="P_PreAssembler/consensus_008of016\n6:14:06", color="#000000", fillcolor="#AAAAAA", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/consensus.chunk008of016.ctg" [shape=component, label="consensus.chunk008of016.ctg", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"file://Anonymous/data/ccs_reads.chunk001of006.fastq" [shape=component, label="data/ccs_reads.chunk001of006.fastq", fillcolor="#EEEEEE", style=filled, fontname="Times New Roman"];
+
+"task://Anonymous/P_PreAssembler/align_005of006" -> "file://Anonymous/align.chunk005of006.b4";
+"task://Anonymous/P_PreAssembler/consensus_003of016" -> "file://Anonymous/consensus.chunk003of016.ctg";
+"file://Anonymous/layout.chunk016of016.ids" -> "task://Anonymous/P_PreAssembler/consensus_016of016";
+"file://Anonymous/data/filtered_regions.chunk005of006.fofn" -> "task://Anonymous/P_Filter/ccsSubreads_005of006";
+"task://Anonymous/P_PreAssembler/consensus.layoutIds.Scatter" -> "file://Anonymous/layout.chunk001of016.ids";
+"task://Anonymous/P_Filter/subreads_002of006" -> "file://Anonymous/data/filtered_subreads.chunk002of006.fastq";
+"file://Anonymous/shortreads.chunk002of016.afg" -> "task://Anonymous/P_PreAssembler/makeAfg.afgOut.Gather";
+"file://Anonymous/data/filtered_regions.chunk001of006.fofn" -> "task://Anonymous/P_Filter/subreads_001of006";
+"file://Anonymous/layout.chunk009of016.ids" -> "task://Anonymous/P_PreAssembler/consensus_009of016";
+"file://Anonymous/corrected.bnk#InitialBank" -> "task://Anonymous/P_PreAssembler/consensus_001of016";
+"task://Anonymous/P_Filter/filter.rgnFofn.Gather" -> "file://Anonymous/data/filtered_regions.fofn";
+"task://Anonymous/P_PreAssembler/outputFiles" -> "file://Anonymous/data/corrected.fastq";
+"task://Anonymous/P_Filter/subreads.plsFofn.Scatter" -> "file://Anonymous/input.chunk002of006.fofn";
+"task://Anonymous/P_PreAssembler/makeAfg_012of016" -> "file://Anonymous/shortreads.chunk012of016.afg";
+"file://Anonymous/shortreads.chunk016of016.afg" -> "task://Anonymous/P_PreAssembler/makeAfg.afgOut.Gather";
+"task://Anonymous/P_PreAssembler/consensus_014of016" -> "file://Anonymous/consensus.chunk014of016.ctg";
+"task://Anonymous/P_PreAssembler/align_004of006" -> "file://Anonymous/align.chunk004of006.b4";
+"task://Anonymous/P_Filter/filter_005of006" -> "file://Anonymous/data/filtered_regions.chunk005of006.fofn";
+"file://Anonymous/corrected.bnk#InitialBank" -> "task://Anonymous/P_PreAssembler/consensus_006of016";
+"task://Anonymous/P_PreAssembler/consensus.layoutIds.Scatter" -> "file://Anonymous/layout.chunk016of016.ids";
+"file://Anonymous/data/ccs_reads.chunk004of006.fasta" -> "task://Anonymous/P_Filter/ccsSubreads.CCSsubreads.Gather";
+"file://Anonymous/data/filtered_subreads.chunk003of006.fastq" -> "task://Anonymous/P_Filter/subreads.subreadFastq.Gather";
+"file://Anonymous/data/filtered_regions.chunk003of016.fofn" -> "task://Anonymous/P_PreAssembler/makeAfg_003of016";
+"file://Anonymous/data/filtered_subreads.chunk004of006.fasta" -> "task://Anonymous/P_Filter/subreads.subreads.Gather";
+"file://Anonymous/filtered_longreads.fasta" -> "task://Anonymous/P_PreAssembler/preAssemblerReport";
+"task://Anonymous/P_Fetch/toFofn" -> "file://Anonymous/input.fofn";
+"file://Anonymous/corrected.bnk#InitialBank" -> "task://Anonymous/P_PreAssembler/consensus_009of016";
+"task://Anonymous/P_PreAssembler/consensus.layoutIds.Scatter" -> "file://Anonymous/layout.chunk008of016.ids";
+"file://Anonymous/consensus.chunk008of016.ctg" -> "task://Anonymous/P_PreAssembler/consensus.consensusOut.Gather";
+"task://Anonymous/P_Filter/ccsSubreads_003of006" -> "file://Anonymous/data/ccs_reads.chunk003of006.fasta";
+"file://Anonymous/data/filtered_regions.chunk004of006.fofn" -> "task://Anonymous/P_Filter/ccsSubreads_004of006";
+"file://Anonymous/shortreads.chunk011of016.afg" -> "task://Anonymous/P_PreAssembler/makeAfg.afgOut.Gather";
+"file://Anonymous/shortreads.chunk015of016.afg" -> "task://Anonymous/P_PreAssembler/makeAfg.afgOut.Gather";
+"file://Anonymous/consensus.ctg" -> "task://Anonymous/P_PreAssembler/loadConsensus";
+"file://Anonymous/data/filtered_subreads.chunk002of006.fasta" -> "task://Anonymous/P_Filter/subreads.subreads.Gather";
+"task://Anonymous/P_PreAssembler/consensus_008of016" -> "file://Anonymous/consensus.chunk008of016.ctg";
+"task://Anonymous/P_Filter/subreads_002of006" -> "file://Anonymous/data/filtered_subreads.chunk002of006.fasta";
+"task://Anonymous/P_Filter/filter_004of006" -> "file://Anonymous/data/filtered_summary.chunk004of006.csv";
+"task://Anonymous/P_PreAssembler/makeAfg_001of016" -> "file://Anonymous/shortreads.chunk001of016.afg";
+"file://Anonymous/layout.chunk008of016.ids" -> "task://Anonymous/P_PreAssembler/consensus_008of016";
+"file://Anonymous/shortreads.chunk012of016.afg" -> "task://Anonymous/P_PreAssembler/makeAfg.afgOut.Gather";
+"task://Anonymous/P_PreAssembler/consensus_015of016" -> "file://Anonymous/consensus.chunk015of016.ctg";
+"task://Anonymous/P_PreAssembler/align.fofn.Scatter" -> "file://Anonymous/fastq.chunk003of006.fofn";
+"task://Anonymous/P_PreAssembler/outputFiles" -> "file://Anonymous/data/corrected.fasta";
+"task://Anonymous/P_PreAssembler/consensus.layoutIds.Scatter" -> "file://Anonymous/layout.chunk005of016.ids";
+"task://Anonymous/P_PreAssembler/filterLongReadsByLength" -> "file://Anonymous/filtered_longreads.fasta";
+"file://Anonymous/shortreads.chunk007of016.afg" -> "task://Anonymous/P_PreAssembler/makeAfg.afgOut.Gather";
+"file://Anonymous/shortreads.chunk003of016.afg" -> "task://Anonymous/P_PreAssembler/makeAfg.afgOut.Gather";
+"task://Anonymous/P_PreAssembler/consensus.layoutIds.Scatter" -> "file://Anonymous/layout.chunk011of016.ids";
+"task://Anonymous/P_Filter/subreads_004of006" -> "file://Anonymous/data/filtered_subreads.chunk004of006.fastq";
+"task://Anonymous/P_PreAssembler/makeAfg_009of016" -> "file://Anonymous/shortreads.chunk009of016.afg";
+"file://Anonymous/data/ccs_reads.chunk005of006.fastq" -> "task://Anonymous/P_Filter/ccsSubreads.CCSsubreadFastq.Gather";
+"file://Anonymous/fastq.chunk005of016.fofn" -> "task://Anonymous/P_PreAssembler/makeAfg_005of016";
+"task://Anonymous/P_PreAssembler/makeAfg_008of016" -> "file://Anonymous/shortreads.chunk008of016.afg";
+"file://Anonymous/fastq.chunk013of016.fofn" -> "task://Anonymous/P_PreAssembler/makeAfg_013of016";
+"task://Anonymous/P_Filter/filter_004of006" -> "file://Anonymous/data/filtered_regions.chunk004of006.fofn";
+"task://Anonymous/P_Filter/subreads_001of006" -> "file://Anonymous/data/filtered_subreads.chunk001of006.fastq";
+"file://Anonymous/fastq.chunk003of016.fofn" -> "task://Anonymous/P_PreAssembler/makeAfg_003of016";
+"task://Anonymous/P_Filter/ccsSubreads_002of006" -> "file://Anonymous/data/ccs_reads.chunk002of006.fasta";
+"task://Anonymous/P_Filter/subreads.plsFofn.Scatter" -> "file://Anonymous/input.chunk004of006.fofn";
+"task://Anonymous/P_PreAssembler/consensus_013of016" -> "file://Anonymous/consensus.chunk013of016.ctg";
+"file://Anonymous/data/filtered_regions.chunk002of016.fofn" -> "task://Anonymous/P_PreAssembler/makeAfg_002of016";
+"file://Anonymous/data/filtered_regions.chunk001of016.fofn" -> "task://Anonymous/P_PreAssembler/makeAfg_001of016";
+"task://Anonymous/P_PreAssembler/align.blasrOut.Gather" -> "file://Anonymous/align.b4";
+"file://Anonymous/fastq.chunk005of006.fofn" -> "task://Anonymous/P_PreAssembler/align_005of006";
+"file://Anonymous/fastq.chunk006of016.fofn" -> "task://Anonymous/P_PreAssembler/makeAfg_006of016";
+"task://Anonymous/P_Filter/filter_002of006" -> "file://Anonymous/data/filtered_regions";
+"file://Anonymous/data/filtered_regions.chunk005of006.fofn" -> "task://Anonymous/P_Filter/filter.rgnFofn.Gather";
+"file://Anonymous/data/filtered_regions.chunk001of006.fofn" -> "task://Anonymous/P_Filter/filter.rgnFofn.Gather";
+"task://Anonymous/P_PreAssembler/makeAfg.fofn.Scatter" -> "file://Anonymous/fastq.chunk011of016.fofn";
+"task://Anonymous/P_Filter/filter_001of006" -> "file://Anonymous/data/filtered_regions";
+"file://Anonymous/shortreads.chunk010of016.afg" -> "task://Anonymous/P_PreAssembler/makeAfg.afgOut.Gather";
+"file://Anonymous/input.chunk004of006.fofn" -> "task://Anonymous/P_Filter/filter_004of006";
+"task://Anonymous/P_PreAssembler/consensus.layoutIds.Scatter" -> "file://Anonymous/layout.chunk012of016.ids";
+"file://Anonymous/layout.chunk011of016.ids" -> "task://Anonymous/P_PreAssembler/consensus_011of016";
+"file://Anonymous/data/filtered_subreads.fasta" -> "task://Anonymous/P_PreAssembler/preAssemblerReport";
+"task://Anonymous/P_PreAssembler/makeAfg_011of016" -> "file://Anonymous/shortreads.chunk011of016.afg";
+"task://Anonymous/P_PreAssembler/consensus.layoutIds.Scatter" -> "file://Anonymous/layout.chunk010of016.ids";
+"file://Anonymous/align.chunk005of006.b4" -> "task://Anonymous/P_PreAssembler/align.blasrOut.Gather";
+"file://Anonymous/data/filtered_subreads.chunk004of006.fastq" -> "task://Anonymous/P_Filter/subreads.subreadFastq.Gather";
+"file://Anonymous/layout.chunk001of016.ids" -> "task://Anonymous/P_PreAssembler/consensus_001of016";
+"file://Anonymous/data/filtered_regions.chunk001of006.fofn" -> "task://Anonymous/P_PreAssembler/align_001of006";
+"file://Anonymous/input.fofn" -> "task://Anonymous/P_Fetch/getChemistry";
+"file://Anonymous/data/filtered_subreads.chunk003of006.fasta" -> "task://Anonymous/P_Filter/subreads.subreads.Gather";
+"task://Anonymous/P_PreAssembler/makeAfg.rgnFofn.Scatter" -> "file://Anonymous/data/filtered_regions.chunk005of016.fofn";
+"file://Anonymous/data/ccs_reads.chunk002of006.fasta" -> "task://Anonymous/P_Filter/ccsSubreads.CCSsubreads.Gather";
+"file://Anonymous/data/filtered_summary.chunk005of006.csv" -> "task://Anonymous/P_Filter/filter.summary.Gather";
+"task://Anonymous/P_PreAssembler/consensus_011of016" -> "file://Anonymous/consensus.chunk011of016.ctg";
+"task://Anonymous/P_Filter/ccsSubreads_005of006" -> "file://Anonymous/data/ccs_reads.chunk005of006.fastq";
+"task://Anonymous/P_PreAssembler/useFastqAsShortReads" -> "file://Anonymous/fastq.fofn";
+"task://Anonymous/P_PreAssembler/makeAfg.fofn.Scatter" -> "file://Anonymous/fastq.chunk013of016.fofn";
+"file://Anonymous/consensus.chunk015of016.ctg" -> "task://Anonymous/P_PreAssembler/consensus.consensusOut.Gather";
+"task://Anonymous/P_Filter/subreads.plsFofn.Scatter" -> "file://Anonymous/input.chunk001of006.fofn";
+"file://Anonymous/shortreads.chunk005of016.afg" -> "task://Anonymous/P_PreAssembler/makeAfg.afgOut.Gather";
+"file://Anonymous/data/filtered_regions.chunk003of006.fofn" -> "task://Anonymous/P_PreAssembler/align_003of006";
+"task://Anonymous/P_PreAssembler/align.fofn.Scatter" -> "file://Anonymous/fastq.chunk001of006.fofn";
+"file://Anonymous/consensus.chunk012of016.ctg" -> "task://Anonymous/P_PreAssembler/consensus.consensusOut.Gather";
+"file://Anonymous/input.fofn" -> "task://Anonymous/P_Filter/subreads.plsFofn.Scatter";
+"task://Anonymous/P_PreAssembler/consensus.consensusOut.Gather" -> "file://Anonymous/consensus.ctg";
+"task://Anonymous/P_PreAssembler/makeAfg.rgnFofn.Scatter" -> "file://Anonymous/data/filtered_regions.chunk009of016.fofn";
+"file://Anonymous/fastq.fofn" -> "task://Anonymous/P_PreAssembler/makeAfg.fofn.Scatter";
+"file://Anonymous/filtered_longreads.fasta" -> "task://Anonymous/P_PreAssembler/align_004of006";
+"task://Anonymous/P_PreAssembler/makeAfg.afgOut.Gather" -> "file://Anonymous/shortreads.afg";
+"file://Anonymous/corrected.bnk#InitialBank" -> "task://Anonymous/P_PreAssembler/consensus_002of016";
+"task://Anonymous/P_Filter/subreads_005of006" -> "file://Anonymous/data/filtered_subreads.chunk005of006.fastq";
+"task://Anonymous/P_PreAssembler/makeAfg_016of016" -> "file://Anonymous/shortreads.chunk016of016.afg";
+"task://Anonymous/P_Filter/filter_003of006" -> "file://Anonymous/data/filtered_regions";
+"task://Anonymous/P_Filter/ccsSubreads_005of006" -> "file://Anonymous/data/ccs_reads.chunk005of006.fasta";
+"task://Anonymous/P_PreAssembler/makeAfg.rgnFofn.Scatter" -> "file://Anonymous/data/filtered_regions.chunk011of016.fofn";
+"file://Anonymous/data/filtered_regions.fofn" -> "task://Anonymous/P_PreAssembler/makeAfg.rgnFofn.Scatter";
+"file://Anonymous/corrected.bnk#InitialBank" -> "task://Anonymous/P_PreAssembler/layout";
+"task://Anonymous/P_PreAssembler/consensus_012of016" -> "file://Anonymous/consensus.chunk012of016.ctg";
+"file://Anonymous/layout.chunk012of016.ids" -> "task://Anonymous/P_PreAssembler/consensus_012of016";
+"file://Anonymous/data/ccs_reads.chunk003of006.fastq" -> "task://Anonymous/P_Filter/ccsSubreads.CCSsubreadFastq.Gather";
+"task://Anonymous/P_Filter/subreads.plsFofn.Scatter" -> "file://Anonymous/input.chunk005of006.fofn";
+"file://Anonymous/data/filtered_regions.chunk006of006.fofn" -> "task://Anonymous/P_Filter/ccsSubreads_006of006";
+"task://Anonymous/P_Filter/filter_001of006" -> "file://Anonymous/data/filtered_regions.chunk001of006.fofn";
+"task://Anonymous/P_PreAssembler/consensus.layoutIds.Scatter" -> "file://Anonymous/layout.chunk003of016.ids";
+"task://Anonymous/P_PreAssembler/consensus_001of016" -> "file://Anonymous/consensus.chunk001of016.ctg";
+"task://Anonymous/P_PreAssembler/makeAfg_014of016" -> "file://Anonymous/shortreads.chunk014of016.afg";
+"file://Anonymous/data/filtered_regions.chunk008of016.fofn" -> "task://Anonymous/P_PreAssembler/makeAfg_008of016";
+"task://Anonymous/P_Filter/ccsSubreads_001of006" -> "file://Anonymous/data/ccs_reads.chunk001of006.fasta";
+"task://Anonymous/P_Fetch/getChemistry" -> "file://Anonymous/data/chemistry_mapping.xml";
+"task://Anonymous/P_PreAssembler/consensus_002of016" -> "file://Anonymous/consensus.chunk002of016.ctg";
+"file://Anonymous/data/ccs_reads.chunk004of006.fastq" -> "task://Anonymous/P_Filter/ccsSubreads.CCSsubreadFastq.Gather";
+"task://Anonymous/P_PreAssembler/makeAfg_004of016" -> "file://Anonymous/shortreads.chunk004of016.afg";
+"file://Anonymous/consensus.chunk003of016.ctg" -> "task://Anonymous/P_PreAssembler/consensus.consensusOut.Gather";
+"file://Anonymous/data/filtered_summary.chunk003of006.csv" -> "task://Anonymous/P_Filter/filter.summary.Gather";
+"file://Anonymous/data/ccs_reads.chunk001of006.fasta" -> "task://Anonymous/P_Filter/ccsSubreads.CCSsubreads.Gather";
+"task://Anonymous/P_Filter/subreads.subreads.Gather" -> "file://Anonymous/data/filtered_subreads.fasta";
+"file://Anonymous/fastq.chunk003of006.fofn" -> "task://Anonymous/P_PreAssembler/align_003of006";
+"file://Anonymous/corrected.bnk#WithConsensus" -> "task://Anonymous/P_PreAssembler/outputFiles";
+"file://Anonymous/fastq.chunk009of016.fofn" -> "task://Anonymous/P_PreAssembler/makeAfg_009of016";
+"task://Anonymous/P_PreAssembler/makeAfg.rgnFofn.Scatter" -> "file://Anonymous/data/filtered_regions.chunk010of016.fofn";
+"task://Anonymous/P_Filter/ccsSubreads_003of006" -> "file://Anonymous/data/ccs_reads.chunk003of006.fastq";
+"task://Anonymous/P_FilterReports/loadingRpt" -> "file://Anonymous/results/filterReports_loading.xml";
+"file://Anonymous/filtered_longreads.fasta" -> "task://Anonymous/P_PreAssembler/align_005of006";
+"file://Anonymous/fastq.chunk016of016.fofn" -> "task://Anonymous/P_PreAssembler/makeAfg_016of016";
+"task://Anonymous/P_PreAssembler/loadConsensus" -> "file://Anonymous/corrected.bnk#WithConsensus";
+"task://Anonymous/P_PreAssembler/makeAfg.fofn.Scatter" -> "file://Anonymous/fastq.chunk009of016.fofn";
+"task://Anonymous/P_PreAssembler/consensus.layoutIds.Scatter" -> "file://Anonymous/layout.chunk006of016.ids";
+"task://Anonymous/P_PreAssembler/makeAfg_003of016" -> "file://Anonymous/shortreads.chunk003of016.afg";
+"file://Anonymous/input.chunk003of006.fofn" -> "task://Anonymous/P_Filter/filter_003of006";
+"task://Anonymous/P_Filter/filter_006of006" -> "file://Anonymous/data/filtered_summary.chunk006of006.csv";
+"task://Anonymous/P_Filter/ccsSubreads_001of006" -> "file://Anonymous/data/ccs_reads.chunk001of006.fastq";
+"file://Anonymous/data/filtered_regions.chunk002of006.fofn" -> "task://Anonymous/P_Filter/ccsSubreads_002of006";
+"task://Anonymous/P_PreAssembler/makeAfg.fofn.Scatter" -> "file://Anonymous/fastq.chunk005of016.fofn";
+"file://Anonymous/layout.chunk007of016.ids" -> "task://Anonymous/P_PreAssembler/consensus_007of016";
+"task://Anonymous/P_PreAssembler/layout" -> "file://Anonymous/layout.ids";
+"task://Anonymous/P_Filter/subreads_004of006" -> "file://Anonymous/data/filtered_subreads.chunk004of006.fasta";
+"task://Anonymous/P_FilterReports/adapterRpt" -> "file://Anonymous/results/filterReports_adapters.xml";
+"task://Anonymous/P_Filter/filter_001of006" -> "file://Anonymous/data/filtered_summary.chunk001of006.csv";
+"file://Anonymous/data/filtered_regions.chunk001of006.fofn" -> "task://Anonymous/P_Filter/ccsSubreads_001of006";
+"task://Anonymous/P_PreAssembler/makeAfg.rgnFofn.Scatter" -> "file://Anonymous/data/filtered_regions.chunk016of016.fofn";
+"task://Anonymous/P_Filter/subreads_006of006" -> "file://Anonymous/data/filtered_subreads.chunk006of006.fastq";
+"task://Anonymous/P_PreAssembler/makeAfg.fofn.Scatter" -> "file://Anonymous/fastq.chunk004of016.fofn";
+"file://Anonymous/consensus.chunk005of016.ctg" -> "task://Anonymous/P_PreAssembler/consensus.consensusOut.Gather";
+"file://Anonymous/data/filtered_regions.chunk002of006.fofn" -> "task://Anonymous/P_PreAssembler/align_002of006";
+"file://Anonymous/corrected.bnk#InitialBank" -> "task://Anonymous/P_PreAssembler/consensus_004of016";
+"file://Anonymous/input.chunk005of006.fofn" -> "task://Anonymous/P_Filter/filter_005of006";
+"file://Anonymous/input.chunk002of006.fofn" -> "task://Anonymous/P_Filter/filter_002of006";
+"file://Anonymous/data/filtered_regions.chunk006of006.fofn" -> "task://Anonymous/P_Filter/filter.rgnFofn.Gather";
+"file://Anonymous/fastq.chunk006of006.fofn" -> "task://Anonymous/P_PreAssembler/align_006of006";
+"task://Anonymous/P_Filter/filter_005of006" -> "file://Anonymous/data/filtered_regions";
+"file://Anonymous/data/filtered_subreads.chunk001of006.fasta" -> "task://Anonymous/P_Filter/subreads.subreads.Gather";
+"task://Anonymous/P_PreAssembler/consensus_006of016" -> "file://Anonymous/consensus.chunk006of016.ctg";
+"file://Anonymous/align.chunk003of006.b4" -> "task://Anonymous/P_PreAssembler/align.blasrOut.Gather";
+"file://Anonymous/consensus.chunk006of016.ctg" -> "task://Anonymous/P_PreAssembler/consensus.consensusOut.Gather";
+"file://Anonymous/shortreads.chunk009of016.afg" -> "task://Anonymous/P_PreAssembler/makeAfg.afgOut.Gather";
+"file://Anonymous/shortreads.chunk004of016.afg" -> "task://Anonymous/P_PreAssembler/makeAfg.afgOut.Gather";
+"task://Anonymous/P_PreAssembler/consensus.layoutIds.Scatter" -> "file://Anonymous/layout.chunk014of016.ids";
+"task://Anonymous/P_PreAssembler/layout" -> "file://Anonymous/data/idmap.csv";
+"file://Anonymous/data/ccs_reads.chunk005of006.fasta" -> "task://Anonymous/P_Filter/ccsSubreads.CCSsubreads.Gather";
+"file://Anonymous/corrected.bnk#InitialBank" -> "task://Anonymous/P_PreAssembler/consensus_010of016";
+"file://Anonymous/consensus.chunk007of016.ctg" -> "task://Anonymous/P_PreAssembler/consensus.consensusOut.Gather";
+"task://Anonymous/P_PreAssembler/consensus.layoutIds.Scatter" -> "file://Anonymous/layout.chunk007of016.ids";
+"file://Anonymous/data/filtered_regions.chunk004of006.fofn" -> "task://Anonymous/P_Filter/subreads_004of006";
+"file://Anonymous/align.chunk006of006.b4" -> "task://Anonymous/P_PreAssembler/align.blasrOut.Gather";
+"file://Anonymous/data/filtered_regions.fofn" -> "task://Anonymous/P_Filter/subreadSummary";
+"task://Anonymous/P_PreAssembler/makeAfg.rgnFofn.Scatter" -> "file://Anonymous/data/filtered_regions.chunk008of016.fofn";
+"file://Anonymous/consensus.chunk004of016.ctg" -> "task://Anonymous/P_PreAssembler/consensus.consensusOut.Gather";
+"task://Anonymous/P_Filter/filter_005of006" -> "file://Anonymous/data/filtered_summary.chunk005of006.csv";
+"task://Anonymous/P_PreAssembler/makeAfg.fofn.Scatter" -> "file://Anonymous/fastq.chunk016of016.fofn";
+"file://Anonymous/shortreads.chunk008of016.afg" -> "task://Anonymous/P_PreAssembler/makeAfg.afgOut.Gather";
+"file://Anonymous/data/filtered_regions.chunk012of016.fofn" -> "task://Anonymous/P_PreAssembler/makeAfg_012of016";
+"file://Anonymous/corrected.bnk#InitialBank" -> "task://Anonymous/P_PreAssembler/consensus_005of016";
+"file://Anonymous/data/corrected.fasta" -> "task://Anonymous/P_PreAssembler/preAssemblerReport";
+"file://Anonymous/data/ccs_reads.chunk006of006.fastq" -> "task://Anonymous/P_Filter/ccsSubreads.CCSsubreadFastq.Gather";
+"task://Anonymous/P_PreAssembler/preAssemblerReport" -> "file://Anonymous/results/preAssemblerReport.xml";
+"task://Anonymous/P_Filter/filter.summary.Gather" -> "file://Anonymous/data/filtered_summary.csv";
+"file://Anonymous/filtered_longreads.fasta" -> "task://Anonymous/P_PreAssembler/align_002of006";
+"file://Anonymous/corrected.bnk#InitialBank" -> "task://Anonymous/P_PreAssembler/consensus_011of016";
+"file://Anonymous/data/filtered_regions.chunk011of016.fofn" -> "task://Anonymous/P_PreAssembler/makeAfg_011of016";
+"task://Anonymous/P_PreAssembler/makeAfg.fofn.Scatter" -> "file://Anonymous/fastq.chunk008of016.fofn";
+"file://Anonymous/fastq.chunk010of016.fofn" -> "task://Anonymous/P_PreAssembler/makeAfg_010of016";
+"file://Anonymous/data/filtered_summary.chunk002of006.csv" -> "task://Anonymous/P_Filter/filter.summary.Gather";
+"task://Anonymous/P_PreAssembler/makeAfg.rgnFofn.Scatter" -> "file://Anonymous/data/filtered_regions.chunk013of016.fofn";
+"file://Anonymous/data/filtered_regions.chunk005of006.fofn" -> "task://Anonymous/P_Filter/subreads_005of006";
+"task://Anonymous/P_PreAssembler/align.fofn.Scatter" -> "file://Anonymous/fastq.chunk005of006.fofn";
+"file://Anonymous/data/filtered_regions.chunk005of016.fofn" -> "task://Anonymous/P_PreAssembler/makeAfg_005of016";
+"task://Anonymous/P_PreAssembler/makeAfg.fofn.Scatter" -> "file://Anonymous/fastq.chunk010of016.fofn";
+"task://Anonymous/P_PreAssembler/align_003of006" -> "file://Anonymous/align.chunk003of006.b4";
+"task://Anonymous/P_PreAssembler/consensus.layoutIds.Scatter" -> "file://Anonymous/layout.chunk009of016.ids";
+"task://Anonymous/P_Filter/subreads_005of006" -> "file://Anonymous/data/filtered_subreads.chunk005of006.fasta";
+"file://Anonymous/data/filtered_regions.chunk007of016.fofn" -> "task://Anonymous/P_PreAssembler/makeAfg_007of016";
+"file://Anonymous/data/filtered_regions.chunk014of016.fofn" -> "task://Anonymous/P_PreAssembler/makeAfg_014of016";
+"task://Anonymous/P_PreAssembler/makeAfg.fofn.Scatter" -> "file://Anonymous/fastq.chunk014of016.fofn";
+"file://Anonymous/shortreads.chunk001of016.afg" -> "task://Anonymous/P_PreAssembler/makeAfg.afgOut.Gather";
+"file://Anonymous/input.fofn" -> "task://Anonymous/P_FilterReports/adapterRpt";
+"file://Anonymous/consensus.chunk013of016.ctg" -> "task://Anonymous/P_PreAssembler/consensus.consensusOut.Gather";
+"task://Anonymous/P_PreAssembler/makeAfg_013of016" -> "file://Anonymous/shortreads.chunk013of016.afg";
+"task://Anonymous/P_PreAssembler/makeAfg.fofn.Scatter" -> "file://Anonymous/fastq.chunk007of016.fofn";
+"file://Anonymous/layout.chunk005of016.ids" -> "task://Anonymous/P_PreAssembler/consensus_005of016";
+"file://Anonymous/corrected.bnk#InitialBank" -> "task://Anonymous/P_PreAssembler/consensus_016of016";
+"file://Anonymous/data/filtered_regions.chunk005of006.fofn" -> "task://Anonymous/P_PreAssembler/align_005of006";
+"file://Anonymous/fastq.chunk004of006.fofn" -> "task://Anonymous/P_PreAssembler/align_004of006";
+"file://Anonymous/layout.chunk015of016.ids" -> "task://Anonymous/P_PreAssembler/consensus_015of016";
+"file://Anonymous/fastq.chunk015of016.fofn" -> "task://Anonymous/P_PreAssembler/makeAfg_015of016";
+"task://Anonymous/P_PreAssembler/makeAfg_006of016" -> "file://Anonymous/shortreads.chunk006of016.afg";
+"task://Anonymous/P_Filter/ccsSubreads_006of006" -> "file://Anonymous/data/ccs_reads.chunk006of006.fastq";
+"task://Anonymous/P_PreAssembler/makeAfg.fofn.Scatter" -> "file://Anonymous/fastq.chunk006of016.fofn";
+"file://Anonymous/data/filtered_summary.chunk001of006.csv" -> "task://Anonymous/P_Filter/filter.summary.Gather";
+"file://Anonymous/data/filtered_subread_summary.csv" -> "task://Anonymous/P_FilterReports/subreadRpt";
+"file://Anonymous/align.chunk002of006.b4" -> "task://Anonymous/P_PreAssembler/align.blasrOut.Gather";
+"file://Anonymous//groups/csf-ngs/projects/20131203_Armin_PacbioEC/data/preassembly/input.xml" -> "task://Anonymous/P_PreAssembler/useFastqAsShortReads";
+"file://Anonymous/data/filtered_subreads.chunk005of006.fastq" -> "task://Anonymous/P_Filter/subreads.subreadFastq.Gather";
+"file://Anonymous/filtered_longreads.fasta" -> "task://Anonymous/P_PreAssembler/align_001of006";
+"task://Anonymous/P_PreAssembler/makeAfg.rgnFofn.Scatter" -> "file://Anonymous/data/filtered_regions.chunk003of016.fofn";
+"file://Anonymous/corrected.bnk#InitialBank" -> "task://Anonymous/P_PreAssembler/consensus_014of016";
+"task://Anonymous/P_PreAssembler/consensus.layoutIds.Scatter" -> "file://Anonymous/layout.chunk002of016.ids";
+"file://Anonymous/consensus.chunk016of016.ctg" -> "task://Anonymous/P_PreAssembler/consensus.consensusOut.Gather";
+"file://Anonymous/consensus.chunk009of016.ctg" -> "task://Anonymous/P_PreAssembler/consensus.consensusOut.Gather";
+"file://Anonymous/layout.chunk006of016.ids" -> "task://Anonymous/P_PreAssembler/consensus_006of016";
+"file://Anonymous/data/filtered_regions.chunk004of006.fofn" -> "task://Anonymous/P_Filter/filter.rgnFofn.Gather";
+"task://Anonymous/P_PreAssembler/makeAfg.fofn.Scatter" -> "file://Anonymous/fastq.chunk015of016.fofn";
+"file://Anonymous/shortreads.chunk013of016.afg" -> "task://Anonymous/P_PreAssembler/makeAfg.afgOut.Gather";
+"task://Anonymous/P_Filter/subreads_006of006" -> "file://Anonymous/data/filtered_subreads.chunk006of006.fasta";
+"task://Anonymous/P_FilterReports/statsRpt" -> "file://Anonymous/results/filterReports_filterStats.xml";
+"file://Anonymous/corrected.bnk#InitialBank" -> "task://Anonymous/P_PreAssembler/consensus_012of016";
+"file://Anonymous/fastq.chunk001of016.fofn" -> "task://Anonymous/P_PreAssembler/makeAfg_001of016";
+"task://Anonymous/P_PreAssembler/consensus_009of016" -> "file://Anonymous/consensus.chunk009of016.ctg";
+"file://Anonymous//groups/csf-ngs/projects/20131203_Armin_PacbioEC/data/preassembly/input.xml" -> "task://Anonymous/P_Fetch/toFofn";
+"file://Anonymous/data/filtered_regions.chunk006of016.fofn" -> "task://Anonymous/P_PreAssembler/makeAfg_006of016";
+"task://Anonymous/P_Filter/filter_003of006" -> "file://Anonymous/data/filtered_summary.chunk003of006.csv";
+"task://Anonymous/P_Filter/ccsSubreads.CCSsubreadFastq.Gather" -> "file://Anonymous/data/ccs_reads.fastq";
+"file://Anonymous/data/filtered_regions.chunk002of006.fofn" -> "task://Anonymous/P_Filter/filter.rgnFofn.Gather";
+"task://Anonymous/P_PreAssembler/align_002of006" -> "file://Anonymous/align.chunk002of006.b4";
+"file://Anonymous/corrected.bnk#InitialBank" -> "task://Anonymous/P_PreAssembler/consensus_013of016";
+"file://Anonymous/filtered_longreads.fasta" -> "task://Anonymous/P_PreAssembler/align_006of006";
+"task://Anonymous/P_PreAssembler/makeAfg_005of016" -> "file://Anonymous/shortreads.chunk005of016.afg";
+"task://Anonymous/P_PreAssembler/makeAfg.rgnFofn.Scatter" -> "file://Anonymous/data/filtered_regions.chunk014of016.fofn";
+"file://Anonymous/data/filtered_regions.chunk003of006.fofn" -> "task://Anonymous/P_Filter/ccsSubreads_003of006";
+"file://Anonymous/data/filtered_regions.chunk013of016.fofn" -> "task://Anonymous/P_PreAssembler/makeAfg_013of016";
+"file://Anonymous/data/ccs_reads.chunk006of006.fasta" -> "task://Anonymous/P_Filter/ccsSubreads.CCSsubreads.Gather";
+"file://Anonymous/data/filtered_regions.chunk009of016.fofn" -> "task://Anonymous/P_PreAssembler/makeAfg_009of016";
+"task://Anonymous/P_PreAssembler/consensus_007of016" -> "file://Anonymous/consensus.chunk007of016.ctg";
+"file://Anonymous/fastq.chunk001of006.fofn" -> "task://Anonymous/P_PreAssembler/align_001of006";
+"file://Anonymous/corrected.bnk#InitialBank" -> "task://Anonymous/P_PreAssembler/consensus_015of016";
+"file://Anonymous/data/filtered_subreads.chunk002of006.fastq" -> "task://Anonymous/P_Filter/subreads.subreadFastq.Gather";
+"task://Anonymous/P_PreAssembler/makeAfg.fofn.Scatter" -> "file://Anonymous/fastq.chunk001of016.fofn";
+"task://Anonymous/P_PreAssembler/align_006of006" -> "file://Anonymous/align.chunk006of006.b4";
+"task://Anonymous/P_Filter/subreads.subreadFastq.Gather" -> "file://Anonymous/data/filtered_subreads.fastq";
+"file://Anonymous/corrected.bnk#InitialBank" -> "task://Anonymous/P_PreAssembler/consensus_003of016";
+"task://Anonymous/P_PreAssembler/consensus.layoutIds.Scatter" -> "file://Anonymous/layout.chunk013of016.ids";
+"file://Anonymous/shortreads.chunk014of016.afg" -> "task://Anonymous/P_PreAssembler/makeAfg.afgOut.Gather";
+"task://Anonymous/P_Filter/subreads_001of006" -> "file://Anonymous/data/filtered_subreads.chunk001of006.fasta";
+"task://Anonymous/P_PreAssembler/makeAfg.rgnFofn.Scatter" -> "file://Anonymous/data/filtered_regions.chunk001of016.fofn";
+"file://Anonymous/data/filtered_summary.csv" -> "task://Anonymous/P_FilterReports/loadingRpt";
+"file://Anonymous/fastq.fofn" -> "task://Anonymous/P_PreAssembler/align.fofn.Scatter";
+"file://Anonymous/fastq.chunk012of016.fofn" -> "task://Anonymous/P_PreAssembler/makeAfg_012of016";
+"file://Anonymous/layout.ids" -> "task://Anonymous/P_PreAssembler/consensus.layoutIds.Scatter";
+"task://Anonymous/P_Filter/filter_006of006" -> "file://Anonymous/data/filtered_regions.chunk006of006.fofn";
+"file://Anonymous/data/filtered_regions.chunk004of016.fofn" -> "task://Anonymous/P_PreAssembler/makeAfg_004of016";
+"file://Anonymous/data/filtered_subreads.chunk005of006.fasta" -> "task://Anonymous/P_Filter/subreads.subreads.Gather";
+"task://Anonymous/P_PreAssembler/align.fofn.Scatter" -> "file://Anonymous/fastq.chunk006of006.fofn";
+"file://Anonymous/data/filtered_subreads.fasta" -> "task://Anonymous/P_PreAssembler/filterLongReadsByLength";
+"file://Anonymous/align.chunk001of006.b4" -> "task://Anonymous/P_PreAssembler/align.blasrOut.Gather";
+"task://Anonymous/P_PreAssembler/makeAfg.rgnFofn.Scatter" -> "file://Anonymous/data/filtered_regions.chunk015of016.fofn";
+"file://Anonymous/data/filtered_summary.chunk004of006.csv" -> "task://Anonymous/P_Filter/filter.summary.Gather";
+"file://Anonymous/layout.chunk004of016.ids" -> "task://Anonymous/P_PreAssembler/consensus_004of016";
+"task://Anonymous/P_Fetch/overviewRpt" -> "file://Anonymous/results/overview.xml";
+"task://Anonymous/P_PreAssembler/makeAfg.fofn.Scatter" -> "file://Anonymous/fastq.chunk002of016.fofn";
+"file://Anonymous/layout.chunk010of016.ids" -> "task://Anonymous/P_PreAssembler/consensus_010of016";
+"file://Anonymous/shortreads.afg" -> "task://Anonymous/P_PreAssembler/makeBank";
+"task://Anonymous/P_PreAssembler/makeAfg.rgnFofn.Scatter" -> "file://Anonymous/data/filtered_regions.chunk004of016.fofn";
+"file://Anonymous/fastq.chunk002of006.fofn" -> "task://Anonymous/P_PreAssembler/align_002of006";
+"file://Anonymous/consensus.chunk014of016.ctg" -> "task://Anonymous/P_PreAssembler/consensus.consensusOut.Gather";
+"task://Anonymous/P_Filter/filter_004of006" -> "file://Anonymous/data/filtered_regions";
+"task://Anonymous/P_PreAssembler/align.fofn.Scatter" -> "file://Anonymous/fastq.chunk002of006.fofn";
+"file://Anonymous/data/filtered_regions.chunk006of006.fofn" -> "task://Anonymous/P_PreAssembler/align_006of006";
+"file://Anonymous/input.chunk006of006.fofn" -> "task://Anonymous/P_Filter/filter_006of006";
+"task://Anonymous/P_PreAssembler/makeAfg.rgnFofn.Scatter" -> "file://Anonymous/data/filtered_regions.chunk002of016.fofn";
+"task://Anonymous/P_Filter/subreads_003of006" -> "file://Anonymous/data/filtered_subreads.chunk003of006.fastq";
+"file://Anonymous/data/ccs_reads.chunk001of006.fastq" -> "task://Anonymous/P_Filter/ccsSubreads.CCSsubreadFastq.Gather";
+"file://Anonymous/data/filtered_regions.chunk004of006.fofn" -> "task://Anonymous/P_PreAssembler/align_004of006";
+"task://Anonymous/P_Filter/ccsSubreads.CCSsubreads.Gather" -> "file://Anonymous/data/ccs_reads.fasta";
+"file://Anonymous/filtered_longreads.fasta" -> "task://Anonymous/P_PreAssembler/align_003of006";
+"file://Anonymous/fastq.chunk002of016.fofn" -> "task://Anonymous/P_PreAssembler/makeAfg_002of016";
+"task://Anonymous/P_Filter/ccsSubreads_002of006" -> "file://Anonymous/data/ccs_reads.chunk002of006.fastq";
+"task://Anonymous/P_PreAssembler/makeAfg_002of016" -> "file://Anonymous/shortreads.chunk002of016.afg";
+"task://Anonymous/P_Filter/filter_006of006" -> "file://Anonymous/data/filtered_regions";
+"file://Anonymous/fastq.chunk008of016.fofn" -> "task://Anonymous/P_PreAssembler/makeAfg_008of016";
+"task://Anonymous/P_PreAssembler/makeAfg.rgnFofn.Scatter" -> "file://Anonymous/data/filtered_regions.chunk007of016.fofn";
+"task://Anonymous/P_PreAssembler/align.fofn.Scatter" -> "file://Anonymous/fastq.chunk004of006.fofn";
+"file://Anonymous/data/filtered_regions.chunk006of006.fofn" -> "task://Anonymous/P_Filter/subreads_006of006";
+"file://Anonymous/data/filtered_regions.chunk003of006.fofn" -> "task://Anonymous/P_Filter/subreads_003of006";
+"file://Anonymous/consensus.chunk001of016.ctg" -> "task://Anonymous/P_PreAssembler/consensus.consensusOut.Gather";
+"file://Anonymous/data/filtered_regions.chunk016of016.fofn" -> "task://Anonymous/P_PreAssembler/makeAfg_016of016";
+"file://Anonymous/layout.chunk013of016.ids" -> "task://Anonymous/P_PreAssembler/consensus_013of016";
+"task://Anonymous/P_Filter/subreads_003of006" -> "file://Anonymous/data/filtered_subreads.chunk003of006.fasta";
+"task://Anonymous/P_Filter/subreadSummary" -> "file://Anonymous/data/filtered_subread_summary.csv";
+"file://Anonymous/fastq.chunk011of016.fofn" -> "task://Anonymous/P_PreAssembler/makeAfg_011of016";
+"file://Anonymous/data/ccs_reads.chunk002of006.fastq" -> "task://Anonymous/P_Filter/ccsSubreads.CCSsubreadFastq.Gather";
+"file://Anonymous/input.chunk001of006.fofn" -> "task://Anonymous/P_Filter/filter_001of006";
+"file://Anonymous/data/filtered_regions.chunk010of016.fofn" -> "task://Anonymous/P_PreAssembler/makeAfg_010of016";
+"task://Anonymous/P_PreAssembler/makeAfg.fofn.Scatter" -> "file://Anonymous/fastq.chunk012of016.fofn";
+"task://Anonymous/P_Filter/ccsSubreads_004of006" -> "file://Anonymous/data/ccs_reads.chunk004of006.fastq";
+"task://Anonymous/P_PreAssembler/makeBank" -> "file://Anonymous/corrected.bnk#InitialBank";
+"task://Anonymous/P_FilterReports/subreadRpt" -> "file://Anonymous/results/filterReports_filterSubreadStats.xml";
+"file://Anonymous/data/filtered_regions.chunk015of016.fofn" -> "task://Anonymous/P_PreAssembler/makeAfg_015of016";
+"task://Anonymous/P_Filter/filter_002of006" -> "file://Anonymous/data/filtered_regions.chunk002of006.fofn";
+"file://Anonymous/consensus.chunk011of016.ctg" -> "task://Anonymous/P_PreAssembler/consensus.consensusOut.Gather";
+"file://Anonymous/corrected.bnk#InitialBank" -> "task://Anonymous/P_PreAssembler/consensus_008of016";
+"file://Anonymous/input.fofn" -> "task://Anonymous/P_Fetch/overviewRpt";
+"task://Anonymous/P_PreAssembler/consensus_016of016" -> "file://Anonymous/consensus.chunk016of016.ctg";
+"file://Anonymous/consensus.chunk002of016.ctg" -> "task://Anonymous/P_PreAssembler/consensus.consensusOut.Gather";
+"task://Anonymous/P_Filter/ccsSubreads_004of006" -> "file://Anonymous/data/ccs_reads.chunk004of006.fasta";
+"file://Anonymous/layout.chunk014of016.ids" -> "task://Anonymous/P_PreAssembler/consensus_014of016";
+"file://Anonymous/data/filtered_subreads.chunk006of006.fastq" -> "task://Anonymous/P_Filter/subreads.subreadFastq.Gather";
+"task://Anonymous/P_Filter/subreads.plsFofn.Scatter" -> "file://Anonymous/input.chunk006of006.fofn";
+"file://Anonymous/shortreads.chunk006of016.afg" -> "task://Anonymous/P_PreAssembler/makeAfg.afgOut.Gather";
+"task://Anonymous/P_Filter/filter_003of006" -> "file://Anonymous/data/filtered_regions.chunk003of006.fofn";
+"file://Anonymous/data/filtered_summary.csv" -> "task://Anonymous/P_FilterReports/statsRpt";
+"file://Anonymous/data/filtered_subreads.chunk001of006.fastq" -> "task://Anonymous/P_Filter/subreads.subreadFastq.Gather";
+"task://Anonymous/P_PreAssembler/consensus.layoutIds.Scatter" -> "file://Anonymous/layout.chunk015of016.ids";
+"file://Anonymous/fastq.chunk004of016.fofn" -> "task://Anonymous/P_PreAssembler/makeAfg_004of016";
+"file://Anonymous/consensus.chunk010of016.ctg" -> "task://Anonymous/P_PreAssembler/consensus.consensusOut.Gather";
+"file://Anonymous/align.b4" -> "task://Anonymous/P_PreAssembler/layout";
+"task://Anonymous/P_PreAssembler/makeAfg_007of016" -> "file://Anonymous/shortreads.chunk007of016.afg";
+"task://Anonymous/P_PreAssembler/consensus_010of016" -> "file://Anonymous/consensus.chunk010of016.ctg";
+"file://Anonymous/layout.chunk003of016.ids" -> "task://Anonymous/P_PreAssembler/consensus_003of016";
+"file://Anonymous/data/filtered_regions.chunk002of006.fofn" -> "task://Anonymous/P_Filter/subreads_002of006";
+"task://Anonymous/P_PreAssembler/align_001of006" -> "file://Anonymous/align.chunk001of006.b4";
+"task://Anonymous/P_Filter/ccsSubreads_006of006" -> "file://Anonymous/data/ccs_reads.chunk006of006.fasta";
+"task://Anonymous/P_Filter/filter_002of006" -> "file://Anonymous/data/filtered_summary.chunk002of006.csv";
+"file://Anonymous/fastq.chunk014of016.fofn" -> "task://Anonymous/P_PreAssembler/makeAfg_014of016";
+"file://Anonymous/align.chunk004of006.b4" -> "task://Anonymous/P_PreAssembler/align.blasrOut.Gather";
+"task://Anonymous/P_PreAssembler/makeAfg_010of016" -> "file://Anonymous/shortreads.chunk010of016.afg";
+"task://Anonymous/P_PreAssembler/makeAfg.rgnFofn.Scatter" -> "file://Anonymous/data/filtered_regions.chunk006of016.fofn";
+"file://Anonymous/fastq.chunk007of016.fofn" -> "task://Anonymous/P_PreAssembler/makeAfg_007of016";
+"file://Anonymous/corrected.bnk#InitialBank" -> "task://Anonymous/P_PreAssembler/consensus_007of016";
+"file://Anonymous/data/filtered_subreads.chunk006of006.fasta" -> "task://Anonymous/P_Filter/subreads.subreads.Gather";
+"file://Anonymous/layout.chunk002of016.ids" -> "task://Anonymous/P_PreAssembler/consensus_002of016";
+"task://Anonymous/P_PreAssembler/makeAfg_015of016" -> "file://Anonymous/shortreads.chunk015of016.afg";
+"task://Anonymous/P_Filter/subreads.plsFofn.Scatter" -> "file://Anonymous/input.chunk003of006.fofn";
+"file://Anonymous/data/ccs_reads.chunk003of006.fasta" -> "task://Anonymous/P_Filter/ccsSubreads.CCSsubreads.Gather";
+"task://Anonymous/P_PreAssembler/makeAfg.fofn.Scatter" -> "file://Anonymous/fastq.chunk003of016.fofn";
+"file://Anonymous/data/filtered_regions.chunk003of006.fofn" -> "task://Anonymous/P_Filter/filter.rgnFofn.Gather";
+"task://Anonymous/P_PreAssembler/consensus.layoutIds.Scatter" -> "file://Anonymous/layout.chunk004of016.ids";
+"task://Anonymous/P_PreAssembler/consensus_005of016" -> "file://Anonymous/consensus.chunk005of016.ctg";
+"task://Anonymous/P_PreAssembler/consensus_004of016" -> "file://Anonymous/consensus.chunk004of016.ctg";
+"file://Anonymous/data/filtered_summary.chunk006of006.csv" -> "task://Anonymous/P_Filter/filter.summary.Gather";
+"task://Anonymous/P_PreAssembler/makeAfg.rgnFofn.Scatter" -> "file://Anonymous/data/filtered_regions.chunk012of016.fofn";
+}

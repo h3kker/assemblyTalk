@@ -1,0 +1,11 @@
+PASS	Basic Statistics	reads.ec.k75.fastq
+PASS	Per base sequence quality	reads.ec.k75.fastq
+PASS	Per sequence quality scores	reads.ec.k75.fastq
+PASS	Per base sequence content	reads.ec.k75.fastq
+WARN	Per base GC content	reads.ec.k75.fastq
+FAIL	Per sequence GC content	reads.ec.k75.fastq
+PASS	Per base N content	reads.ec.k75.fastq
+PASS	Sequence Length Distribution	reads.ec.k75.fastq
+FAIL	Sequence Duplication Levels	reads.ec.k75.fastq
+PASS	Overrepresented sequences	reads.ec.k75.fastq
+PASS	Kmer Content	reads.ec.k75.fastq

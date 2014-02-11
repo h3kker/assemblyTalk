@@ -1,0 +1,11 @@
+PASS	Basic Statistics	corrected.fastq
+FAIL	Per base sequence quality	corrected.fastq
+PASS	Per sequence quality scores	corrected.fastq
+PASS	Per base sequence content	corrected.fastq
+PASS	Per base GC content	corrected.fastq
+FAIL	Per sequence GC content	corrected.fastq
+PASS	Per base N content	corrected.fastq
+WARN	Sequence Length Distribution	corrected.fastq
+PASS	Sequence Duplication Levels	corrected.fastq
+PASS	Overrepresented sequences	corrected.fastq
+FAIL	Kmer Content	corrected.fastq
