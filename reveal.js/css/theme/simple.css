@@ -190,3 +190,8 @@ body {
 .reveal figure {
   border-bottom: 2px solid #111;
 }
+
+.reveal ol, .reveal ul {
+  padding-top: .5em;
+  padding-bottom: .75em;
+}

@@ -4,8 +4,9 @@
 
 # PacBio <3 Illumina
 
-A short & very technical introduction to hybrid *de novo* genome assembly
-combining Illumina short reads with Pacbio long reads. 
+### A short & very technical introduction to hybrid *de novo* genome assembly combining Illumina short reads with Pacbio long reads. 
+
+Pipeline scripts, markdown source code and data for assembly, analysis and presentation available at [https://github.com/h3kker/assemblyTalk](https://github.com/h3kker/assemblyTalk)
 
 ---
 
