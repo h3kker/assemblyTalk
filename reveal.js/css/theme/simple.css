@@ -153,3 +153,40 @@ body {
 .reveal #literature + ol li {
   padding-bottom: .5em;
 }
+
+.reveal table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: .7em;
+  border-bottom: 5px solid #aaa;
+}
+
+.reveal thead {
+  vertical-align: middle;
+  font-size: 1.2em;
+}
+
+.reveal th {
+  padding: 5px;
+  border-bottom: 4px solid #111;
+  font-weight: bold;
+}
+
+.reveal td {
+  padding-left: .25em;
+  font-family: monospace;
+}
+
+.reveal tr:hover {
+    background-color: lightyellow;
+}
+
+.reveal figcaption {
+  font-size: .8em;
+}
+
+.reveal figure {
+  border-bottom: 2px solid #111;
+}

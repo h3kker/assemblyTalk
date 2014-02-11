@@ -5,13 +5,13 @@ Documentation + Presentation of *de novo* genome assembly efforts on a 20Mb prot
 
 ## Presentation + Report
 
-See [report.html](report.html) for analysis results. The report was generated using R and knitr.
+See [report.html](http://h3kker.github.io/assemblyTalk/report.html) for analysis results. The report was generated using R and knitr.
 
-`slides.md` contains the presentation held. To create the HTML slides [slides.html](slides.html), you need pandoc and reveal.js (included here with a hacked stylesheet).
+`slides.md` contains the presentation held. To create the HTML slides [slides.html](http://h3kker.github.io/assemblyTalk/slides.html), you need pandoc and reveal.js (included here with a hacked stylesheet).
 
 ## Scripts
 
-All scripts that were used in assembly and report generation are in the subfolder `scripts/` or otherwise documented in [report.html](report.html).
+All scripts that were used in assembly and report generation are in the subfolder `scripts/` or otherwise documented in [report.html](http://h3kker.github.io/assemblyTalk/report.html).
 
 Breakdown:
 
@@ -45,7 +45,7 @@ start SMRTanalysis pipeline
 
 - `run_pbjelly.sh`
 
-This is only the wrapper script. Please see [report.html](report.html#toc_69) for details.
+This is only the wrapper script. Please see [report.html](http://h3kker.github.io/assemblyTalk/report.html#toc_69) for details.
 
 - `run_cegma.sh`
 
@@ -60,9 +60,9 @@ BWA alignment of PacBio reads to Assembly scaffolds and various analysis scripts
 
 Most data analysis with R and knitr. To rerun the report, go to the `data/` subfolder and do the following in R:
 
-> library('knitr')
-> knit('../report.Rmd')
-> markdownToBsHTML('report.md', output='report.html')
+  library('knitr')
+  knit('../report.Rmd')
+  markdownToBsHTML('report.md', output='report.html')
 
 `markdownToBsHTML` is a hack to produce nicer results, but includes javascript and stylesheets from Bootstrap (uses `markdown.html` as a template). This is not necessary, `markdownToHTML` is enough.
 
