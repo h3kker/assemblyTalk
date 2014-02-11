@@ -1,0 +1,11 @@
+PASS	Basic Statistics	filtered_subreads.fastq
+FAIL	Per base sequence quality	filtered_subreads.fastq
+FAIL	Per sequence quality scores	filtered_subreads.fastq
+FAIL	Per base sequence content	filtered_subreads.fastq
+FAIL	Per base GC content	filtered_subreads.fastq
+FAIL	Per sequence GC content	filtered_subreads.fastq
+PASS	Per base N content	filtered_subreads.fastq
+WARN	Sequence Length Distribution	filtered_subreads.fastq
+PASS	Sequence Duplication Levels	filtered_subreads.fastq
+PASS	Overrepresented sequences	filtered_subreads.fastq
+FAIL	Kmer Content	filtered_subreads.fastq

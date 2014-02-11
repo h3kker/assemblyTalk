@@ -1,0 +1,11 @@
+PASS	Basic Statistics	440_A_CGTACG_L003.2.fastq
+FAIL	Per base sequence quality	440_A_CGTACG_L003.2.fastq
+PASS	Per sequence quality scores	440_A_CGTACG_L003.2.fastq
+PASS	Per base sequence content	440_A_CGTACG_L003.2.fastq
+FAIL	Per base GC content	440_A_CGTACG_L003.2.fastq
+FAIL	Per sequence GC content	440_A_CGTACG_L003.2.fastq
+PASS	Per base N content	440_A_CGTACG_L003.2.fastq
+PASS	Sequence Length Distribution	440_A_CGTACG_L003.2.fastq
+FAIL	Sequence Duplication Levels	440_A_CGTACG_L003.2.fastq
+PASS	Overrepresented sequences	440_A_CGTACG_L003.2.fastq
+PASS	Kmer Content	440_A_CGTACG_L003.2.fastq
