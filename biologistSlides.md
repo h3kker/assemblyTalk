@@ -1,6 +1,6 @@
 % PacBio <3 Illumina
 % Married with Scaffolds
-% Heinz Ekker (CSF.NGS) 2014-03-05
+% Heinz Ekker (CSF.NGS) 2014-03-12
 
 ## PacBio <3 Illumina
 
@@ -13,10 +13,10 @@ Pipeline scripts, markdown source code and data for assembly, analysis and prese
 ## Content
 
 1. An Idiot's Guide to Assembly & PacBio Technology
-1. Hybrid Assembly Strategies
-1. The Data + The Results
+1. Error Correction and Hybrid Assembly Strategies
+1. Results
 1. Assembly Assessment
-1. Outlook
+1. Elsewhere
 
 # Assembly Basics
 
@@ -118,7 +118,7 @@ Graph structure is very complex due to
 
 ### Graph Simplification - Remove Transitive Edges
 
-Transitive Edges do not add additional information, they can be removed.
+Transitive Edges do not add information, they can be removed.
 
 ![1. Merge Transitive Edges](figure/assemblyTransitive.jpg)
 
@@ -270,6 +270,8 @@ Using 45M Illumina PE100 reads (~9 Gbp, 450x Coverage)
 | SGA | 467 | 57237 | 199401 |
 | Abyss | 698 | 51236 | 200210 |
 
+![N50 explained](figure/n50.jpg)
+
 ---
 
 ## Improvement with Scaffolding Using Pacbio Reads
@@ -360,7 +362,7 @@ A number of contigs with very high depth (>300) were found - A random BLAST prod
 
 ---
 
-### CEGMA
+### CEGMA - Presence Of Core Genes
 
 ![CEGMA results](figure/cegmaPlot.png)
 
@@ -382,14 +384,14 @@ A number of contigs with very high depth (>300) were found - A random BLAST prod
 
 **Arabidopsis Ler-0 using P4 enzyme, C2 chemistry**
 
-Genome size: 124.6 Mb, GC content: 33.92%
-Raw data: 11 Gb, Assembly coverage: 15.37x
-Polished Contigs: 540
-Max Contig Length: 12.98 Mb
-N50 Contig Length: 6.19 Mb
-Sum of Contig Lengths: 124.57 Mb
+- Genome size: 124.6 Mb, GC content: 33.92%
+- Raw data: 11 Gb, Assembly coverage: 15.37x
+- Polished Contigs: 540
+- Max Contig Length: 12.98 Mb
+- N50 Contig Length: 6.19 Mb
+- Sum of Contig Lengths: 124.57 Mb
 
-http://blog.pacificbiosciences.com/2013/08/new-data-release-arabidopsis-assembly.html
+[http://blog.pacificbiosciences.com/2013/08/new-data-release-arabidopsis-assembly.htm](http://blog.pacificbiosciences.com/2013/08/new-data-release-arabidopsis-assembly.html)
 
 ---
 
@@ -397,16 +399,16 @@ http://blog.pacificbiosciences.com/2013/08/new-data-release-arabidopsis-assembly
 
 **Drosophila using P5 enzyme, C3 chemistry**
 
-Total number of bases: 15,208,567,933 bp, Total number of reads: 1,514,730
-Average read length: 10,040 bp, Half of sequenced bases in reads greater than:  14,214 bp
-PacBio RS II instrument time for sequencing: 6 days, Number of SMRT® Cells: 42
+- Total number of bases: 15,208,567,933 bp, Total number of reads: 1,514,730
+- Average read length: 10,040 bp, Half of sequenced bases in reads greater than:  14,214 bp
+- PacBio RS II instrument time for sequencing: 6 days, Number of SMRT® Cells: 42
 
-Contigs: 128
-Max Contig Length: 24.6 Mbp
-N50: 15.3 Mb
-Sum of Contig Lengths: 138.4 Mbp
+- Contigs: 128
+- Max Contig Length: 24.6 Mbp
+- N50: 15.3 Mb
+- Sum of Contig Lengths: 138.4 Mbp
 
-http://blog.pacificbiosciences.com/2014/01/data-release-preliminary-de-novo.html
+[http://blog.pacificbiosciences.com/2014/01/data-release-preliminary-de-novo.html](http://blog.pacificbiosciences.com/2014/01/data-release-preliminary-de-novo.html)
 
 ---
 
