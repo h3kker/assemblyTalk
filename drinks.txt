@@ -1,21 +1,14 @@
 
-24                                                                                        re gone
-23                                                                                    s were g 
-                                                                                 drinks w
-                                                                          s  the dr
-                                                                      rinks  t
-                                                                  he drin     he drin
-                                                                 the dri     the dri
-17                                                      ey drank
-16                                                     hey dra
-15                                                rm  they
-14                                               arm  the
-13                                           nt warm
-12                                       s went w
-11                                     nks wen
-10                                  drinks w                                     drinks w
-                                 he drin               he- drin   he drin     he drin
-                                the dri               the- dri   the dri     the dri
+17                                                                                        re gone
+16                                                                                    s were g 
+15                                                      ey drank
+14                                                     hey dra
+13                                                rm  they
+12                                               arm  the
+11                                           nt warm
+10                                       s went w
+9                                      nks wen
+8                                   drinks w                                     drinks w
 7                            s  the dr                                    s  the dr
 6                        rinks  t                                     rinks  t
 5                    he drin     he drin               he- drin   he drin     he drin
@@ -32,13 +25,13 @@
 5.  he drin
 6.  rinks t
 7.  s the dr
-10. drinks w
-11. nks wen
-12. s went w
-13. nt warm
-14. arm the
-15. rm they
-16. hey dra
-17. ey drank
-23. s were g
-24. re gone
+8.  drinks w
+9.  nks wen
+10. s went w
+11. nt warm
+12. arm the
+13. rm they
+14. hey dra
+15. ey drank
+16. s were g
+17. re gone
