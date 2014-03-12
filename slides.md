@@ -413,7 +413,7 @@ see [report.html](report.html#toc_17)
 - Reduction in Depth makes assembly seem infeasible
 
 ---
-
+ee [Pipeline output](preassembler/workflow/Workflow.summary.html)
 ### SMRTanalysis PreAssembler Workflow
 
 could in theory be run from the web interface, but only with PacBio input (error correcting CLRs with circular consensus reads (CCR). Needs .bas.h5 (primary analysis result from sequencer).
